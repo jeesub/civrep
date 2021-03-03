@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class AirConsoleReceiver : MonoBehaviour
 {
-
     private void Awake()
     {
         AirConsole.instance.onMessage += OnMessage;
