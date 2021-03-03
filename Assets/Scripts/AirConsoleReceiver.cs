@@ -15,10 +15,6 @@ public class AirConsoleReceiver : MonoBehaviour
     private void OnMessage(int fromDeviceID, JToken data)
     {
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
-        if(data["action"] != null && data["action"].ToString().Equals("interact"))
-        {
-            Debug.Log("Interacted!!");
-        }
     }
 
     private void OnDestroy()
