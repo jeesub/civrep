@@ -49,10 +49,12 @@
                 }
             }
 
+            /*
             App.prototype.sendMessageToScreen = function(msg) {
                 console.log("sendMessageToScreen: " + msg);
                 this.airconsole.message(AirConsole.SCREEN, { "action": msg });
             }
+            */
 
             function interpretMessage(string) {
                 var tmp = string.split(" ");
@@ -99,8 +101,8 @@
     <body onload="window.app = new App()">
         <div>
             <h1>Test Controller</h1>
-            <button class="vote-button" ontouchstart="window.app.sendMessageToScreen('Yay');">YAY</button> 
-            <button class="vote-button" ontouchstart="window.app.sendMessageToScreen('Nah');">NAH</button>
+            <button class="vote-button" ontouchstart="window.app.sendMessageToScreen({'vote' : 'Yay'})">YAY</button> 
+            <button class="vote-button" ontouchstart="window.app.sendMessageToScreen({'vote' : 'Nah'})">NAH</button>
         </div>
         <div id="content"><!--Incoming messages get displayed in this container--></div>
     </body>
