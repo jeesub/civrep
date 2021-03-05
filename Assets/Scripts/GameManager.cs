@@ -74,11 +74,6 @@ public class GameManager : MonoBehaviour
 
     private int GetStatus(int idx)
     {
-        if (idx < 0 || idx > 5)
-        {
-            Debug.Log("Index out of bound, city status idx = " + idx);
-            return -1;
-        }
         return cityStatus[idx];
     }
 
@@ -91,12 +86,6 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseStatus(int idx, int num)
     {
-        if (idx < 0 || idx > 5)
-        {
-            Debug.Log("Index out of bound, city status idx = " + idx);
-            return;
-        }
-
         int val = cityStatus[idx];
         if (val + num >= 0 && val + num <= MAX_STAT)
         {
@@ -119,12 +108,6 @@ public class GameManager : MonoBehaviour
 
     private void DecreaseStatus(int idx, int num)
     {
-        if (idx < 0 || idx > 5)
-        {
-            Debug.Log("Index out of bound, city status idx = " + idx);
-            return;
-        }
-
         int val = cityStatus[idx];
         if (val - num >= 0 && val - num <= MAX_STAT)
         {
@@ -152,7 +135,7 @@ public class GameManager : MonoBehaviour
             case "environment":
                 return (int)StatusName.environment;
             default:
-                return -1;
+                throw new System.ArgumentException("Cannot find a status name: " + statusName);
         }
     }
 }
