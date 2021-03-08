@@ -89,7 +89,7 @@ public class AirConsoleReceiver : MonoBehaviour
         {
             int characterIdx = data["Character"].ToObject<int>();
             Debug.Log("characterIdx: " + characterIdx);
-            if (idToReps.ContainsValue(fromDeviceID) || idToReps.ContainsKey(characterIdx))
+            if (idToReps.ContainsKey(fromDeviceID) || idToReps.ContainsValue(characterIdx))
             {
                 // Rep was selected by other players
                 JObject messageData = new JObject
@@ -110,8 +110,8 @@ public class AirConsoleReceiver : MonoBehaviour
                 idToReps.Add(fromDeviceID, characterIdx);
                 repToId.Add(characterIdx, fromDeviceID);
             }
-            Debug.Log("Keys: " + idToReps.Keys.Count);
-            Debug.Log("Values: " + idToReps.Values.Count);
+            Debug.Log("Keys: " + new List<int>(idToReps.Keys.Count).ToArray());
+            Debug.Log("Values: " + new List<int>(idToReps.Values.Count).ToArray());
         }
         
     }

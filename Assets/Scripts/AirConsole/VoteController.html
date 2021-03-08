@@ -63,6 +63,28 @@
 				display: none;
 			}
 
+            .info-overlay {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+                z-index: 10; /* Specify a stack order in case you're using a different order for other elements */
+            }
+
+            .info-bubble {
+                position: absolute;
+				z-index: 10;
+				top: 20%;
+                left: 20%;
+                color: white;
+                font-size: 15px;
+                transform: translate(-10%,-20%);
+            }
+
             .submit{
 				display: inline-block;
 				margin-top: 10px;
@@ -138,13 +160,6 @@
                 }
             }
 
-            /*
-            App.prototype.sendMessageToScreen = function(msg) {
-                console.log("sendMessageToScreen: " + msg);
-                this.airconsole.message(AirConsole.SCREEN, { "action": msg });
-            }
-            */
-
             function interpretMessage(data) {
                 var topic = data["topic"];
                 console.log("topic: " + topic);
@@ -152,6 +167,7 @@
                     case "character selection":
                         console.log(data["message"]);
                         lockCharacter(data["message"]);
+                        break;
                     default:
                         break;
                 }
@@ -167,6 +183,30 @@
 					document.getElementById("character-selection").classList.remove("deactivated");
 				}
 			}
+
+            function closeBubble(index){
+                switch (index) {
+                    case 0:
+                        console.log("closing info bubble: " + index);
+                        document.getElementById("character-info").classList.add("deactivated");
+                        break;
+                    case 1:
+                        console.log("closing info bubble: " + index);
+                        document.getElementById("repeat-character").classList.add("deactivated");
+                        break;
+                    case 2:
+                        console.log("closing info bubble: " + index);
+                        document.getElementById("repeat-character").classList.add("deactivated");
+                        document.getElementById("player-insist").classList.remove("deactivated");
+                        break;
+                    case 3:
+                        console.log("closing info bubble: " + index);
+                        document.getElementById("player-insist").classList.add("deactivated");
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             function setCharacter(index){
                 if (index >=0 && index < 5) {
@@ -195,6 +235,7 @@
                 }
                 else {
                     console.log("character was selected by another player");
+                    document.getElementById("repeat-character").classList.remove("deactivated");
                 }
                 
             }
@@ -214,17 +255,37 @@
 				<div>Howdy Stranger,</div>
 				<label for="name">What is Your Name?</label><br>
                 <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Your name"><br>
-                <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">Submit</div>
+                <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
 			</div>
 		</div>
 
         <!-- Character Selection -->
         <div id="character-selection" class="controller-screen deactivated">
             <div class="controller-header">Character Selection</div>
-            <div class="intro-description">
-				Ah! Good to see you, <span id="realName">Stranger</span>!<br>
-				Now please choose your character.<br>
-			</div>
+            <!-- info about this character selection -->
+            <div class="info-overlay" id="character-info" >
+                <div class="info-bubble">
+                    Ah! Good to see you, <span id="realName">Stranger</span>!<br>
+				    Now please choose your character.<br>  
+                    <button class="button submit" ontouchstart="window.closeBubble(0)">Submit</button>
+                </div>                                
+            </div>
+            <!-- info about the character was chosen -->
+            <div class="info-overlay deactivated" id="repeat-character" >
+                <div class="info-bubble">
+                    Oops! This character has been selected by another player.<br>
+                    Please choose another character;)<br>
+                    <button class="button submit" ontouchstart="window.closeBubble(1)">OK:)</button>
+                    <button class="button submit" ontouchstart="window.closeBubble(2)">NO How Dare You:(</button>
+                </div>                                
+            </div>
+            <!-- if the player insist -->
+            <div class="info-overlay deactivated" id="player-insist" >
+                <div class="info-bubble">
+                    YES I DARE :)))))) <br>
+                    <button class="button submit" ontouchstart="window.closeBubble(3)">Fine...</button>
+                </div>                                
+            </div>
             <div>
                 <div id="detail0" class="">
                     <image src="./RepPhotos/economics.png" width="50%"></image>
