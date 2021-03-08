@@ -6,8 +6,95 @@
 
         <style type=text/css>
             body {
-                background-color: white;
+                -ms-user-select: none;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
+				margin: 0;
+				font-family: 'Mali', cursive;
+				background-color: #FFF;
             }
+
+            input {
+				margin-top: 10px;
+				width: 60vw;
+				height: 5vh;
+				padding: 4px 10px 4px 10px;
+				border-radius: 4px;
+			}
+
+            /** General **/
+            .button {
+				-webkit-border-radius: 11;
+				-moz-border-radius: 11;
+				border-radius: 11px;
+				box-shadow: 0 5px #999;
+				font-family: 'Mali', cursive;
+				background-color: #039BE5;
+				color: #FFF;
+			}
+
+			.button:active {
+				box-shadow: 0 1px #666;
+				transform: translateY(4px);
+			}
+
+            .controller-screen {
+				position: absolute;
+				background-image: url(https://jeesub.github.io/assets/inventory/BVWteam44/img/bg.png);
+				background-repeat: no-repeat;
+				padding: 0;
+				margin: 0;
+				width: 100vw;
+				height: 100vh;
+			}
+
+			.controller-header {
+				height: 6vh;
+				padding: 2vh 2vh 2vh 2vh;
+				font-size: 20pt;
+				font-weight: 900;
+				line-height: 6vh;
+				color: #FFF;
+				background-color: #000;
+			}
+
+            .deactivated {
+				display: none;
+			}
+
+            .submit{
+				display: inline-block;
+				margin-top: 10px;
+				font-size: 14px;
+				padding: 10px 10px 10px 10px;
+				text-align: center;
+				width: 40vw;
+				box-sizing: border-box;
+			}
+
+            /** Intro **/
+
+            /** Character Selection **/
+            .selected {
+                background:transparent;
+                border: 2px solid blue
+                outline-width: 1px;
+                outline-style: groove;
+                outline-color: blue;
+            }
+
+            .rep-image {
+                position: absolute;
+				background-image: url("economics.png");
+				background-repeat: no-repeat;
+				padding: 0;
+				margin: 0;
+				width: 80px;
+				height: 80px;
+            }
+
+            /** Vote **/
             .vote-button {
                 border: none;
                 color: white;
@@ -21,6 +108,8 @@
         </style>
       
         <script type="text/javascript">
+
+            var selectedCharacter = 0;
 
             function App() {
 
@@ -56,39 +145,58 @@
             }
             */
 
-            function interpretMessage(string) {
-                var tmp = string.split(" ");
-
-                switch (tmp[0]) {
-                    case "System":
-                        if (tmp[1] == "Look") {
-                            gameLook();
-                        }
-                        if (tmp[1] == "Start") {
-                            gameStart();
-                        }
-                        if (tmp[1] == "End") {
-                            gameEnd();
-                        }
-                        break;
-                    case "Player":
-                        if (tmp[1] == "Admin") {
-                            setAdmin();
-                        }
-                        if (tmp[1] == "Head") {
-                            setHead();
-                        }
-                        if (tmp[1] == "Hands") {
-                            setHands();
-                        }
-                        if (tmp[1] == "Legs") {
-                            setLegs();
-                        }
-                        break;
+            function interpretMessage(data) {
+                var topic = data["topic"];
+                console.log("topic: " + topic);
+                switch (topic) {
+                    case "character selection":
+                        console.log(data["message"]);
+                        lockCharacter(data["message"]);
                     default:
-                        console.log("cannot find the head data!");
                         break;
                 }
+            }
+
+            function sendName(name) {
+				if (!name == '') {
+					var name = name;
+					var element =  document.getElementById('realName');
+					element.innerHTML = name;
+					window.app.sendMessageToScreen({'Connected ': name});
+					document.getElementById("intro").classList.add("deactivated");
+					document.getElementById("character-selection").classList.remove("deactivated");
+				}
+			}
+
+            function setCharacter(index){
+                if (index >=0 && index < 5) {
+                    console.log("setting character to " + index);
+                    if (selectedCharacter < 5) {
+                        document.getElementById("rep"+selectedCharacter.toString()).classList.remove("selected");
+                        document.getElementById("detail"+selectedCharacter.toString()).classList.add("deactivated");
+                    }
+                    selectedCharacter = index;
+                    document.getElementById("rep"+selectedCharacter.toString()).classList.add("selected");
+                    document.getElementById("detail"+selectedCharacter.toString()).classList.remove("deactivated");
+                }
+            }
+
+            function sendCharacter(){
+                if (selectedCharacter >= 0 && selectedCharacter < 5) {
+                    window.app.sendMessageToScreen({"Character": selectedCharacter});
+                }
+            }
+
+            function lockCharacter(status){
+                if (status) {
+                    document.getElementById("character").src = document.getElementById("rep"+selectedCharacter.toString()).src;
+				    document.getElementById("character-selection").classList.add("deactivated");
+                    document.getElementById("vote").classList.remove("deactivated");                    
+                }
+                else {
+                    console.log("character was selected by another player");
+                }
+                
             }
 
             App.prototype.sendMessageToScreen = function(msg) {
@@ -99,11 +207,63 @@
      
     </head>
     <body onload="window.app = new App()">
-        <div>
-            <h1>Test Controller</h1>
-            <button class="vote-button" ontouchstart="window.app.sendMessageToScreen({'vote' : 'Yay'})">YAY</button> 
-            <button class="vote-button" ontouchstart="window.app.sendMessageToScreen({'vote' : 'Nah'})">NAH</button>
+        <!-- INTRO -->
+		<div id="intro" class="controller-screen">
+			<div class="controller-header">Intro</div>
+			<div class="intro-description">
+				<div>Howdy Stranger,</div>
+				<label for="name">What is Your Name?</label><br>
+                <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Your name"><br>
+                <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">Submit</div>
+			</div>
+		</div>
+
+        <!-- Character Selection -->
+        <div id="character-selection" class="controller-screen deactivated">
+            <div class="intro-description">
+				Ah! Good to see you, <span id="realName">Stranger</span>!<br>
+				Welcome to the 'Gnomes in a robe'.<br>
+				Wait for your siblings.<br>
+			</div>
+            <div class="controller-header">Character Selection</div>
+            <div>
+                <div id="detail0" class="">
+                    <image src="./RepPhotos/economics.png" width="50%"></image>
+                    <image src="./RepDetails/economics.png" width="40%"></image>
+                </div>
+                <div id="detail1" class="deactivated">
+                    <image src="./RepPhotos/environment.png" width="50%"></image>
+                    <image src="./RepDetails/environment.png" width="40%" ></image>
+                </div>
+                <div id="detail2" class="deactivated">
+                    <image src="./RepPhotos/publichealth.png" width="50%"></image>
+                    <image src="./RepDetails/publichealth.png" width="40%" ></image>
+                </div>
+                <div id="detail3" class="deactivated">
+                    <image src="./RepPhotos/publicrelations.png" width="50%"></image>
+                    <image src="./RepDetails/publicrelations.png" width="40%" ></image>
+                </div>
+                <div id="detail4" class="deactivated">
+                    <image src="./RepPhotos/publicsafety.png" width="50%"></image>
+                    <image src="./RepDetails/publicsafety.png" width="40%" ></image>
+                </div>
+            </div>
+            <div>
+                <image id="rep0" class="selected" src="./RepPhotos/economics.png" width="18%" ontouchstart="window.setCharacter(0)"></image>
+                <image id="rep1" class="" src="./RepPhotos/environment.png" width="18%" ontouchstart="window.setCharacter(1)"></image>
+                <image id="rep2" class="" src="./RepPhotos/publichealth.png" width="18%" ontouchstart="window.setCharacter(2)"></image>
+                <image id="rep3" class="" src="./RepPhotos/publicrelations.png" width="18%" ontouchstart="window.setCharacter(3)"></image>
+                <image id="rep4" class="" src="./RepPhotos/publicsafety.png" width="18%" ontouchstart="window.setCharacter(4)"></image>
+            </div>            
+            <button class="button submit" ontouchstart="window.sendCharacter()">Submit</div>
         </div>
-        <div id="content"><!--Incoming messages get displayed in this container--></div>
+
+        <!-- Vote -->
+        <div id="vote" class="controller-screen deactivated">
+            <h1>Test Controller</h1>
+            <image id="character" src="./RepPhotos/economics.png" width="60%">
+            <button class="button submit" ontouchstart="window.app.sendMessageToScreen({'Vote' : 'Yay'})">YAY</button> 
+            <button class="button submit" ontouchstart="window.app.sendMessageToScreen({'Vote' : 'Nah'})">NAH</button>
+        </div>
     </body>
 </html>

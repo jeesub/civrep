@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class AirConsoleReceiver : MonoBehaviour
 {
-    public Dictionary<int, GameObject> reps = new Dictionary<int, GameObject>();
+    public Dictionary<int, int> repToId = new Dictionary<int, int>();
+    public Dictionary<int, int> idToReps = new Dictionary<int, int>();
     public List<GameObject> repPhotos;
     public List<GameObject> yayReps;
     public List<GameObject> nahReps;
@@ -23,10 +24,10 @@ public class AirConsoleReceiver : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < repPhotos.Count; i++)
-        {
-            reps.Add(i, repPhotos[i]);
-        }
+        //for (int i = 0; i < repPhotos.Count; i++)
+        //{
+        //    reps.Add(i, repPhotos[i]);
+        //}
     }
 
     private void OnConnect(int device_id)
@@ -52,12 +53,14 @@ public class AirConsoleReceiver : MonoBehaviour
         int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(fromDeviceID);
 
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
-        Debug.Log("Control Ids length: " + AirConsole.instance.GetControllerDeviceIds().Count);        Debug.Log("active player is:" + active_player);
+        Debug.Log("Control Ids length: " + AirConsole.instance.GetControllerDeviceIds().Count);        
+        Debug.Log("active player is:" + active_player);
+        Debug.Log(data["Character"]);
         
-        if (data["vote"] != null)
+        if (data["Vote"] != null)
         {
-            GameObject curRepPhoto = reps[active_player];
-            if (data["vote"].ToString() == "Yay")
+            GameObject curRepPhoto = repPhotos[idToReps[fromDeviceID]];
+            if (data["Vote"].ToString() == "Yay")
             {
                 if (!yayReps.Contains(curRepPhoto))
                 {
@@ -68,7 +71,7 @@ public class AirConsoleReceiver : MonoBehaviour
                 curRepPhoto.transform.localPosition =
                     new Vector3(-400, curRepPhoto.transform.localPosition.y, 0);
             }
-            else if (data["vote"].ToString() == "Nah")
+            else if (data["Vote"].ToString() == "Nah")
             {
                 if (!nahReps.Contains(curRepPhoto))
                 {
@@ -82,7 +85,34 @@ public class AirConsoleReceiver : MonoBehaviour
 
             UpdateVotingScore();
         }
-        
+        if(data["Character"]!=null)
+        {
+            int characterIdx = data["Character"].ToObject<int>();
+            Debug.Log("characterIdx: " + characterIdx);
+            if (idToReps.ContainsValue(fromDeviceID) || idToReps.ContainsKey(characterIdx))
+            {
+                // Rep was selected by other players
+                JObject messageData = new JObject
+                {
+                    {"topic", "character selection" },
+                    {"message", false }
+                };
+                AirConsole.instance.Message(fromDeviceID, messageData);
+            }
+            else
+            {
+                JObject messageData = new JObject
+                {
+                    {"topic", "character selection" },
+                    {"message", true }
+                };
+                AirConsole.instance.Message(fromDeviceID, messageData);
+                idToReps.Add(fromDeviceID, characterIdx);
+                repToId.Add(characterIdx, fromDeviceID);
+            }
+            Debug.Log("Keys: " + idToReps.Keys.Count);
+            Debug.Log("Values: " + idToReps.Values.Count);
+        }
         
     }
 
