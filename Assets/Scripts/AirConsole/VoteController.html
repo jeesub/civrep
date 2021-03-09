@@ -116,6 +116,9 @@
 				height: 80px;
             }
 
+            /** Prep Room **/
+            
+
             /** Vote **/
             .vote-button {
                 border: none;
@@ -178,7 +181,7 @@
 					var name = name;
 					var element =  document.getElementById('realName');
 					element.innerHTML = name;
-					window.app.sendMessageToScreen({'Connected ': name});
+					window.app.sendMessageToScreen({'Connected': name});
 					document.getElementById("intro").classList.add("deactivated");
 					document.getElementById("character-selection").classList.remove("deactivated");
 				}
@@ -231,13 +234,25 @@
                 if (status) {
                     document.getElementById("character").src = document.getElementById("rep"+selectedCharacter.toString()).src;
 				    document.getElementById("character-selection").classList.add("deactivated");
-                    document.getElementById("vote").classList.remove("deactivated");                    
+                    document.getElementById("prep").classList.remove("deactivated");                    
                 }
                 else {
                     console.log("character was selected by another player");
                     document.getElementById("repeat-character").classList.remove("deactivated");
+                }                
+            }
+
+
+            function prepMenu(destination){
+                var dest = destination.toString();
+                if (dest != "ready") {
+                    document.getElementById("prep-main").classList.add("deactivated");
+                    document.getElementById("prep-"+dest).classList.remove("deactivated");
                 }
-                
+                else {
+                    document.getElementById("prep").classList.add("deactivated");  
+                    document.getElementById("vote").classList.remove("deactivated");  
+                }
             }
 
             App.prototype.sendMessageToScreen = function(msg) {
@@ -318,9 +333,42 @@
             <button class="button submit" ontouchstart="window.sendCharacter()">Submit</div>
         </div>
 
+        <!-- Prep Room -->
+        <div id="prep" class="controller-screen deactivated">
+            <div>
+                action points remaining...
+            </div>
+
+            <div>
+                <div id="prep-main" class="">
+                    <button class="button submit" ontouchstart="window.prepMenu('computer')">Computer</button>
+                    <button class="button submit" ontouchstart="window.prepMenu('map')">Map</button>
+                    <button class="button submit" ontouchstart="window.prepMenu('mail')">Mail Box</button>
+                    <button class="button submit" ontouchstart="window.prepMenu('ready')">Ready</button>
+                </div>
+
+                <div id="prep-computer" class="deactivated">
+                    computer
+                    <button class="button submit" ontouchstart="window.prepMenu('main')">Menu</button>
+                </div>
+
+                <div id="prep-map" class="deactivated">
+                    map
+                    <button class="button submit" ontouchstart="window.prepMenu('main')">Menu</button>
+                </div>
+
+                <div id="prep-mail" class="deactivated">
+                    mail
+                    <button class="button submit" ontouchstart="window.prepMenu('main')">Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hearing -->
+
         <!-- Vote -->
         <div id="vote" class="controller-screen deactivated">
-            <h1>Test Controller</h1>
+            <h1>Vote Controller</h1>
             <image id="character" src="./RepPhotos/economics.png" width="60%">
             <button class="button submit" ontouchstart="window.app.sendMessageToScreen({'Vote' : 'Yay'})">YAY</button> 
             <button class="button submit" ontouchstart="window.app.sendMessageToScreen({'Vote' : 'Nah'})">NAH</button>
