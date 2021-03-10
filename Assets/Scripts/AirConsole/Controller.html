@@ -1,66 +1,227 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-    <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
-    <style type=text/css>
-    /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
-      .vote-button {
-          border: none;
-          color: white;
-          padding:15px 32px
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 20px;
-          margin: 4px 2px;
-      }
-    </style>
-    
-    <script type="text/javascript">
-
-      function App() {
-
-      /* JavaScript / Functionality. Add functions and evens here */ 
-          
-          this.airconsole = new AirConsole({"orientation":"portrait"});
-        
-        /*
-         * Here we are adding support for mouse events manually.
-         * --> WE STRONGLY ENCOURAGE YOU TO USE THE AIRCONSOLE CONTROLS LIBRARY
-         * WHICH IS EVEN BETTER (BUT WE DONT WANT TO BLOAT THE CODE HERE).
-         * https://github.com/AirConsole/airconsole-controls/
-         * 
-         * DO NOT USE ONCLICK HANDLERS.
-         * THEY ADD A 200MS DELAY!
-         */
-        if (!("ontouchstart" in document.createElement("div"))) {
-          var elements = document.getElementsByTagName("*");
-          for (var i = 0; i < elements.length; ++i) {
-            var element = elements[i];
-            var ontouchstart = element.getAttribute("ontouchstart");
-            if (ontouchstart) {
-              element.setAttribute("onmousedown", ontouchstart);
+    <head>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+        <style type=text/css>
+            body {
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+                margin: 0;
+                font-family: monospace;
+                font-size: 16pt;
+                line-height: 20pt;
+                background-color: #FFF;
             }
-            var ontouchend = element.getAttribute("ontouchend");
-            if (ontouchend) {
-              element.setAttribute("onmouseup", ontouchend);
+
+            input {
+                width: 76%;
+                height: 0vh;
+                padding: 5vh 10vw;
+                margin-top: 5vh;
+                border-radius: 4px;
+                text-align: center;
+                font-size: 16pt;
             }
-          }
+
+            /** General **/
+            .button {
+                -webkit-border-radius: 11;
+                -moz-border-radius: 11;
+                border-radius: 11px;
+                box-shadow: 0 5px #999;
+                font-family: monospace;
+                font-size: 18pt;
+                background-color: #3D88CF;
+                color: #FFF;
+                width: 100%;
+                height: 10vh;
+                margin-top: 5vh;
+            }
+
+            .button:active {
+                box-shadow: 0 1px #666;
+                transform: translateY(4px);
+            }
+
+            .bg-red {
+                background-color: #BE3552;
+            }
+
+            .bg-yellow {
+                background-color: #ECA81C;
+            }
+
+            .bg-green {
+                background-color: #22A979;
+            }
+
+            .bg-blue {
+                background-color: #3D88CF;
+            }
+
+            .bg-purple {
+                background-color: #723EDD;
+            }
+
+            .controller-screen {
+                position: absolute;
+                background-image: url(https://jeesub.github.io/assets/inventory/BVWteam44/img/bg.png);
+                background-repeat: no-repeat;
+                padding: 0;
+                margin: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .controller-header {
+                height: 6vh;
+                padding: 2vh 2vh 2vh 2vh;
+                font-size: 20pt;
+                font-weight: 900;
+                line-height: 6vh;
+                color: #FFF;
+                background-color: #000;
+            }
+
+            .controller-content {
+                width: 90vw;
+                height: 80vh;
+                padding: 5vh 5vw;
+            }
+
+            .deactivated {
+                display: none;
+            }
+        </style>
+
+        <script type="text/javascript">
+            function App() {
+                this.airconsole = new AirConsole({"orientation": "portrait", "synchronize_time" : "true"});
+
+                this.airconsole.onMessage = function(from, data) {
+                    // got a message
+                    console.log("onMessage", from, data);
+                    interpretMessage(data);
+                };
+
+                if (!("ontouchstart" in document.createElement("div"))) {
+                    var elements = document.getElementsByTagName("*");
+                    for (var i = 0; i < elements.length; ++i) {
+                        var element = elements[i];
+                        var ontouchstart = element.getAttribute("ontouchstart");
+                        if (ontouchstart) {
+                            element.setAttribute("onmousedown", ontouchstart);
+                        }
+                        var ontouchend = element.getAttribute("ontouchend");
+                        if (ontouchend) {
+                            element.setAttribute("onmouseup", ontouchend);
+                        }
+                    }
+                }
+            }
+
+            App.prototype.sendMessageToScreen = function(msg) {
+                console.log("Button pressed");
+            this.airconsole.message(AirConsole.SCREEN, {"action": msg});
         }
-      }
 
-      App.prototype.sendMessageToScreen = function(msg) {
-          console.log("Button pressed");
-          this.airconsole.message(AirConsole.SCREEN, {"action": msg});
-      }
+        function interpretMessage(data) {
+            var topic = data["topic"];
+            console.log("topic: " + topic);
+            switch (topic) {
+                case "character selection":
+                    console.log(data["message"]);
+                    lockCharacter(data["message"]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function sendName(name) {
+            if (!name == '') {
+                var name = name;
+                var element =  document.getElementById('realName');
+                element.innerHTML = name;
+                window.app.sendMessageToScreen({'Connected': name});
+                document.getElementById("intro").classList.add("deactivated");
+                document.getElementById("character-selection").classList.remove("deactivated");
+            }
+        }
+
+        function activate(stage) {
+            var elements = document.getElementsByClassName("controller-screen");
+            var i;
+            for (i = 0; i < elements.length; i++) {
+                elements[i].classList.add("deactivated");
+            }
+            document.getElementById("screen-" + stage).classList.remove("deactivated");
+        }
 
     </script>
-  </head>
-  <body onload="window.app = new App()">
-    <!-- Add your HTML elements here -->
-    <button class="vote-button" ontouchstart="window.app.sendMessageToScreen('Yay');"> </button> 
-    <button class="vote-button" ontouchstart="window.app.sendMessageToScreen('Nah');"> </button>
-
-  </body>
+    </head>
+    <body onload="window.app = new App()">
+        <!-- INTRO -->
+        <div id="screen-0" class="controller-screen">
+            <div class="controller-header">Intro</div>
+            <div class="controller-content">
+                <div class="intro-description">
+                    <div>Oh, you are a new Rep!</div>
+                    <label for="name">What is Your Name?</label><br>
+                    <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Your name"><br>
+                    <button class="button" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
+                </div>
+            </div>
+        </div>
+        <!-- CHARACTER SELECTION -->
+        <div id="screen-1" class="controller-screen deactivated">
+            <div class="controller-header">Character Selection</div>
+            <div class="controller-content">
+                <button class="button bg-blue" ontouchstart="">Finance and Law</button>
+                <button class="button bg-green" ontouchstart="">Public Safety</button>
+                <button class="button bg-yellow" ontouchstart="">Public Works</button>
+            </div>
+        </div>
+        <div id="screen-1-0" class="controller-screen deactivated">
+            <div class="controller-header">Finance and Law</div>
+            <div class="controller-content">
+                <div class="job-description">I'm not shifty, just a bit thrifty.</div>
+                <button class="button bg-blue" ontouchstart="">Enroll</button>
+            </div>
+        </div>
+        <div id="screen-1-1" class="controller-screen deactivated">
+            <div class="controller-header">Public Safety</div>
+            <div class="controller-content">
+                <div class="job-description">To serve and protest is my duty ot our people.</div>
+                <button class="button bg-green" ontouchstart="">Enroll</button>
+            </div>
+        </div>
+        <div id="screen-1-2" class="controller-screen deactivated">
+            <div class="controller-header">Public Works</div>
+            <div class="controller-content">
+                <div class="job-description">Feel well, think well, live well.</div>
+                <button class="button bg-yeloow" ontouchstart="">Enroll</button>
+            </div>
+        </div>
+        <!-- PREP ROOM -->
+        <div id="screen-2" class="controller-screen deactivated">
+            <div class="controller-header">Prep Room</div>
+            <div class="controller-content">
+                <button class="button bg-yellow" ontouchstart="">Computer</button>
+                <button class="button bg-green" ontouchstart="">Map</button>
+                <button class="button bg-blue" ontouchstart="">Mail Box</button>
+                <button class="button bg-purple" ontouchstart="">Rest</button>
+            </div>
+        </div>
+        <!-- TEMPLATE -->
+        <div id="screen-?" class="controller-screen deactivated">
+            <div class="controller-header">HEADER</div>
+            <div class="controller-content">
+                CONTENT
+            </div>
+        </div>
+    </body>
 </html>
