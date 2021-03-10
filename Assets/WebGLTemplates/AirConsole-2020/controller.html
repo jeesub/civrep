@@ -181,7 +181,7 @@
 					var name = name;
 					var element =  document.getElementById('realName');
 					element.innerHTML = name;
-					window.app.sendMessageToScreen({'Connected ': name});
+					window.app.sendMessageToScreen({'Connected': name});
 					document.getElementById("intro").classList.add("deactivated");
 					document.getElementById("character-selection").classList.remove("deactivated");
 				}
@@ -363,6 +363,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Hearing -->
 
         <!-- Vote -->
         <div id="vote" class="controller-screen deactivated">
