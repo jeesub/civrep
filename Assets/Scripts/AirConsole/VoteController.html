@@ -253,6 +253,7 @@
                     document.getElementById("prep").classList.add("deactivated");  
                     document.getElementById("vote").classList.remove("deactivated");  
                 }
+                window.app.sendMessageToScreen({"Destination": dest});
             }
 
             App.prototype.sendMessageToScreen = function(msg) {

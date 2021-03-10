@@ -9,10 +9,12 @@ public class RepManager : MonoBehaviour
 
     public int maxPlayer = 2;
 
-    // Map rep idx to airconsole device id
-    private Dictionary<int, int> repToId = new Dictionary<int, int>();
     // Map airconsole device id to rep idx
     private Dictionary<int, int> idToRep = new Dictionary<int, int>();
+    // Map rep idx to airconsole device id, set this up just in case
+    private Dictionary<int, int> repToId = new Dictionary<int, int>();
+
+    private List<int> readyReps;
 
     private void Awake()
     {
@@ -27,9 +29,14 @@ public class RepManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public bool CheckAllPlayer()
+    public bool CheckAllPlayerOnStart()
     {
         return (repToId.Count == maxPlayer);
+    }
+
+    public bool CheckAllPlayerOnPrep()
+    {
+        return (readyReps.Count == maxPlayer);
     }
 
     public bool SelectCharacter(int deviceID, int repIdx)
@@ -46,4 +53,17 @@ public class RepManager : MonoBehaviour
         }
     } 
 
+    public void GoToDestination(int deviceID, string dest)
+    {
+        int repIdx = idToRep[deviceID];
+        if (dest.Equals("ready"))
+        {
+            if (!readyReps.Contains(deviceID))
+            {
+                readyReps.Add(deviceID);
+            }
+        }
+        PrepRoomGuide guide = (PrepRoomGuide)FindObjectOfType(typeof(PrepRoomGuide));
+        guide.GuidePrep(repIdx, dest);
+    }
 }

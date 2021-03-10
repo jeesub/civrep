@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AirConsoleReceiverForPrep : MonoBehaviour
@@ -39,12 +40,35 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         }
     }
 
+    private void GoToDestination(int fromDeviceID, JToken data)
+    {
+        string dest = data["Destination"].ToString();
+        Debug.Log("Destination is: " + dest);
+        if (dest.Equals("main"))
+        {
+            Debug.Log("Back to main menu");
+        }
+        else
+        {
+            RepManager.instance.GoToDestination(fromDeviceID, dest);
+        }
+    }
+
+    private void CheckAllPlayer()
+    {
+        if (RepManager.instance.CheckAllPlayerOnPrep())
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+
     private void OnMessage(int fromDeviceID, JToken data)
     {
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
         if (data["Destination"]!=null)
         {
-
+            GoToDestination(fromDeviceID, data);
+            CheckAllPlayer();
         }
     }
 

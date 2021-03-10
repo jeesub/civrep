@@ -67,7 +67,7 @@ public class AirConsoleReceiverForStart : MonoBehaviour
 
     private void CheckAllPlayer()
     {
-        if (RepManager.instance.CheckAllPlayer())
+        if (RepManager.instance.CheckAllPlayerOnStart())
         {
             SceneManager.LoadScene(1);
         }
