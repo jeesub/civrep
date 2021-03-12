@@ -10,6 +10,11 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 {
     private int maxPlayer;
 
+    public void TestOnMessage(int fromDeviceID, JToken data)
+    {
+        OnMessage(fromDeviceID, data);
+    }
+
     private void Awake()
     {
         AirConsole.instance.onMessage += OnMessage;
@@ -54,11 +59,18 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         }
     }
 
+    private void TakeAction(int fromDeviceID, JToken data)
+    {
+        string action = data["Action"].ToString();
+        Debug.Log("Action is: " + action);
+        RepManager.instance.TakeAction(fromDeviceID, action);
+    }
+
     private void CheckAllPlayer()
     {
         if (RepManager.instance.CheckAllPlayerOnPrep())
         {
-            SceneManager.LoadScene(2);
+            StartCoroutine(GameManager.Instance.LoadNextScene());            
         }
     }
 
@@ -69,6 +81,10 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         {
             GoToDestination(fromDeviceID, data);
             CheckAllPlayer();
+        }
+        else if (data["Action"] != null)
+        {
+            TakeAction(fromDeviceID, data);
         }
     }
 

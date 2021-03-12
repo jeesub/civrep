@@ -40,6 +40,13 @@ public class AirConsoleReceiverForStart : MonoBehaviour
         }
     }
 
+    private JObject SendRepInfo(int repIdx)
+    {
+        RepInfo info = RepInfos.instance.infos[repIdx];
+        string infoStr = JsonUtility.ToJson(info);
+        return JObject.Parse(infoStr);
+    }
+
     private void SelectCharacter(int fromDeviceID, JToken data)
     {
         int repIdx = data["Character"].ToObject<int>();
@@ -52,6 +59,16 @@ public class AirConsoleReceiverForStart : MonoBehaviour
                     {"message", true }
                 };
             AirConsole.instance.Message(fromDeviceID, messageData);
+
+            // Send the prep room info in a batch
+            JObject repInfo = SendRepInfo(repIdx);
+            JObject info = new JObject
+            {
+                {"topic", "info"},
+                {"message", repInfo}
+            };
+            Debug.Log("info is: " + info);            
+            AirConsole.instance.Message(fromDeviceID, info);
         }
         else
         {
@@ -70,7 +87,20 @@ public class AirConsoleReceiverForStart : MonoBehaviour
         if (RepManager.instance.CheckAllPlayerOnStart())
         {
             SceneManager.LoadScene(1);
+            //StartCoroutine(GameManager.Instance.LoadNextScene());
+            JObject messageData = new JObject
+                {
+                    {"topic", "screen" },
+                    {"message", "prep" }
+                };
+            AirConsole.instance.Broadcast(messageData);
         }
+    }
+
+    private void SetRepName(int fromDeviceID, JToken data)
+    {
+        string name = data["Connected"].ToString();
+        RepManager.instance.SetRepName(fromDeviceID, name);
     }
 
     private void OnMessage(int fromDeviceID, JToken data)
@@ -83,6 +113,10 @@ public class AirConsoleReceiverForStart : MonoBehaviour
             SelectCharacter(fromDeviceID, data);
             CheckAllPlayer();
         }        
+        else if (data["Connected"]!=null)
+        {
+            SetRepName(fromDeviceID, data);
+        }
     }
 
     private void OnDisconnect(int device_id)
