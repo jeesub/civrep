@@ -11,7 +11,7 @@
                 user-select: none;
                 margin: 0;
                 font-family: monospace;
-                font-size: 16pt;
+                font-size: 5vw;
                 line-height: 20pt;
                 background-color: #FFF;
             }
@@ -23,17 +23,29 @@
                 margin-top: 5vh;
                 border-radius: 4px;
                 text-align: center;
-                font-size: 16pt;
+                font-size: 5vw;
             }
 
             /** General **/
+            .alert {
+                position: absolute;
+                width: 80vw;
+                margin-top: 15vh;
+                margin-left: 5vw;
+                z-index: 10;
+                background-color: #ECA81C;
+                padding: 5vh 5vw;
+                text-align: center;
+                border: 1vw solid #FFF;
+                border-radius: 4vw;
+            }
             .button {
                 -webkit-border-radius: 11;
                 -moz-border-radius: 11;
                 border-radius: 11px;
                 box-shadow: 0 5px #999;
                 font-family: monospace;
-                font-size: 18pt;
+                font-size: 5vw;
                 background-color: #3D88CF;
                 color: #FFF;
                 width: 100%;
@@ -46,24 +58,55 @@
                 transform: translateY(4px);
             }
 
+            .font-red {
+                color: #BE3552;
+            }
+
             .bg-red {
                 background-color: #BE3552;
+            }
+
+            .font-yellow {
+                color: #ECA81C;
             }
 
             .bg-yellow {
                 background-color: #ECA81C;
             }
 
+            .font-green {
+                color: #22A979;
+            }
+
             .bg-green {
                 background-color: #22A979;
+            }
+
+            .font-blue {
+                color: #3D88CF;
             }
 
             .bg-blue {
                 background-color: #3D88CF;
             }
 
+            .font-purple {
+                color: #723EDD;
+            }
+
             .bg-purple {
                 background-color: #723EDD;
+            }
+
+            .selectable {
+                border: 1vw solid darkkhaki;
+                border-radius: 2vw;
+                padding: 2vw 2vw;
+                margin-top: 2vh;
+            }
+
+            .selected {
+                border: 1vw solid #723ED0;
             }
 
             .controller-screen {
@@ -79,7 +122,7 @@
             .controller-header {
                 height: 6vh;
                 padding: 2vh 2vh 2vh 2vh;
-                font-size: 20pt;
+                font-size: 6vw;
                 font-weight: 900;
                 line-height: 6vh;
                 color: #FFF;
@@ -124,46 +167,134 @@
             }
 
             App.prototype.sendMessageToScreen = function(msg) {
-                console.log("Button pressed");
-            this.airconsole.message(AirConsole.SCREEN, {"action": msg});
-        }
-
-        function interpretMessage(data) {
-            var topic = data["topic"];
-            console.log("topic: " + topic);
-            switch (topic) {
-                case "character selection":
-                    console.log(data["message"]);
-                    lockCharacter(data["message"]);
-                    break;
-                default:
-                    break;
+                console.log({"action": msg});
+                this.airconsole.message(AirConsole.SCREEN, {"action": msg});
             }
-        }
 
-        function sendName(name) {
-            if (!name == '') {
-                var name = name;
-                var element =  document.getElementById('realName');
-                element.innerHTML = name;
-                window.app.sendMessageToScreen({'Connected': name});
-                document.getElementById("intro").classList.add("deactivated");
-                document.getElementById("character-selection").classList.remove("deactivated");
+            function interpretMessage(data) {
+                var topic = data["topic"];
+                console.log("topic: " + topic);
+                switch (topic) {
+                    case "character selection":
+                        console.log(data["message"]);
+                        lockCharacter(data["message"]);
+                        break;
+                    case "info":
+                        console.log(data["message"]);
+                        setInfo(data["message"]);
+                        break;
+                    default:
+                        break;
+                }
             }
-        }
 
-        function activate(stage) {
-            var elements = document.getElementsByClassName("controller-screen");
-            var i;
-            for (i = 0; i < elements.length; i++) {
-                elements[i].classList.add("deactivated");
+            function showAlert(message) {
+                var elem = document.getElementById("alert");
+                elem.innerHTML = message;
+                elem.classList.remove("deactivated");
+                setTimeout(removeAlert, 1500);
             }
-            document.getElementById("screen-" + stage).classList.remove("deactivated");
-        }
 
-    </script>
+            function removeAlert() {
+                document.getElementById("alert").classList.add("deactivated");
+            }
+
+            function sendName(name) {
+                if (name == '') {
+                    showAlert("Name cannot be blank");
+                } else {
+                    var name = name;
+                    var element =  document.getElementById('username');
+                    element.innerHTML = name;
+                    window.app.sendMessageToScreen({'Connected': name});
+                    activate(1);
+                }
+            }
+
+            function activate(stage) {
+                var elements = document.getElementsByClassName("controller-screen");
+                var i;
+                for (i = 0; i < elements.length; i++) {
+                    elements[i].classList.add("deactivated");
+                }
+                document.getElementById("screen-" + stage).classList.remove("deactivated");
+            }
+
+            var selectedCharacter = -1;
+
+            function selectCharacter(selected) {
+                selectedCharacter = selected;
+                var elements = document.getElementsByClassName("character");
+                var i;
+                for (i = 0; i < elements.length; i++) {
+                    elements[i].classList.remove("selected");
+                    elements[i].classList.remove("selectedCharacter");
+                }
+                document.getElementById("character-" + selected).classList.add("selected");
+                document.getElementById("character-" + selected).classList.add("selectedCharacter");
+            }
+
+            function submitCharacter() {
+                if (selectedCharacter != -1) {
+                    window.app.sendMessageToScreen({"Character": selectedCharacter});
+                }
+            }
+
+            function lockCharacter(status){
+                if (status) {
+                    activate(2);
+                } else {
+                    showAlert("character was selected by another player");
+                }                
+            }
+
+            /**
+            Message example
+            
+            var message = {
+                "topic" : "info",
+                "message": {
+                    "letter0": "info of letter0",
+                    "letter1": "info of letter1",
+                    "map0": {
+                        "place": "Prison",
+                        "info": "info of map0"
+                    },
+                    "map1": {
+                        "place": "Police",
+                        "info": "info of map1"
+                    },
+                    "computer0": "info of comp0",
+                    "computer1": "info of comp1"
+                }
+            }
+            */
+            function setInfo(message) {
+                var letter0 = message["letter0"];
+                var letter1 = message["letter1"];
+                var map0title = message["map0"]["place"];
+                var map1title = message["map1"]["place"];
+                var map0 = message["map0"]["info"];
+                var map1 = message["map1"]["info"];
+                var computer0 = message["computer0"];
+                var computer1 = message["computer1"];
+                document.getElementById("letter0").innerHTML = letter0;
+                document.getElementById("letter1").innerHTML = letter1;
+                document.getElementById("map0title").innerHTML = map0title;
+                document.getElementById("map1title").innerHTML = map1title;
+                document.getElementById("mapButton0").innerHTML = map0title;
+                document.getElementById("mapButton1").innerHTML = map1title;
+                document.getElementById("map0").innerHTML = map0;
+                document.getElementById("map1").innerHTML = map1;
+                document.getElementById("computer0").innerHTML = computer0;
+                document.getElementById("computer1").innerHTML = computer1;
+            }
+
+        </script>
     </head>
     <body onload="window.app = new App()">
+        <!-- ALERT -->
+        <div id="alert" class= "alert deactivated">ALERT</div>
         <!-- INTRO -->
         <div id="screen-0" class="controller-screen">
             <div class="controller-header">Intro</div>
@@ -180,40 +311,123 @@
         <div id="screen-1" class="controller-screen deactivated">
             <div class="controller-header">Character Selection</div>
             <div class="controller-content">
-                <button class="button bg-blue" ontouchstart="">Finance and Law</button>
-                <button class="button bg-green" ontouchstart="">Public Safety</button>
-                <button class="button bg-yellow" ontouchstart="">Public Works</button>
-            </div>
-        </div>
-        <div id="screen-1-0" class="controller-screen deactivated">
-            <div class="controller-header">Finance and Law</div>
-            <div class="controller-content">
-                <div class="job-description">I'm not shifty, just a bit thrifty.</div>
-                <button class="button bg-blue" ontouchstart="">Enroll</button>
-            </div>
-        </div>
-        <div id="screen-1-1" class="controller-screen deactivated">
-            <div class="controller-header">Public Safety</div>
-            <div class="controller-content">
-                <div class="job-description">To serve and protest is my duty ot our people.</div>
-                <button class="button bg-green" ontouchstart="">Enroll</button>
-            </div>
-        </div>
-        <div id="screen-1-2" class="controller-screen deactivated">
-            <div class="controller-header">Public Works</div>
-            <div class="controller-content">
-                <div class="job-description">Feel well, think well, live well.</div>
-                <button class="button bg-yeloow" ontouchstart="">Enroll</button>
+                <div id="character-0" class="character selectable" ontouchstart="window.selectCharacter(0)">
+                    <div class="character-title font-red">Finance and Law</div>
+                    <div class="character-description">I'm not shifty, just a bit thrifty.</div>
+                </div>
+                <div id="character-1" class="character selectable" ontouchstart="window.selectCharacter(1)">
+                    <div class="character-title font-blue">Public Safety</div>
+                    <div class="character-description">To serve and protest is my duty ot our people.</div>
+                </div>
+                <div id="character-2" class="character selectable" ontouchstart="window.selectCharacter(2)">
+                    <div class="character-title font-green">Public Works</div>
+                    <div class="character-description">Feel well, think well, live well.</div>
+                </div>
+                <button class="button bg-purple" ontouchstart="window.submitCharacter()">Enroll</button>
             </div>
         </div>
         <!-- PREP ROOM -->
         <div id="screen-2" class="controller-screen deactivated">
             <div class="controller-header">Prep Room</div>
             <div class="controller-content">
-                <button class="button bg-yellow" ontouchstart="">Computer</button>
-                <button class="button bg-green" ontouchstart="">Map</button>
-                <button class="button bg-blue" ontouchstart="">Mail Box</button>
-                <button class="button bg-purple" ontouchstart="">Rest</button>
+                <button class="button bg-yellow" ontouchstart="window.activate('2-0')">Computer</button>
+                <button class="button bg-green" ontouchstart="window.activate('2-1')">Map</button>
+                <button class="button bg-blue" ontouchstart="window.activate('2-2')">Mail Box</button>
+                <button class="button bg-purple" ontouchstart="window.activate('2-3')">Rest</button>
+            </div>
+        </div>
+        <!-- COMPUTER -->
+        <div id="screen-2-0" class="controller-screen deactivated">
+            <div class="controller-header">Computer</div>
+            <div class="controller-content">
+                <button class="button bg-green" ontouchstart="window.activate('2-0-0')">Research</button>
+                <button class="button bg-blue" ontouchstart="window.activate('2-0-1')">News</button>
+                <button class="button bg-purple" ontouchstart="window.activate('2')">Return</button>
+            </div>
+        </div>
+        <!-- RESEARCH -->
+        <div id="screen-2-0-0" class="controller-screen deactivated">
+            <div class="controller-header">Research</div>
+            <div class="controller-content">
+                <div id="computer0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button bg-purple" ontouchstart="window.activate('2-0')">Return</button>
+            </div>
+        </div>
+        <!-- NEWS -->
+        <div id="screen-2-0-1" class="controller-screen deactivated">
+            <div class="controller-header">News</div>
+            <div class="controller-content">
+                <div id="computer1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button bg-purple" ontouchstart="window.activate('2-0')">Return</button>
+            </div>
+        </div>
+        <!-- MAP -->
+        <div id="screen-2-1" class="controller-screen deactivated">
+            <div class="controller-header">Map</div>
+            <div class="controller-content">
+                <button id="mapButton0" class="button bg-blue" ontouchstart="window.activate('2-1-0')">School</button>
+                <button id="mapButton1" class="button bg-red" ontouchstart="window.activate('2-1-1')">Hospital</button>
+                <button class="button bg-purple" ontouchstart="window.activate('2')">Return</button>
+            </div>
+        </div>
+        <!-- MAP - 0 -->
+        <div id="screen-2-1-0" class="controller-screen deactivated">
+            <div id="map0title" class="controller-header">School</div>
+            <div class="controller-content">
+                <div id="map0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button bg-purple" ontouchstart="window.activate('2-1')">Return</button>
+            </div>
+        </div>
+        <!-- MAP - 1 -->
+        <div id="screen-2-1-1" class="controller-screen deactivated">
+            <div id="map1title" class="controller-header">Hospital</div>
+            <div class="controller-content">
+                <div id="map1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button bg-purple" ontouchstart="window.activate('2-1')">Return</button>
+            </div>
+        </div>
+        <!-- MAIL BOX -->
+        <div id="screen-2-2" class="controller-screen deactivated">
+            <div class="controller-header">Mail Box</div>
+            <div class="controller-content">
+                <button class="button bg-red" ontouchstart="window.activate('2-2-0')">Letter A</button>
+                <button class="button bg-yellow" ontouchstart="window.activate('2-2-1')">Letter B</button>
+                <button class="button bg-purple" ontouchstart="window.activate('2')">Return</button>
+            </div>
+        </div>
+        <!-- Letter A -->
+        <div id="screen-2-2-0" class="controller-screen deactivated">
+            <div class="controller-header">Letter A</div>
+            <div class="controller-content">
+                <div id="letter0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button bg-purple" ontouchstart="window.activate('2-2')">Return</button>
+            </div>
+        </div>
+        <!-- Letter B -->
+        <div id="screen-2-2-1" class="controller-screen deactivated">
+            <div class="controller-header">Letter B</div>
+            <div class="controller-content">
+                <div id="letter1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button bg-purple" ontouchstart="window.activate('2-2')">Return</button>
+            </div>
+        </div>
+        <!-- REST -->
+        <div id="screen-2-3" class="controller-screen deactivated">
+            <div class="controller-header">Rest</div>
+            <div class="controller-content">
+                <button class="button bg-purple" ontouchstart="window.activate('2')">Return</button>
             </div>
         </div>
         <!-- TEMPLATE -->
