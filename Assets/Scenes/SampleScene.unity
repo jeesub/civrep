@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 562781175}
   - component: {fileID: 562781174}
   m_Layer: 0
-  m_Name: AirConsoleReceiver
+  m_Name: AirConsoleReceiverForVote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

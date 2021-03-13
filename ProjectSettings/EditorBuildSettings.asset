@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 6529b3180bf002242ab643333fb0f751
+  - enabled: 1
+    path: Assets/Scenes/CharacterSelection.unity
+    guid: 7c58ed9b0615aad4b8a708adeb886934
+  - enabled: 1
+    path: Assets/Scenes/PrepRoom.unity
+    guid: 7649b74af53dec34fae0872acf6afc65
+  - enabled: 1
+    path: Assets/Scenes/CityCouncil.unity
+    guid: 95a48fa4a42a95b478d7393b6f22a478
   m_configObjects: {}

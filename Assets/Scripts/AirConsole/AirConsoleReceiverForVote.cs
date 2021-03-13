@@ -5,7 +5,7 @@ using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using UnityEngine.UI;
 
-public class AirConsoleReceiver : MonoBehaviour
+public class AirConsoleReceiverForVote : MonoBehaviour
 {
     public Dictionary<int, int> repToId = new Dictionary<int, int>();
     public Dictionary<int, int> idToReps = new Dictionary<int, int>();

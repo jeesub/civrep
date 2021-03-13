@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // For scene loading (will refactor to another script in the future)
+    public float sceneLoadTime = 5f;
+
     // CONSTANT VARIABLES
     // max value of each city status
     private static readonly int MAX_STAT = 5;
@@ -137,5 +141,14 @@ public class GameManager : MonoBehaviour
             default:
                 throw new System.ArgumentException("Cannot find a status name: " + statusName);
         }
+    }
+
+
+    public IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(sceneLoadTime);
+        GameObject background = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        background.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
