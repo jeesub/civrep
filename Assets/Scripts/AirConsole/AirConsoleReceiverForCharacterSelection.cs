@@ -28,7 +28,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         NoticeController();
 
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Prep & Research");
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(303);
+        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(120);
     }
 
     private void NoticeController()
@@ -124,11 +124,11 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         if (data["Character"]!=null)
         {
             SelectCharacter(fromDeviceID, data);
-            CheckAllPlayer();
         }        
         else if (data["Connected"]!=null)
         {
             SetRepName(fromDeviceID, data);
+            CheckAllPlayer();
         }
     }
 

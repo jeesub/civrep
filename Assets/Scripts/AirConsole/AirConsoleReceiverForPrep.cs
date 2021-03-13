@@ -26,6 +26,9 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
     {
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
+
+        GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Public Hearing");
+        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(300);
     }
 
     private void NoticeController()
