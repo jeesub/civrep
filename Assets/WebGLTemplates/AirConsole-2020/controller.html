@@ -287,7 +287,7 @@
                     window.app.sendMessageToScreen({'Destination': screen});
                 }
 
-                var arr = ["letter-0", "letter-1", "map-0", "map-1", "computer-0", "computer-1", "rest"];
+                var arr = ["letter-0", "letter-1", "map-0", "map-1", "computer-0", "computer-1"];
                 var set = new Set(arr);
                 if (set.has(screen)) {
                     window.app.sendMessageToScreen({'Action': screen});
@@ -343,22 +343,23 @@
             }
             */
             function setInfo(num) {
-                var letterButton0 = "\<img src\=\'.\/imgs\/letters\/letter-button-" + num + "-0.png\' class\=\'img-button\'\>";
-                var letterButton1 = "\<img src\=\'.\/imgs\/letters\/letter-button-" + num + "-1.png\' class\=\'img-button\'\>";
-                var letter0 = "\<img src\=\'.\/imgs\/letters\/letter-" + num + "-0.png\' class\=\'full-width\'\>";
-                var letter1 = "\<img src\=\'./imgs\/letters\/letter-" + num + "-1.png\' class\=\'full-width\'\>";
-                var mapButton0 = "\<img src\=\'.\/imgs\/maps\/map-button-" + num + "-0.png\' class\=\'img-button\'\>";
-                var mapButton1 = "\<img src\=\'.\/imgs\/maps\/map-button-" + num + "-1.png\' class\=\'img-button\'\>";
-                var map0 = "\<img src\=\'.\/imgs\/maps\/map-" + num + "-0.png\' class\=\'full-width\'\>";
-                var map1 = "\<img src\=\'.\/imgs\/maps\/map-" + num + "-1.png\' class\=\'full-width\'\>";
-                document.getElementById("letter-button-0").innerHTML = letterButton0;
-                document.getElementById("letter-button-1").innerHTML = letterButton1;
-                document.getElementById("letter-0").innerHTML = letter0;
-                document.getElementById("letter-1").innerHTML = letter1;
-                document.getElementById("map-button-0").innerHTML = mapButton0;
-                document.getElementById("map-button-1").innerHTML = mapButton1;
-                document.getElementById("map-0").innerHTML = map0;
-                document.getElementById("map-1").innerHTML = map1;
+                var letterButton0 = document.getElementById("letter-button-" + num + "-0");
+                letterButton0.classList.remove("deactivated");
+                var letterButton1 = document.getElementById("letter-button-" + num + "-1");
+                letterButton1.classList.remove("deactivated");
+                var letter0 = document.getElementById("letter-" + num + "-0");
+                letter0.classList.remove("deactivated");
+                var letter1 = document.getElementById("letter-" + num + "-1");
+                letter1.classList.remove("deactivated");
+
+                var mapButton0 = document.getElementById("map-button-" + num + "-0");
+                mapButton0.classList.remove("deactivated");
+                var mapButton1 = document.getElementById("map-button-" + num + "-1");
+                mapButton1.classList.remove("deactivated");
+                var map0 = document.getElementById("map-" + num + "-0");
+                map0.classList.remove("deactivated");
+                var map1 = document.getElementById("map-" + num + "-1");
+                map1.classList.remove("deactivated");
             }
 
         </script>
@@ -446,8 +447,16 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="./imgs/maps/map-description.png" class="full-width">
-                <div id="map-button-0" ontouchend="window.activate('map-0')">Location 0</div>
-                <div id="map-button-1" ontouchend="window.activate('map-1')">Location 1</div>
+                <div id="map-button-0" ontouchend="window.activate('map-0')">
+                    <img src="./imgs/maps/map-button-0-0.png" id="map-button-0-0" class="img-button deactivated">
+                    <img src="./imgs/maps/map-button-1-0.png" id="map-button-1-0" class="img-button deactivated">
+                    <img src="./imgs/maps/map-button-2-0.png" id="map-button-2-0" class="img-button deactivated">
+                </div>
+                <div id="map-button-1" ontouchend="window.activate('map-1')">
+                    <img src="./imgs/maps/map-button-0-1.png" id="map-button-0-1" class="img-button deactivated">
+                    <img src="./imgs/maps/map-button-1-1.png" id="map-button-1-1" class="img-button deactivated">
+                    <img src="./imgs/maps/map-button-2-1.png" id="map-button-2-1" class="img-button deactivated">
+                </div>
                 <button class="button submit" ontouchend="window.activate('prep')">Return</button>
             </div>
         </div>
@@ -456,7 +465,9 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <div id="map-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <img src="./imgs/maps/map-0-0.png" id="map-0-0" class="full-width deactivated">
+                    <img src="./imgs/maps/map-1-0.png" id="map-1-0" class="full-width deactivated">
+                    <img src="./imgs/maps/map-2-0.png" id="map-2-0" class="full-width deactivated">
                 </div>
                 <button class="button submit" ontouchend="window.activate('map')">Return</button>
             </div>
@@ -466,7 +477,9 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <div id="map-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <img src="./imgs/maps/map-0-1.png" id="map-0-1" class="full-width deactivated">
+                    <img src="./imgs/maps/map-1-1.png" id="map-1-1" class="full-width deactivated">
+                    <img src="./imgs/maps/map-2-1.png" id="map-2-1" class="full-width deactivated">
                 </div>
                 <button class="button submit" ontouchend="window.activate('map')">Return</button>
             </div>
@@ -476,8 +489,16 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="./imgs/letters/letter-description.png" class="full-width">
-                <div id="letter-button-0" ontouchend="window.activate('letter-0')">letter button 0</div>
-                <div id="letter-button-1" ontouchend="window.activate('letter-1')">letter button 1</div>
+                <div id="letter-button-0" ontouchend="window.activate('letter-0')">
+                    <img src="./imgs/letters/letter-button-0-0.png" id="letter-button-0-0" class="img-button deactivated">
+                    <img src="./imgs/letters/letter-button-1-0.png" id="letter-button-1-0" class="img-button deactivated">
+                    <img src="./imgs/letters/letter-button-2-0.png" id="letter-button-2-0" class="img-button deactivated">
+                </div>
+                <div id="letter-button-1" ontouchend="window.activate('letter-1')">
+                    <img src="./imgs/letters/letter-button-0-1.png" id="letter-button-0-1" class="img-button deactivated">
+                    <img src="./imgs/letters/letter-button-1-1.png" id="letter-button-1-1" class="img-button deactivated">
+                    <img src="./imgs/letters/letter-button-2-1.png" id="letter-button-2-1" class="img-button deactivated">
+                </div>
                 <button class="button submit" ontouchend="window.activate('prep')">Return</button>
             </div>
         </div>
@@ -486,7 +507,9 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <div id="letter-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <img src="./imgs/letters/letter-0-0.png" id="letter-0-0" class="full-width deactivated">
+                    <img src="./imgs/letters/letter-1-0.png" id="letter-1-0" class="full-width deactivated">
+                    <img src="./imgs/letters/letter-2-0.png" id="letter-2-0" class="full-width deactivated">
                 </div>
                 <button class="button submit" ontouchend="window.activate('letter')">Return</button>
             </div>
@@ -496,7 +519,9 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <div id="letter-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <img src="./imgs/letters/letter-0-1.png" id="letter-0-1" class="full-width deactivated">
+                    <img src="./imgs/letters/letter-1-1.png" id="letter-1-1" class="full-width deactivated">
+                    <img src="./imgs/letters/letter-2-1.png" id="letter-2-1" class="full-width deactivated">
                 </div>
                 <button class="button submit" ontouchend="window.activate('letter')">Return</button>
             </div>

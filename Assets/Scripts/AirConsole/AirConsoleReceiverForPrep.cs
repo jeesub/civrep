@@ -28,6 +28,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         NoticeController();
 
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Public Hearing");
+        GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(300);
     }
 

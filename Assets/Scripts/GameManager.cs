@@ -149,6 +149,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(sceneLoadTime);
         GameObject background = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
         background.SetActive(false);
+
+
+        if (GameObject.Find("Canvas").GetComponent<SetForecast>())
+        {
+            GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
+        }       
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

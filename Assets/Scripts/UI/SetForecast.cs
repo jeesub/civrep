@@ -9,8 +9,10 @@ public class SetForecast : MonoBehaviour
     public TextMeshProUGUI sceneName;
     public TextMeshProUGUI timeRemain;
 
-    private int remaintime = -1;
-    private bool updatingTime = false;
+    public AirConsoleReceiverForHearing hearing;
+
+    public int remaintime = -1;
+    public bool updatingTime = false;
 
     void Start()
     {
@@ -22,15 +24,22 @@ public class SetForecast : MonoBehaviour
         UpdateRemainTime();
     }
 
+    public void ResetRemainTime()
+    {
+        remaintime = -1;
+        updatingTime = false;
+        StopCoroutine("ProcessRemainTime");
+    }
+
     private void UpdateRemainTime()
     {
         if (!updatingTime && remaintime >= 0 )
         {
-            StartCoroutine(SetRemainTime());
+            StartCoroutine("ProcessRemainTime");
         }
     }
 
-    private IEnumerator SetRemainTime()
+    private IEnumerator ProcessRemainTime()
     {
         updatingTime = true;
         while (remaintime >= 0)
@@ -42,18 +51,23 @@ public class SetForecast : MonoBehaviour
             string secStr = (sec < 10) ? ("0" + sec.ToString()) : sec.ToString();
             timeRemain.text = minStr + ":" + secStr;
 
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSeconds(1f);
+            Debug.Log("Remainin Time:" + remaintime);
             remaintime--;
         }
 
         if (SceneManager.GetActiveScene().buildIndex != 3)
         {
-            // Load next Scene if it's not the hearing scene
+            // Load next Scene if it's not the City Council scene
             StartCoroutine(GameManager.Instance.LoadNextScene());
         }
         else
         {
-
+            // In City Council Scene, proceed to the next event in sequence
+            if (hearing)
+            {
+                hearing.NextEventInSequence();
+            }
         }
         
     }

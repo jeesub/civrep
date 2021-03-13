@@ -28,6 +28,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         NoticeController();
 
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Prep & Research");
+        GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(120);
     }
 
