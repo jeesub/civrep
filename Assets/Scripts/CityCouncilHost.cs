@@ -9,18 +9,18 @@ public class CityCouncilHost : MonoBehaviour
     public GameObject votePanel;
     public List<GameObject> repPhotos = new List<GameObject>();
 
-    private List<int> yeaReps = new List<int>();
-    private List<int> nayReps = new List<int>();
-    private GameObject yea, nay;
+    public List<int> yeaReps = new List<int>();
+    public List<int> nayReps = new List<int>();
+    public GameObject yea, nay;
 
     private void HostHearing(int duration)
     {
         hearingPerson.GetComponent<HearingManager>().StartHearing(duration);
     }
 
-    private void HostDiscussion()
+    private void HostDiscussion(int duration)
     {
-        
+        hearingPerson.GetComponent<HearingManager>().FreeDiscussion(duration);
     }
 
     private void UpdateYeaNay()
@@ -29,7 +29,10 @@ public class CityCouncilHost : MonoBehaviour
         Vector2 yeaSize = yea.GetComponent<RectTransform>().sizeDelta;
 
         naySize.y = 140 + 20 * nayReps.Count;
-        yeaSize.y = 140 + 20 * yeaReps.Count;
+        yeaSize.y = 120 + 20 * yeaReps.Count;
+
+        nay.GetComponent<RectTransform>().sizeDelta = naySize;
+        yea.GetComponent<RectTransform>().sizeDelta = yeaSize;
     }
 
     public void VoteYea(int repIdx)
@@ -39,15 +42,16 @@ public class CityCouncilHost : MonoBehaviour
             GameObject rep = repPhotos[repIdx];
             if (!rep.activeSelf) rep.SetActive(true);
 
-            Vector2 sizeDelta = rep.GetComponent<RectTransform>().sizeDelta;
-            if (sizeDelta.x > 0)
+            Vector3 position = rep.GetComponent<RectTransform>().localPosition;
+            if (position.x > 0)
             {
-                sizeDelta.x *= -1;
-                rep.GetComponent<RectTransform>().sizeDelta = sizeDelta;
+                position.x *= -1;
+                rep.GetComponent<RectTransform>().localPosition = position;
             }
 
             if (!yeaReps.Contains(repIdx))
             {
+                Debug.Log("RepIdx: " + repIdx + " already in yeaReps");
                 if (nayReps.Contains(repIdx)) nayReps.Remove(repIdx);
                 yeaReps.Add(repIdx);
             }
@@ -63,15 +67,16 @@ public class CityCouncilHost : MonoBehaviour
             GameObject rep = repPhotos[repIdx];
             if (!rep.activeSelf) rep.SetActive(true);
 
-            Vector2 sizeDelta = rep.GetComponent<RectTransform>().sizeDelta;
-            if (sizeDelta.x < 0)
+            Vector3 position = rep.GetComponent<RectTransform>().localPosition;
+            if (position.x < 0)
             {
-                sizeDelta.x *= -1;
-                rep.GetComponent<RectTransform>().sizeDelta = sizeDelta;
+                position.x *= -1;
+                rep.GetComponent<RectTransform>().localPosition = position;
             }
 
             if (!nayReps.Contains(repIdx))
             {
+                Debug.Log("RepIdx: " + repIdx + " already in nayreps");
                 if (yeaReps.Contains(repIdx)) yeaReps.Remove(repIdx);
                 nayReps.Add(repIdx);
             }
@@ -91,10 +96,10 @@ public class CityCouncilHost : MonoBehaviour
 
         // Set Yea and Nay
         nay = panel.transform.GetChild(1).GetChild(1).gameObject;
-        yea = panel.transform.GetChild(1).GetChild(2).gameObject;        
+        yea = panel.transform.GetChild(1).GetChild(0).gameObject;        
 
         // Set the repPhotos
-        Transform repRoot = panel.transform.GetChild(1).GetChild(0);
+        Transform repRoot = panel.transform.GetChild(1).GetChild(2);
         for (int i = 0; i < repRoot.childCount; i++)
         {
             repPhotos.Add(repRoot.GetChild(i).gameObject);
@@ -114,7 +119,7 @@ public class CityCouncilHost : MonoBehaviour
                 HostHearing(duration);
                 break;
             case EventType.Discussion:
-                HostDiscussion();
+                HostDiscussion(duration);
                 break;
             case EventType.Voting:
                 HostVote();

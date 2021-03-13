@@ -52,7 +52,6 @@ public class SetForecast : MonoBehaviour
             timeRemain.text = minStr + ":" + secStr;
 
             yield return new WaitForSeconds(1f);
-            Debug.Log("Remainin Time:" + remaintime);
             remaintime--;
         }
 
