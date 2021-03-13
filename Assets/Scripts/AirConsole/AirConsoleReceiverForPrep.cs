@@ -28,6 +28,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         NoticeController();
 
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Public Hearing");
+        GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
         GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(300);
     }
 
@@ -76,6 +77,8 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
     private void TakeAction(int fromDeviceID, JToken data)
     {
         string action = data["Action"].ToString();
+        Debug.Log("Old Action is: " + action);
+        action = action.Replace("-", "");
         Debug.Log("Action is: " + action);
         RepManager.instance.TakeAction(fromDeviceID, action);
     }

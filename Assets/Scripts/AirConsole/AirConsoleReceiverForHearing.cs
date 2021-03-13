@@ -5,15 +5,39 @@ using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using UnityEngine.UI;
 
+public enum EventType
+{
+    Hearing,
+    Discussion,
+    Voting,
+    Result
+}
+
+public enum ControllerPage
+{
+    idle,
+    inventory,
+    vote
+}
+
+[System.Serializable]
+public class CityCouncilEvent
+{
+    public int eventDuration;
+    public EventType curEventType;
+    public EventType nextEventType;
+    public ControllerPage controllerPage;
+}
+
 public class AirConsoleReceiverForHearing : MonoBehaviour
 {
-    public Dictionary<int, int> repToId = new Dictionary<int, int>();
-    public Dictionary<int, int> idToReps = new Dictionary<int, int>();
-    public List<GameObject> repPhotos;
+    public CityCouncilHost host;
+    public List<CityCouncilEvent> sequence = new List<CityCouncilEvent>();
+
     public List<GameObject> yayReps;
     public List<GameObject> nahReps;
 
-    public Text votingScores;
+    private SetForecast forecast;
 
     private void Awake()
     {
@@ -22,12 +46,31 @@ public class AirConsoleReceiverForHearing : MonoBehaviour
         AirConsole.instance.onDisconnect += OnDisconnect;
     }
 
-    private void Start()
+    void Start()
     {
-        NoticeController("idle");
+        forecast = GameObject.Find("Canvas").GetComponent<SetForecast>();
+        forecast.hearing = this;
 
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Voting");
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(300);
+        NextEventInSequence();
+    }
+
+    public void NextEventInSequence()
+    {
+        if (sequence.Count > 0)
+        {
+            CityCouncilEvent eventItem = sequence[0];
+            sequence.RemoveAt(0);
+
+            // Set the timer
+            forecast.ResetRemainTime();
+            forecast.SetRemainTime(eventItem.eventDuration);
+            // Set the upcoming event name on UI
+            forecast.SetSceneName(System.Enum.GetName(typeof(EventType), eventItem.nextEventType));
+            // Broadcast message to all controllers
+            NoticeController(System.Enum.GetName(typeof(ControllerPage), eventItem.controllerPage));
+            // Actually make the event
+            host.HostEvent(eventItem.curEventType, eventItem.eventDuration);
+        }
     }
 
     private void NoticeController(string status)
@@ -60,47 +103,18 @@ public class AirConsoleReceiverForHearing : MonoBehaviour
 
     private void OnMessage(int fromDeviceID, JToken data)
     {
-        int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(fromDeviceID);
-
-        Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
-        Debug.Log("Control Ids length: " + AirConsole.instance.GetControllerDeviceIds().Count);        
-        Debug.Log("active player is:" + active_player);
-        Debug.Log(data["Character"]);
-        
         if (data["Vote"] != null)
         {
-            GameObject curRepPhoto = repPhotos[idToReps[fromDeviceID]];
+            int repIdx = RepManager.instance.getRepIdx(fromDeviceID);
             if (data["Vote"].ToString() == "Yay")
             {
-                if (!yayReps.Contains(curRepPhoto))
-                {
-                    nahReps.Remove(curRepPhoto);
-                    yayReps.Add(curRepPhoto);
-                }
-                curRepPhoto.SetActive(true);
-                curRepPhoto.transform.localPosition =
-                    new Vector3(-400, curRepPhoto.transform.localPosition.y, 0);
+                host.VoteYea(repIdx);
             }
             else if (data["Vote"].ToString() == "Nah")
             {
-                if (!nahReps.Contains(curRepPhoto))
-                {
-                    yayReps.Remove(curRepPhoto);
-                    nahReps.Add(curRepPhoto);
-                }
-                curRepPhoto.SetActive(true);
-                curRepPhoto.transform.localPosition =
-                    new Vector3(400, curRepPhoto.transform.localPosition.y, 0);
+                host.VoteNay(repIdx);
             }
-
-            UpdateVotingScore();
         }
-        
-    }
-
-    private void UpdateVotingScore()
-    {
-        votingScores.text = yayReps.Count + " : " + nahReps.Count;
     }
 
     private void OnDisconnect(int device_id)

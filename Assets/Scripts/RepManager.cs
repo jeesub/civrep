@@ -33,6 +33,11 @@ public class RepManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public int getRepIdx(int deviceID)
+    {
+        return idToRep[deviceID];
+    }
+
     public bool CheckAllPlayerOnCharacterSelection()
     {
         
@@ -65,7 +70,7 @@ public class RepManager : MonoBehaviour
 
     private void AddRepName(int deviceID, string name)
     {
-        int repIdx = idToRep[deviceID];
+        int repIdx = getRepIdx(deviceID);
         if (!repToName.ContainsKey(repIdx))
         {
             repToName.Add(repIdx, name);
@@ -94,8 +99,8 @@ public class RepManager : MonoBehaviour
 
     public void GoToDestination(int deviceID, string dest)
     {
-        int repIdx = idToRep[deviceID];
-        if (dest.Equals("ready"))
+        int repIdx = getRepIdx(deviceID);
+        if (dest.Equals("rest"))
         {
             if (!readyReps.Contains(deviceID))
             {
@@ -109,7 +114,7 @@ public class RepManager : MonoBehaviour
     public void TakeAction(int deviceID, string action)
     {
         // Can extract this line out as a function
-        int repIdx = idToRep[deviceID];
+        int repIdx = getRepIdx(deviceID);
         JToken resultJson = RepInfos.instance.resultJsons[repIdx];        
 
         int political = resultJson[action]["political"].ToObject<int>();

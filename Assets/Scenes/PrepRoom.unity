@@ -178,7 +178,7 @@ MonoBehaviour:
     transform: {fileID: 424466629}
   - name: map
     transform: {fileID: 1000313854}
-  - name: mail
+  - name: letter
     transform: {fileID: 1634638792}
 --- !u!1 &327505216
 GameObject:
