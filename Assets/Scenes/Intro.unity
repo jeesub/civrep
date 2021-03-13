@@ -996,7 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b057a978a2331f4797e456933aae921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayer: 2
+  maxPlayer: 3
 --- !u!4 &1594126598
 Transform:
   m_ObjectHideFlags: 0

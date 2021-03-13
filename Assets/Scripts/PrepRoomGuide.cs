@@ -28,7 +28,7 @@ public class PrepRoomGuide : MonoBehaviour
 
     public void GuidePrep(int repIdx, string dest)
     {
-        if (dest.Equals("ready"))
+        if (dest.Equals("rest"))
         {
             if (!reps[repIdx].activeSelf)
             {

@@ -284,13 +284,13 @@
                 var destinationArr = ["letter", "computer", "map", "rest"];
                 var destinationSet = new Set(destinationArr);
                 if (destinationSet.has(screen)) {
-                    window.app.sendMessageToScreen({'destination': screen});
+                    window.app.sendMessageToScreen({'Destination': screen});
                 }
 
-                var arr = ["letter-0", "letter-1", "map-0", "map-1", "computer-0", "computer-1", "rest"];
+                var arr = ["letter-0", "letter-1", "map-0", "map-1", "computer-0", "computer-1"];
                 var set = new Set(arr);
                 if (set.has(screen)) {
-                    window.app.sendMessageToScreen(screen);
+                    window.app.sendMessageToScreen({'Action': screen});
                 }
             }
 

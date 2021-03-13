@@ -76,6 +76,8 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
     private void TakeAction(int fromDeviceID, JToken data)
     {
         string action = data["Action"].ToString();
+        Debug.Log("Old Action is: " + action);
+        action = action.Replace("-", "");
         Debug.Log("Action is: " + action);
         RepManager.instance.TakeAction(fromDeviceID, action);
     }

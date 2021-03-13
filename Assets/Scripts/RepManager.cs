@@ -95,7 +95,7 @@ public class RepManager : MonoBehaviour
     public void GoToDestination(int deviceID, string dest)
     {
         int repIdx = idToRep[deviceID];
-        if (dest.Equals("ready"))
+        if (dest.Equals("rest"))
         {
             if (!readyReps.Contains(deviceID))
             {
