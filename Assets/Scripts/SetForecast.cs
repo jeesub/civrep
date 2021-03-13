@@ -46,7 +46,16 @@ public class SetForecast : MonoBehaviour
             remaintime--;
         }
 
-        StartCoroutine(GameManager.Instance.LoadNextScene());
+        if (SceneManager.GetActiveScene().buildIndex != 3)
+        {
+            // Load next Scene if it's not the hearing scene
+            StartCoroutine(GameManager.Instance.LoadNextScene());
+        }
+        else
+        {
+
+        }
+        
     }
 
     public void SetSceneName(string name)
