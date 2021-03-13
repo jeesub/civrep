@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+        <style type=text/css>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+            body {
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+                margin: 0;
+                font-family: 'Quicksand', sans-serif;
+                font-size: 5vw;
+                line-height: 20pt;
+                background-color: #D9D9D9;
+            }
+
+            input {
+                width: 76%;
+                height: 0vh;
+                padding: 5vh 10vw;
+                margin-top: 5vh;
+                border-radius: 4px;
+                text-align: center;
+                font-size: 5vw;
+            }
+
+            /** General **/
+            .alert {
+                position: absolute;
+                width: 80vw;
+                margin-top: 15vh;
+                margin-left: 5vw;
+                z-index: 10;
+                background-color: #ECA81C;
+                padding: 5vh 5vw;
+                text-align: center;
+                border: 1vw solid #000;
+                border-radius: 4vw;
+            }
+            .button {
+                -webkit-border-radius: 11;
+                -moz-border-radius: 11;
+                border-radius: 11px;
+                border: none;
+                font-family: 'Quicksand', sans-serif;
+                font-size: 4vw;
+                background-color: #B2B2B2;
+                color: #FFF;
+                width: 100%;
+                padding: 3vh 3vw;
+                margin-bottom: 2vh;
+            }
+
+            .submit {
+                position: absolute;
+                width: 80vw;
+                top: 88vh;
+                left: 10vw;
+                color: #FFF;
+                background-color: #000;
+            }
+
+            .button:active {
+                box-shadow: 0 1px #666;
+                transform: translateY(4px);
+            }
+
+            .color-white {
+                color: #FFF;
+            }
+
+            .bg-color0 {
+                background-color: #3E5DAA;
+            }
+
+            .bg-color1 {
+                background-color: #176F71;
+            }
+
+            .bg-color2 {
+                background-color: #F2994A;
+            }
+
+            .bg-grey {
+                color: #000;
+                background-color: #D9D9D9;
+            }
+
+            .bg-letter {
+                background-color: #B2585A;
+            }
+
+            .bg-map {
+                background-color: #3C5B5C;
+            }
+
+            .bg-computer {
+                background-color: #635D58;
+            }
+
+            .bg-rest {
+                background-color: #62462B;
+            }
+
+            .selectable {
+                border: 1vw solid #D9D9D9;
+                border-radius: 2vw;
+                margin-top: 2vh;
+            }
+
+            .selected {
+                border: 1vw solid #000;
+            }
+
+            .controller-screen {
+                position: absolute;
+                background-repeat: no-repeat;
+                padding: 0;
+                margin: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .controller-header {
+                height: 8vh;
+                padding: 1vh 1vh 1vh 1vh;
+                font-size: 4vw;
+                font-weight: 900;
+                line-height: 3vh;
+                color: #000;
+                background-image: url("./imgs/CivRep_logo 1.png");
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-color: #FFF;
+            }
+
+            .controller-content {
+                width: 90vw;
+                height: 80vh;
+                padding: 5vh 5vw;
+            }
+
+            .deactivated {
+                display: none;
+            }
+
+            .centered {
+                text-align: center;
+                color: #FFF;
+            }
+
+            .title {
+                font-weight: 900;
+            }
+
+            .full-width {
+                width: 100%;
+            }
+
+            /** Custom **/
+            .letter-button {
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+                text-align: left;
+                height: 19vh;
+                background-color: #B2B2B2;
+            }
+
+            .letter-button-0 {
+                background-image: url("./imgs/letters/letter-button-0.png");
+            }
+
+            .letter-button-1 {
+                background-image: url("./imgs/letters/letter-button-1.png");
+            }
+
+            .mail-from {
+                margin-bottom: 8vh;
+                font-size: 3vw;
+            }
+
+            .img-button {
+                width: 100%;
+                margin-bottom: 2vh;
+            }
+        </style>
+
+        <script type="text/javascript">
+            var name;
+            var selectedCharacter = -1;
+
+            function App() {
+                this.airconsole = new AirConsole({"orientation": "portrait", "synchronize_time" : "true"});
+
+                this.airconsole.onMessage = function(from, data) {
+                    // got a message
+                    console.log("onMessage", from, data);
+                    interpretMessage(data);
+                };
+
+                if (!("ontouchstart" in document.createElement("div"))) {
+                    var elements = document.getElementsByTagName("*");
+                    for (var i = 0; i < elements.length; ++i) {
+                        var element = elements[i];
+                        var ontouchstart = element.getAttribute("ontouchstart");
+                        if (ontouchstart) {
+                            element.setAttribute("onmousedown", ontouchstart);
+                        }
+                        var ontouchend = element.getAttribute("ontouchend");
+                        if (ontouchend) {
+                            element.setAttribute("onmouseup", ontouchend);
+                        }
+                    }
+                }
+            }
+
+            App.prototype.sendMessageToScreen = function(msg) {
+                console.log({"action": msg});
+                this.airconsole.message(AirConsole.SCREEN, msg);
+            }
+
+            function interpretMessage(data) {
+                var topic = data["topic"];
+                console.log("topic: " + topic);
+                switch (topic) {
+                    case "screen":
+                        //ex) {"topic": "screen", "message": "prep"}
+                        activate(data["message"]);
+                        break;
+                    case "character selection":
+                        console.log(data["message"]);
+                        lockCharacter(data["message"]);
+                        break;
+                    case "info":
+                        console.log(data["message"]);
+                        setInfo(data["message"]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            function showAlert(message) {
+                var elem = document.getElementById("alert");
+                elem.innerHTML = message;
+                elem.classList.remove("deactivated");
+                setTimeout(removeAlert, 1500);
+            }
+
+            function removeAlert() {
+                document.getElementById("alert").classList.add("deactivated");
+            }
+
+            function sendName(newName) {
+                if (newName == '') {
+                    showAlert("Name cannot be blank");
+                } else {
+                    name = newName;
+                    var element =  document.getElementById('username');
+                    element.innerHTML = name;
+                    window.app.sendMessageToScreen({'Connected': name});
+                    activate("idle");
+                }
+            }
+
+            function activate(screen) {
+                if (screen == "inventory") {
+                    var restButton = document.getElementById("rest-button");
+                    restButton.classList.add("deactivated");
+                    screen = "prep";
+                }
+                var elements = document.getElementsByClassName("controller-screen");
+                var i;
+                for (i = 0; i < elements.length; i++) {
+                    elements[i].classList.add("deactivated");
+                }
+                document.getElementById("screen-" + screen).classList.remove("deactivated");
+
+                var arr = ["letter-0", "letter-1", "map-0", "map-1", "computer-0", "computer-1", "rest"];
+                var set = new Set(arr);
+                if (set.has(screen)) {
+                    console.log(screen);
+                }
+            }
+
+            function selectCharacter(selected) {
+                selectedCharacter = selected;
+                var elements = document.getElementsByClassName("character");
+                var i;
+                for (i = 0; i < elements.length; i++) {
+                    elements[i].classList.remove("selected");
+                    elements[i].classList.remove("selectedCharacter");
+                }
+                document.getElementById("character-" + selected).classList.add("selected");
+                document.getElementById("character-" + selected).classList.add("selectedCharacter");
+            }
+
+            function submitCharacter() {
+                if (selectedCharacter != -1) {
+                    window.app.sendMessageToScreen({"Character": selectedCharacter});
+                }
+            }
+
+            function lockCharacter(status){
+                if (status) {
+                    activate("name");
+                    setInfo(selectedCharacter);
+                } else {
+                    showAlert("character was selected by another player");
+                }                
+            }
+
+            /**
+            Message example
+            
+            var message = {
+                "topic" : "info",
+                "message": {
+                    "letter-0": "info of letter-0",
+                    "letter-1": "info of letter-1",
+                    "map-0": {
+                        "place": "Prison",
+                        "info": "info of map-0"
+                    },
+                    "map-1": {
+                        "place": "Police",
+                        "info": "info of map-1"
+                    },
+                    "computer-0": "info of comp0",
+                    "computer-1": "info of comp1"
+                }
+            }
+            */
+            function setInfo(num) {
+                var letterButton0 = "\<img src\=\'.\/imgs\/letters\/letter-button-" + num + "-0.png\' class\=\'img-button\'\>";
+                var letterButton1 = "\<img src\=\'.\/imgs\/letters\/letter-button-" + num + "-1.png\' class\=\'img-button\'\>";
+                var letter0 = "\<img src\=\'.\/imgs\/letters\/letter-" + num + "-0.png\' class\=\'full-width\'\>";
+                var letter1 = "\<img src\=\'./imgs\/letters\/letter-" + num + "-1.png\' class\=\'full-width\'\>";
+                var mapButton0 = "\<img src\=\'.\/imgs\/maps\/map-button-" + num + "-0.png\' class\=\'img-button\'\>";
+                var mapButton1 = "\<img src\=\'.\/imgs\/maps\/map-button-" + num + "-1.png\' class\=\'img-button\'\>";
+                var map0 = "\<img src\=\'.\/imgs\/maps\/map-" + num + "-0.png\' class\=\'full-width\'\>";
+                var map1 = "\<img src\=\'.\/imgs\/maps\/map-" + num + "-1.png\' class\=\'full-width\'\>";
+                document.getElementById("letter-button-0").innerHTML = letterButton0;
+                document.getElementById("letter-button-1").innerHTML = letterButton1;
+                document.getElementById("letter-0").innerHTML = letter0;
+                document.getElementById("letter-1").innerHTML = letter1;
+                document.getElementById("map-button-0").innerHTML = mapButton0;
+                document.getElementById("map-button-1").innerHTML = mapButton1;
+                document.getElementById("map-0").innerHTML = map0;
+                document.getElementById("map-1").innerHTML = map1;
+            }
+
+        </script>
+    </head>
+    <body onload="window.app = new App()">
+        <!-- ALERT -->
+        <div id="alert" class= "alert deactivated">ALERT</div>
+        <!-- IDLE -->
+        <div id="screen-idle" class="controller-screen">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <img src="./imgs/CivRep_logo 1.png" width="100%">
+                Please look up at the main screen.
+            </div>
+        </div>
+        <!-- CHARACTER SELECTION -->
+        <div id="screen-character" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <div id="character-0" class="character centered selectable bg-color0" ontouchstart="window.selectCharacter(0)">
+                    <img src="./imgs/character-button-0.png" class="full-width">
+                </div>
+                <div id="character-1" class="character centered selectable bg-color1" ontouchstart="window.selectCharacter(1)">
+                    <img src="./imgs/character-button-1.png" class="full-width">
+                </div>
+                <div id="character-2" class="character centered selectable bg-color2" ontouchstart="window.selectCharacter(2)">
+                    <img src="./imgs/character-button-2.png" class="full-width">
+                </div>
+                <button class="button submit" ontouchstart="window.submitCharacter()">Enroll</button>
+            </div>
+        </div>
+        <!-- NAME -->
+        <div id="screen-name" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <div class="intro-description">
+                    <img src="./imgs/name-description.png" class="full-width">
+                    <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Type your name"><br>
+                    <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
+                </div>
+            </div>
+        </div>
+        <!-- PREP ROOM -->
+        <div id="screen-prep" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <img src="./imgs/letter-button.png" class="img-button" ontouchend="window.activate('letter')">
+                <img src="./imgs/map-button.png" class="img-button" ontouchend="window.activate('map')">
+                <img src="./imgs/computer-button.png" class="img-button" ontouchend="window.activate('computer')">
+                <img src="./imgs/rest-button.png" id="rest-button" class="img-button" ontouchend="window.activate('rest')">
+            </div>
+        </div>
+        <!-- COMPUTER -->
+        <div id="screen-computer" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-computer">
+                <img src="./imgs/computer/computer-description.png" class="full-width">
+                <img src="./imgs/computer/computer-button-0.png" class="img-button" ontouchend="window.activate('computer-0')">
+                <img src="./imgs/computer/computer-button-1.png" class="img-button" ontouchend="window.activate('computer-1')">
+                <button class="button submit" ontouchend="window.activate('prep')">Return</button>
+            </div>
+        </div>
+        <!-- COMPUTER 0 -->
+        <div id="screen-computer-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-computer">
+                <div id="computer-0">
+                    <img src="./imgs/computer/computer-0.png" class="full-width">
+                </div>
+                <button class="button submit" ontouchend="window.activate('computer')">Return</button>
+            </div>
+        </div>
+        <!-- COMPUTER 1 -->
+        <div id="screen-computer-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-computer">
+                <div id="computer-1">
+                    <img src="./imgs/computer/computer-1.png" class="full-width">
+                </div>
+                <button class="button submit" ontouchend="window.activate('computer')">Return</button>
+            </div>
+        </div>
+        <!-- MAP -->
+        <div id="screen-map" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="./imgs/maps/map-description.png" class="full-width">
+                <div id="map-button-0" ontouchend="window.activate('map-0')">Location 0</div>
+                <div id="map-button-1" ontouchend="window.activate('map-1')">Location 1</div>
+                <button class="button submit" ontouchend="window.activate('prep')">Return</button>
+            </div>
+        </div>
+        <!-- MAP 0 -->
+        <div id="screen-map-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <div id="map-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button submit" ontouchend="window.activate('map')">Return</button>
+            </div>
+        </div>
+        <!-- MAP 1 -->
+        <div id="screen-map-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <div id="map-1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button submit" ontouchend="window.activate('map')">Return</button>
+            </div>
+        </div>
+        <!-- LETTER -->
+        <div id="screen-letter" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="./imgs/letters/letter-description.png" class="full-width">
+                <div id="letter-button-0" ontouchend="window.activate('letter-0')">letter button 0</div>
+                <div id="letter-button-1" ontouchend="window.activate('letter-1')">letter button 1</div>
+                <button class="button submit" ontouchend="window.activate('prep')">Return</button>
+            </div>
+        </div>
+        <!-- LETTER 0 -->
+        <div id="screen-letter-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <div id="letter-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button submit" ontouchend="window.activate('letter')">Return</button>
+            </div>
+        </div>
+        <!-- LETTER 1 -->
+        <div id="screen-letter-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <div id="letter-1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+                <button class="button submit" ontouchend="window.activate('letter')">Return</button>
+            </div>
+        </div>
+        <!-- REST -->
+        <div id="screen-rest" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-rest">
+                Good, let's take some rest.
+                <button class="button submit" ontouchend="window.activate('prep')">Return</button>
+            </div>
+        </div>
+        <!-- TEMPLATE -->
+        <div id="screen-?" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                CONTENT
+            </div>
+        </div>
+    </body>
+</html>

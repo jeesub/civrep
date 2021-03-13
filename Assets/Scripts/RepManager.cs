@@ -36,7 +36,7 @@ public class RepManager : MonoBehaviour
     public bool CheckAllPlayerOnCharacterSelection()
     {
         
-        return (repToId.Count == maxPlayer);
+        return (idToName.Count == maxPlayer);
     }
 
     public bool CheckAllPlayerOnPrep()
