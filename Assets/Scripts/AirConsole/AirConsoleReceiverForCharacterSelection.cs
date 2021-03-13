@@ -79,6 +79,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
                 };
             AirConsole.instance.Message(fromDeviceID, messageData);
 
+            /*
             // Send the prep room info in a batch
             JObject repInfo = SendRepInfo(repIdx);
             JObject info = new JObject
@@ -88,6 +89,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
             };
             Debug.Log("info is: " + info);            
             AirConsole.instance.Message(fromDeviceID, info);
+            */
         }
         else
         {

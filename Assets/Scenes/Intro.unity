@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af43bd67776344b6a437b537323b9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoadTime: 2
+  sceneLoadTime: 3
 --- !u!114 &104604924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogParent: {fileID: 1818340870}
-  interval: 2
+  interval: 3
 --- !u!4 &1985933120
 Transform:
   m_ObjectHideFlags: 0
