@@ -39,7 +39,7 @@ public class PrepRoomStatus : MonoBehaviour
         for (int repIdx = 0; repIdx < repStatusItems.Count; repIdx++)
         {
             RepStatusItem item = repStatusItems[repIdx];
-            item.Name.text = "Bennie";
+            item.Name.text = "Stranger";
         }
     }
 
@@ -47,6 +47,21 @@ public class PrepRoomStatus : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateRepName(int repIdx, string name)
+    {
+        if (repIdx < repStatusItems.Count)
+        {
+            RepStatusItem statusItem = repStatusItems[repIdx];
+            statusItem.Name.text = name;
+        }
+        else
+        {
+            Debug.Log("repIdx is too large");
+            Debug.Log("repIdx: " + repIdx);
+            Debug.Log("count: " + repStatusItems.Count);
+        }
     }
 
     public void UpdateRepStatus(int repIdx, int political, int social, int typeIdx)

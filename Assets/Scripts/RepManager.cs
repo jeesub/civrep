@@ -33,7 +33,7 @@ public class RepManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public bool CheckAllPlayerOnStart()
+    public bool CheckAllPlayerOnCharacterSelection()
     {
         
         return (repToId.Count == maxPlayer);
@@ -58,11 +58,37 @@ public class RepManager : MonoBehaviour
         }
     } 
 
+    private void UpdateRepName(int repIdx, string name)
+    {
+        PrepRoomStatus.instance.UpdateRepName(repIdx, name);
+    }
+
+    private void AddRepName(int deviceID, string name)
+    {
+        int repIdx = idToRep[deviceID];
+        if (!repToName.ContainsKey(repIdx))
+        {
+            repToName.Add(repIdx, name);
+            UpdateRepName(repIdx, name);
+        }
+    }
+
     public void SetRepName(int deviceID, string name)
     {
         if (!idToName.ContainsKey(deviceID))
         {
             idToName.Add(deviceID, name);
+
+            // Add Rep Name
+            AddRepName(deviceID, name);
+        }
+        else
+        {
+            // Only for testing
+            Debug.Log("Only for testing");
+            idToName.Remove(deviceID);
+            idToName.Add(deviceID, name);
+            AddRepName(deviceID, name);
         }
     }
 

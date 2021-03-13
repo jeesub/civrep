@@ -16,10 +16,15 @@ public enum InfoSource
 
 public class test : MonoBehaviour
 {
+    public int id = 2;
+    [Header("Test Name in Character")]
+    public bool testName = false;
+    public string nameStr;
+
+    [Header("Test Action in Prep Room")]
     public bool testAction = false;
     public InfoSource typeIdx;
 
-    public int id = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +44,16 @@ public class test : MonoBehaviour
             };
             GetComponent<AirConsoleReceiverForPrep>().TestOnMessage(id, data);
             testAction = false;
+        }
+
+        if (testName)
+        {
+            JToken data = new JObject
+            {
+                { "Connected", nameStr}
+            };
+            GetComponent<AirConsoleReceiverForCharacterSelection>().TestOnMessage(id, data);
+            testName = false;
         }
     }
 }

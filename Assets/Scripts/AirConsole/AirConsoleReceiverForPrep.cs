@@ -25,6 +25,17 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
     private void Start()
     {
         maxPlayer = RepManager.instance.maxPlayer;
+        NoticeController();
+    }
+
+    private void NoticeController()
+    {
+        JObject messageData = new JObject
+                {
+                    {"topic", "screen" },
+                    {"message", "prep" }
+                };
+        AirConsole.instance.Broadcast(messageData);
     }
 
     private void OnConnect(int device_id)

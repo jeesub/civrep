@@ -6,9 +6,14 @@ using Newtonsoft.Json.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class AirConsoleReceiverForStart : MonoBehaviour
+public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
 {
     private int maxPlayer;
+
+    public void TestOnMessage(int fromDeviceID, JToken data)
+    {
+        OnMessage(fromDeviceID, data);
+    }
 
     private void Awake()
     {
@@ -20,6 +25,20 @@ public class AirConsoleReceiverForStart : MonoBehaviour
     private void Start()
     {
         maxPlayer = RepManager.instance.maxPlayer;
+        NoticeController();
+
+        GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Prep & Research");
+        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(303);
+    }
+
+    private void NoticeController()
+    {
+        JObject messageData = new JObject
+                {
+                    {"topic", "screen" },
+                    {"message", "character" }
+                };
+        AirConsole.instance.Broadcast(messageData);
     }
 
     private void OnConnect(int device_id)
@@ -84,16 +103,10 @@ public class AirConsoleReceiverForStart : MonoBehaviour
 
     private void CheckAllPlayer()
     {
-        if (RepManager.instance.CheckAllPlayerOnStart())
+        if (RepManager.instance.CheckAllPlayerOnCharacterSelection())
         {
-            SceneManager.LoadScene(1);
-            //StartCoroutine(GameManager.Instance.LoadNextScene());
-            JObject messageData = new JObject
-                {
-                    {"topic", "screen" },
-                    {"message", "prep" }
-                };
-            AirConsole.instance.Broadcast(messageData);
+            //SceneManager.LoadScene(1);
+            StartCoroutine(GameManager.Instance.LoadNextScene());
         }
     }
 

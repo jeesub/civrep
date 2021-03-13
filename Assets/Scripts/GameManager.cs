@@ -147,6 +147,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(sceneLoadTime);
+        GameObject background = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        background.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
