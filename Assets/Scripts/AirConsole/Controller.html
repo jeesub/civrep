@@ -188,6 +188,10 @@
                 width: 100%;
                 margin-bottom: 2vh;
             }
+
+            .vote {
+                width: 44vw;
+            }
         </style>
 
         <script type="text/javascript">
@@ -321,27 +325,6 @@
                 }                
             }
 
-            /**
-            Message example
-            
-            var message = {
-                "topic" : "info",
-                "message": {
-                    "letter-0": "info of letter-0",
-                    "letter-1": "info of letter-1",
-                    "map-0": {
-                        "place": "Prison",
-                        "info": "info of map-0"
-                    },
-                    "map-1": {
-                        "place": "Police",
-                        "info": "info of map-1"
-                    },
-                    "computer-0": "info of comp0",
-                    "computer-1": "info of comp1"
-                }
-            }
-            */
             function setInfo(num) {
                 var letterButton0 = document.getElementById("letter-button-" + num + "-0");
                 letterButton0.classList.remove("deactivated");
@@ -360,8 +343,34 @@
                 map0.classList.remove("deactivated");
                 var map1 = document.getElementById("map-" + num + "-1");
                 map1.classList.remove("deactivated");
+
+                var reps = document.getElementsByClassName("rep-" + num);
+                var i = 0;
+                for (i = 0; i < reps.length; i++) {
+                    reps[i].classList.remove("deactivated");
+                }
             }
 
+            function vote(target) {
+                var nayIdle = document.getElementById("nay-idle");
+                var nayActive = document.getElementById("nay-active");
+                var yeaIdle = document.getElementById("yea-idle");
+                var yeaActive = document.getElementById("yea-active");
+                if (target == "nay") {
+                    nayIdle.classList.add("deactivated");
+                    nayActive.classList.remove("deactivated");
+                    yeaIdle.classList.remove("deactivated");
+                    yeaActive.classList.add("deactivated");
+                    window.app.sendMessageToScreen({"Vote": "Nah"});
+                }
+                if (target == "yea") {
+                    yeaIdle.classList.add("deactivated");
+                    yeaActive.classList.remove("deactivated");
+                    nayIdle.classList.remove("deactivated");
+                    nayActive.classList.add("deactivated");
+                    window.app.sendMessageToScreen({"Vote": "Yay"});
+                }
+            }
         </script>
     </head>
     <body onload="window.app = new App()">
@@ -532,6 +541,20 @@
             <div class="controller-content bg-rest">
                 Good, let's take some rest.
                 <button class="button submit" ontouchend="window.activate('prep')">Return</button>
+            </div>
+        </div>
+        <!-- VOTE -->
+        <div id="screen-vote" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <img src="./imgs/vote/vote-description.png" class="full-width">
+                <img src="./imgs/vote/yea-idle.png" id="yea-idle" class="vote" ontouchstart="window.vote('yea')">
+                <img src="./imgs/vote/yea-active.png" id="yea-active" class="vote deactivated">
+                <img src="./imgs/vote/nay-idle.png" id="nay-idle" class="vote" ontouchstart="window.vote('nay')">
+                <img src="./imgs/vote/nay-active.png" id="nay-active" class="vote deactivated">
+                <img src="./imgs/reps/rep0.png" class="full-width rep-0 deactivated">
+                <img src="./imgs/reps/rep1.png" class="full-width rep-1 deactivated">
+                <img src="./imgs/reps/rep2.png" class="full-width rep-2 deactivated">
             </div>
         </div>
         <!-- TEMPLATE -->
