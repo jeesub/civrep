@@ -18,6 +18,8 @@ public class RepManager : MonoBehaviour
     // Map repIdx to player's name
     public Dictionary<int, string> repToName = new Dictionary<int, string>();
 
+    private Dictionary<int, List<string>> repActions = new Dictionary<int, List<string>>();
+
     private List<int> readyReps = new List<int>();
 
     private void Awake()
@@ -31,6 +33,15 @@ public class RepManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void Start()
+    {
+        // Fill in the repActions
+        for (int i = 0; i < maxPlayer; i++)
+        {
+            repActions.Add(i, new List<string>());
+        }
     }
 
     public int getRepIdx(int deviceID)
@@ -115,16 +126,22 @@ public class RepManager : MonoBehaviour
     {
         // Can extract this line out as a function
         int repIdx = getRepIdx(deviceID);
-        JToken resultJson = RepInfos.instance.resultJsons[repIdx];        
 
-        int political = resultJson[action]["political"].ToObject<int>();
-        int social = resultJson[action]["social"].ToObject<int>();
-        int typeIdx = resultJson[action]["type"].ToObject<int>();
+        if (!repActions[repIdx].Contains(action))
+        {
+            JToken resultJson = RepInfos.instance.resultJsons[repIdx];
 
-        Debug.Log("Political point is: " + political);
-        Debug.Log("Social point is: " + social);
-        Debug.Log("type value is " + typeIdx);
+            int political = resultJson[action]["political"].ToObject<int>();
+            int social = resultJson[action]["social"].ToObject<int>();
+            int typeIdx = resultJson[action]["type"].ToObject<int>();
 
-        PrepRoomStatus.instance.UpdateRepStatus(repIdx, political, social, typeIdx);
+            Debug.Log("Political point is: " + political);
+            Debug.Log("Social point is: " + social);
+            Debug.Log("type value is " + typeIdx);
+
+            PrepRoomStatus.instance.UpdateRepStatus(repIdx, political, social, typeIdx);
+
+            repActions[repIdx].Add(action);
+        }        
     }
 }

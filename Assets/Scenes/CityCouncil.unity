@@ -1006,19 +1006,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   host: {fileID: 1539563859}
   sequence:
-  - eventDuration: 20
+  - eventDuration: 120
     curEventType: 0
     nextEventType: 1
     controllerPage: 0
-  - eventDuration: 5
+  - eventDuration: 240
     curEventType: 1
     nextEventType: 0
     controllerPage: 1
-  - eventDuration: 20
+  - eventDuration: 120
     curEventType: 0
     nextEventType: 1
     controllerPage: 0
-  - eventDuration: 5
+  - eventDuration: 240
     curEventType: 1
     nextEventType: 2
     controllerPage: 1
@@ -2205,10 +2205,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hearingPerson: {fileID: 119150459}
   votePanel: {fileID: 7155680450881873144, guid: c7a4e928b8c9a9a499e7ab119949e638, type: 3}
-  repPhotos:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  repPhotos: []
+  yeaReps: 
+  nayReps: 
+  yea: {fileID: 0}
+  nay: {fileID: 0}
 --- !u!1001 &1597713619
 PrefabInstance:
   m_ObjectHideFlags: 0

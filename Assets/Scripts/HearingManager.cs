@@ -22,7 +22,7 @@ public class HearingManager : MonoBehaviour
         StopAllCoroutines();
 
         // Reset the speechtime
-        speechTime = duration - 2 * walkTime;
+        speechTime = duration - walkTime;
 
         // Go to podium
         transform.position = positions[0].position;
@@ -63,19 +63,31 @@ public class HearingManager : MonoBehaviour
         {
             person.transform.GetChild(i).gameObject.SetActive(true);
         }
-        yield return new WaitForSeconds(speechTime-2);
+    }
+
+    public void FreeDiscussion(int duration)
+    {
+        speechTime = duration - walkTime;
+        SpeechLight(false);
+        StartCoroutine("LeaveSpeech");
+    }
+
+    IEnumerator LeaveSpeech()
+    {
+        yield return new WaitForSeconds(speechTime - 1);
 
         // Walking down the podium & switch light off
         for (int i = 0; i < person.transform.childCount; i++)
         {
             person.transform.GetChild(i).gameObject.SetActive(false);
         }
-        GetComponent<NavMeshAgent>().SetDestination(positions[2].position);
+
         yield return new WaitForSeconds(1);
-        SpeechLight(false);
+
+        GetComponent<NavMeshAgent>().SetDestination(positions[2].position);
 
         // Deactivate hearing person after walk time
-        yield return new WaitForSeconds(walkTime);        
+        yield return new WaitForSeconds(walkTime);
         person.SetActive(false);
         hearingNum++;
     }
