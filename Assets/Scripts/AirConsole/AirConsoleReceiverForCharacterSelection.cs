@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
 {
+    public int sessionTime = 10;
+
     private int maxPlayer;
 
     public void TestOnMessage(int fromDeviceID, JToken data)
@@ -27,9 +29,9 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
 
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Prep & Research");
-        GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(120);
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Prep & Research");
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(sessionTime);
     }
 
     private void NoticeController()

@@ -48,7 +48,7 @@ public class AirConsoleReceiverForHearing : MonoBehaviour
 
     void Start()
     {
-        forecast = GameObject.Find("Canvas").GetComponent<SetForecast>();
+        forecast = GameObject.Find("Canvas-City").GetComponent<SetForecast>();
         forecast.hearing = this;
 
         NextEventInSequence();

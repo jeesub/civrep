@@ -88,7 +88,7 @@ public class CityCouncilHost : MonoBehaviour
     private void HostVote()
     {
         // Instantiate the voting panel
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("Canvas-City");
 
         GameObject panel = Instantiate(votePanel, canvas.transform.position, Quaternion.identity);
         panel.transform.parent = canvas.transform;
@@ -108,7 +108,15 @@ public class CityCouncilHost : MonoBehaviour
 
     private void HostResult()
     {
-
+        bool pass = yeaReps.Count > nayReps.Count;
+        if (pass)
+        {
+            // Show the pass result
+        }
+        else
+        {
+            // Show the no-pass result
+        }
     }
 
     public void HostEvent(EventType eventType, int duration)
