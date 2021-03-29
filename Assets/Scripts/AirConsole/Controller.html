@@ -302,7 +302,7 @@
                     name = newName;
                     var element =  document.getElementById('username');
                     element.innerHTML = name;
-                    window.app.sendMessageToScreen({'Connected': name});
+                    window.app.sendMessageToScreen({'topic': 'name', 'message': name});
                     activate("idle");
                 }
             }
@@ -347,7 +347,7 @@
 
             function submitCharacter() {
                 if (selectedCharacter != -1) {
-                    window.app.sendMessageToScreen({'topic': 'character', "message": selectedCharacter});
+                    window.app.sendMessageToScreen({'topic': 'character', 'message': selectedCharacter});
                 }
             }
 
@@ -404,14 +404,14 @@
                     nayActive.classList.remove("deactivated");
                     yeaIdle.classList.remove("deactivated");
                     yeaActive.classList.add("deactivated");
-                    window.app.sendMessageToScreen({"Vote": "Nah"});
+                    window.app.sendMessageToScreen({"topic": "vote", "message": "Nah"});
                 }
                 if (target == "yea") {
                     yeaIdle.classList.add("deactivated");
                     yeaActive.classList.remove("deactivated");
                     nayIdle.classList.remove("deactivated");
                     nayActive.classList.add("deactivated");
-                    window.app.sendMessageToScreen({"Vote": "Yay"});
+                    window.app.sendMessageToScreen({"topic": "vote", "message": "Yay"});
                 }
             }
         </script>
