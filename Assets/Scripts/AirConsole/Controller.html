@@ -5,6 +5,7 @@
         <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
         <style type=text/css>
             @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
             body {
                 -ms-user-select: none;
                 -moz-user-select: none;
@@ -105,6 +106,16 @@
                 background-color: #62462B;
             }
 
+            .bg-mint {
+                color: #FFF;
+                background-color: #64C4C3;
+            }
+
+            .bg-white {
+                color: #000;
+                background-color: #FFF;
+            }
+
             .selectable {
                 border: 1vw solid #D9D9D9;
                 border-radius: 2vw;
@@ -142,6 +153,7 @@
                 width: 90vw;
                 height: 80vh;
                 padding: 5vh 5vw;
+                text-align: center;
             }
 
             .deactivated {
@@ -161,29 +173,52 @@
                 width: 100%;
             }
 
+            .title-image {
+                width: 25vw;
+                margin-top: 4vh;
+                margin-bottom: 5vh;
+            }
+
+            /** LETTER **/
+            .long-letter-image {
+                height: 65vh;
+            }
+
+            .short-letter-image {
+                height: 60vh;
+            }
+
+            .horizontal-button-left {
+                position: absolute;
+                width: 38vw;
+                top: 88vh;
+                left: 10vw;
+            }
+
+            .horizontal-button-right {
+                position: absolute;
+                width: 38vw;
+                top: 88vh;
+                left: 52vw;
+            }
+
+            .vertical-button-up {
+                font-family: 'Special Elite', cursive;
+                position: absolute;
+                width: 80vw;
+                top: 78vh;
+                left: 10vw;
+            }
+
+            .vertical-button-down {
+                font-family: 'Special Elite', cursive;
+                position: absolute;
+                width: 80vw;
+                top: 88vh;
+                left: 10vw;
+            }
+
             /** Custom **/
-            .letter-button {
-                background-position: center;
-                background-size: contain;
-                background-repeat: no-repeat;
-                text-align: left;
-                height: 19vh;
-                background-color: #B2B2B2;
-            }
-
-            .letter-button-0 {
-                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0.png");
-            }
-
-            .letter-button-1 {
-                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-1.png");
-            }
-
-            .mail-from {
-                margin-bottom: 8vh;
-                font-size: 3vw;
-            }
-
             .img-button {
                 width: 100%;
                 margin-bottom: 2vh;
@@ -224,7 +259,7 @@
             }
 
             App.prototype.sendMessageToScreen = function(msg) {
-                console.log({"action": msg});
+                console.log(msg);
                 this.airconsole.message(AirConsole.SCREEN, msg);
             }
 
@@ -267,7 +302,7 @@
                     name = newName;
                     var element =  document.getElementById('username');
                     element.innerHTML = name;
-                    window.app.sendMessageToScreen({'Connected': name});
+                    window.app.sendMessageToScreen({'topic': 'name', 'message': name});
                     activate("idle");
                 }
             }
@@ -288,13 +323,13 @@
                 var destinationArr = ["letter", "computer", "map", "rest"];
                 var destinationSet = new Set(destinationArr);
                 if (destinationSet.has(screen)) {
-                    window.app.sendMessageToScreen({'Destination': screen});
+                    window.app.sendMessageToScreen({'topic': 'destination', 'message': screen});
                 }
 
-                var arr = ["letter-0", "letter-1", "map-0", "map-1", "computer-0", "computer-1"];
+                var arr = ["map-0", "map-1", "computer-0", "computer-1"];
                 var set = new Set(arr);
                 if (set.has(screen)) {
-                    window.app.sendMessageToScreen({'Action': screen});
+                    window.app.sendMessageToScreen({'topic': 'action', 'message': screen});
                 }
             }
 
@@ -312,7 +347,7 @@
 
             function submitCharacter() {
                 if (selectedCharacter != -1) {
-                    window.app.sendMessageToScreen({"Character": selectedCharacter});
+                    window.app.sendMessageToScreen({'topic': 'character', 'message': selectedCharacter});
                 }
             }
 
@@ -326,15 +361,6 @@
             }
 
             function setInfo(num) {
-                var letterButton0 = document.getElementById("letter-button-" + num + "-0");
-                letterButton0.classList.remove("deactivated");
-                var letterButton1 = document.getElementById("letter-button-" + num + "-1");
-                letterButton1.classList.remove("deactivated");
-                var letter0 = document.getElementById("letter-" + num + "-0");
-                letter0.classList.remove("deactivated");
-                var letter1 = document.getElementById("letter-" + num + "-1");
-                letter1.classList.remove("deactivated");
-
                 var mapButton0 = document.getElementById("map-button-" + num + "-0");
                 mapButton0.classList.remove("deactivated");
                 var mapButton1 = document.getElementById("map-button-" + num + "-1");
@@ -351,6 +377,23 @@
                 }
             }
 
+            function sendLetter(stance) {
+                window.app.sendMessageToScreen({'topic': 'letter', 'message': stance});
+                activate('prep');
+                showAlert("mail sent successfully");
+                deactivateLetterButtons();
+            }
+
+            function deactivateLetterButtons() {
+                var letterButtons = document.getElementsByClassName("letter-0-button");
+                var i = 0;
+                for (i = 0; i < letterButtons.length; i++) {
+                    letterButtons[i].classList.add("deactivated");
+                }
+                document.getElementById("letter-0-description").innerHTML = "You have replied to this mail";
+                document.getElementById("letter-0-return-button").classList.remove("deactivated");
+            }
+
             function vote(target) {
                 var nayIdle = document.getElementById("nay-idle");
                 var nayActive = document.getElementById("nay-active");
@@ -361,14 +404,14 @@
                     nayActive.classList.remove("deactivated");
                     yeaIdle.classList.remove("deactivated");
                     yeaActive.classList.add("deactivated");
-                    window.app.sendMessageToScreen({"Vote": "Nah"});
+                    window.app.sendMessageToScreen({"topic": "vote", "message": "Nah"});
                 }
                 if (target == "yea") {
                     yeaIdle.classList.add("deactivated");
                     yeaActive.classList.remove("deactivated");
                     nayIdle.classList.remove("deactivated");
                     nayActive.classList.add("deactivated");
-                    window.app.sendMessageToScreen({"Vote": "Yay"});
+                    window.app.sendMessageToScreen({"topic": "vote", "message": "Yay"});
                 }
             }
         </script>
@@ -382,6 +425,14 @@
             <div class="controller-content">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/CivRep_logo 1.png" width="100%">
                 Please look up at the main screen.
+            </div>
+        </div>
+        <!-- INTRO -->
+        <div id="screen-intro" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <!-- PLACEHOLDER; button A, button B -->
+                <button class="button submit" ontouchstart="window.submitCharacter()">Confirm</button>
             </div>
         </div>
         <!-- CHARACTER SELECTION -->
@@ -408,6 +459,16 @@
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/name-description.png" class="full-width">
                     <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Type your name"><br>
                     <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
+                </div>
+            </div>
+        </div>
+        <!-- CHARACTER APPEARANCE -->
+        <div id="screen-appearance" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <div class="intro-description">
+                    <!-- PLACEHOLDER; three buttons -->
+                    <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">I'm Ready!</button>
                 </div>
             </div>
         </div>
@@ -493,20 +554,15 @@
                 <button class="button submit" ontouchstart="window.activate('map')">Return</button>
             </div>
         </div>
+
         <!-- LETTER -->
         <div id="screen-letter" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-description.png" class="full-width">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-title.png" class="title-image">
                 <div id="letter-button-0" ontouchstart="window.activate('letter-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0-0.png" id="letter-button-0-0" class="img-button deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-1-0.png" id="letter-button-1-0" class="img-button deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-2-0.png" id="letter-button-2-0" class="img-button deactivated">
-                </div>
-                <div id="letter-button-1" ontouchstart="window.activate('letter-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0-1.png" id="letter-button-0-1" class="img-button deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-1-1.png" id="letter-button-1-1" class="img-button deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-2-1.png" id="letter-button-2-1" class="img-button deactivated">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0.png" id="letter-button-0" class="img-button">
                 </div>
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
@@ -515,26 +571,157 @@
         <div id="screen-letter-0" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
-                <div id="letter-0">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-0-0.png" id="letter-0-0" class="full-width deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-1-0.png" id="letter-1-0" class="full-width deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-2-0.png" id="letter-2-0" class="full-width deactivated">
-                </div>
-                <button class="button submit" ontouchstart="window.activate('letter')">Return</button>
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-0.png" id="letter-0" class="long-letter-image">
+                <div id="letter-0-description" class="letter-description">What will you do with the letter?</div>
+                <button class="letter-0-button button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Ignore</button>
+                <button class="letter-0-button button horizontal-button-right bg-mint" ontouchstart="window.activate('reply-0')">Reply</button>
+                <button id="letter-0-return-button" class="button submit deactivated" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
-        <!-- LETTER 1 -->
-        <div id="screen-letter-1" class="controller-screen deactivated">
+        <!-- REPLY 0 -->
+        <div id="screen-reply-0" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
-                <div id="letter-1">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-0-1.png" id="letter-0-1" class="full-width deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-1-1.png" id="letter-1-1" class="full-width deactivated">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-2-1.png" id="letter-2-1" class="full-width deactivated">
-                </div>
-                <button class="button submit" ontouchstart="window.activate('letter')">Return</button>
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0.png" id="reply-0" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-0')">agree with</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-1')">understand</button>
             </div>
         </div>
+        <!-- REPLY 0-0 -->
+        <div id="screen-reply-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0.png" id="reply-0-0" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-0-0')">also believe</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-0-1')">am still unsure</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1 -->
+        <div id="screen-reply-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1.png" id="reply-0-1" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-1-0')">financial</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-1-1')">health</button>
+            </div>
+        </div>
+        <!-- REPLY 0-0-0 -->
+        <div id="screen-reply-0-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0.png" id="reply-0-0-0" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-0-0-0')">oppose</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-0-0-1')">deliberate on</button>
+            </div>
+        </div>
+        <!-- REPLY 0-0-1 -->
+        <div id="screen-reply-0-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1.png" id="reply-0-0-1" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-0-1-0')">oppose</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-0-1-1')">deliberate on</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1-0 -->
+        <div id="screen-reply-0-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0.png" id="reply-0-1-0" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-1-0-0')">am unsure</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-1-0-1')">agree</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1-1 -->
+        <div id="screen-reply-0-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1.png" id="reply-0-1-1" class="short-letter-image">
+                <button class="button vertical-button-up bg-white" ontouchstart="window.activate('reply-0-1-1-0')">am unsure</button>
+                <button class="button vertical-button-down bg-white" ontouchstart="window.activate('reply-0-1-1-1')">agree</button>
+            </div>
+        </div>
+        <!-- REPLY 0-0-0-0 -->
+        <div id="screen-reply-0-0-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0-0.png" id="reply-0-0-0-0" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-0-0-1 -->
+        <div id="screen-reply-0-0-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0-1.png" id="reply-0-0-0-1" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-0-1-0 -->
+        <div id="screen-reply-0-0-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1-0.png" id="reply-0-0-1-0" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-0-1-1 -->
+        <div id="screen-reply-0-0-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1-1.png" id="reply-0-0-1-1" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1-0-0 -->
+        <div id="screen-reply-0-1-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0-0.png" id="reply-0-1-0-0" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1-0-1 -->
+        <div id="screen-reply-0-1-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0-1.png" id="reply-0-1-0-1" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1-1-0 -->
+        <div id="screen-reply-0-1-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1-0.png" id="reply-0-1-1-0" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 0-1-1-1 -->
+        <div id="screen-reply-0-1-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1-1.png" id="reply-0-1-1-1" class="long-letter-image">
+                <div class="letter-description">What will you do with the letter?</div>
+                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        
         <!-- REST -->
         <div id="screen-rest" class="controller-screen deactivated">
             <div class="controller-header"></div>
