@@ -729,6 +729,64 @@
             </div>
         </div>
 
+        <!-- PRISON 0 -->
+        <div id="screen-prison-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-description-0.png" class="seventy">
+                <div class="priron-0-description">What would you like to do?</div>
+                <button id="prison-0-button-0" class="button horizontal-button-left bg-mint" ontouchstart="window.activate('map')">
+                    Maybe not now
+                </button>
+                <button id="prison-0-button-1" class="button horizontal-button-right bg-mint" ontouchstart="window.activate('prison-1')">
+                    Tour the Facility!
+                </button>
+            </div>
+        </div>
+        <!-- PRISON 1 -->
+        <div id="screen-prison-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-description-1.png" class="full-width">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-button-0.png" class="full-width" ontouchstart="window.visitPrison('prison-2-0')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-button-1.png" class="full-width" ontouchstart="window.activate('prison-2-1')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-button-2.png" class="full-width" ontouchstart="window.activate('prison-2-2')">
+                <button id="prison-1-return" class="button submit" ontouchstart="window.activate('map')">
+                    Return to Menu
+                </button>
+            </div>
+        </div>
+        <!-- PRISON 2-0 -->
+        <div id="screen-prison-2-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-description-2-0.png" class="full-width">
+                <button class="button submit" ontouchstart="window.activate('prison-1')">
+                    Return
+                </button>
+            </div>
+        </div>
+        <!-- PRISON 2-1 -->
+        <div id="screen-prison-2-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-description-2-1.png" class="full-width">
+                <button class="button submit" ontouchstart="window.activate('prison-1')">
+                    Return
+                </button>
+            </div>
+        </div>
+        <!-- PRISON 2-2 -->
+        <div id="screen-prison-2-2" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-description-2-2.png" class="full-width">
+                <button class="button submit" ontouchstart="window.activate('prison-1')">
+                    Return
+                </button>
+            </div>
+        </div>
+
         <!-- LETTER -->
         <div id="screen-letter" class="controller-screen deactivated">
             <div class="controller-header"></div>
