@@ -13,6 +13,13 @@ public class CityCouncilHost : MonoBehaviour
     public List<int> nayReps = new List<int>();
     public GameObject yea, nay;
 
+    private AmendmentHost amendmentHost;
+
+    void Start()
+    {
+        amendmentHost = GetComponent<AmendmentHost>();
+    }
+
     private void HostHearing(int duration)
     {
         hearingPerson.GetComponent<HearingManager>().StartHearing(duration);
@@ -109,14 +116,18 @@ public class CityCouncilHost : MonoBehaviour
     private void HostResult()
     {
         bool pass = yeaReps.Count > nayReps.Count;
-        if (pass)
+        Debug.Log("The council's decision is: " + pass);
+        bool result = amendmentHost.ProcessVoteResult(pass);
+        if (!result)
         {
-            // Show the pass result
+            ShowResult();
         }
-        else
-        {
-            // Show the no-pass result
-        }
+    }
+
+    private void ShowResult()
+    {
+        // After all amendments have been voted on, 
+        // reflect the result on PC and city metric
     }
 
     public void HostEvent(EventType eventType, int duration)

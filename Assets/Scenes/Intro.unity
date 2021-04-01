@@ -903,6 +903,16 @@ PrefabInstance:
       propertyPath: choices
       value: 
       objectReference: {fileID: 5457999}
+    - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: texts.Array.data[0]
+      value: "Hello, dear Representatives, I\u2019m your perfectly normal assistant,
+        <b><color=blue><size=120%>Hamilton!</size></color></b>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: texts.Array.data[2]
+      value: Quick update, a new bill proposing <b><color=red><size=110%>legalization
+        of marijuana</size></color></b> was introduced to the council.
+      objectReference: {fileID: 0}
     - target: {fileID: 429867808725991414, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: m_Name
       value: Hamilton
@@ -1003,6 +1013,18 @@ PrefabInstance:
     - target: {fileID: 537218197098099303, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_Name
       value: Hamilton UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197275445976, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_text
+      value: Abusoltely <link>
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197275445976, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728557, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_text
+      value: Abusoltely
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e88617a82ade83f4aa72f309c228204d, type: 3}

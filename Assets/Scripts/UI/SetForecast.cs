@@ -8,6 +8,7 @@ public class SetForecast : MonoBehaviour
 {
     public TextMeshProUGUI sceneName;
     public TextMeshProUGUI timeRemain;
+    public TextMeshProUGUI staticText;
 
     public AirConsoleReceiverForHearing hearing;
 
@@ -58,6 +59,7 @@ public class SetForecast : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 3)
         {
             // Load next Scene if it's not the City Council scene
+            Debug.Log("going to next scene");
             StartCoroutine(GameManager.Instance.LoadNextScene());
         }
         else
@@ -78,6 +80,20 @@ public class SetForecast : MonoBehaviour
 
     public void SetRemainTime(int seconds)
     {
-        remaintime = seconds;
+        if (seconds > 0) 
+        {
+            remaintime = seconds;
+            ShowRemainTime(true);
+        }
+        else
+        {
+            ShowRemainTime(false);
+        }
+    }
+
+    private void ShowRemainTime(bool state)
+    {
+        staticText.gameObject.SetActive(state);
+        timeRemain.gameObject.SetActive(state);
     }
 }

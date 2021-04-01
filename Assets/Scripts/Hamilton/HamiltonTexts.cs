@@ -9,6 +9,7 @@ public class HamiltonTexts : MonoBehaviour
 
     public GameObject hUI;
     public GameObject panel;
+    public GameObject hamiltonCapture;
     public TextMeshProUGUI hText;
     public GameObject choices;
 
@@ -53,6 +54,7 @@ public class HamiltonTexts : MonoBehaviour
         if (texts.Count > 0 && texts[0].Equals("End"))
         {
             texts.RemoveAt(0);
+            Debug.Log("Going to next scene");
             StartCoroutine(GameManager.Instance.LoadNextScene());
         }
     }
@@ -66,6 +68,10 @@ public class HamiltonTexts : MonoBehaviour
             if (panel != null)
             {
                 panel.SetActive(false);
+            }
+            if (hamiltonCapture != null)
+            {
+                hamiltonCapture.SetActive(false);
             }
         }
     }
@@ -108,7 +114,7 @@ public class HamiltonTexts : MonoBehaviour
                 hText.maxVisibleCharacters = num;
                 //hSound.PlayRandomVoice();
 
-                yield return new WaitForSecondsRealtime(0.1f);
+                yield return new WaitForSecondsRealtime(0.07f);
             }
             
         }

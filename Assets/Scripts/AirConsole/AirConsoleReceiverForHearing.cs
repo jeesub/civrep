@@ -101,20 +101,46 @@ public class AirConsoleReceiverForHearing : MonoBehaviour
         }
     }
 
+    private void ProcessVote(int fromDeviceID, JToken data)
+    {
+        var vote = data["message"].ToString();
+        int repIdx = RepManager.instance.getRepIdx(fromDeviceID);
+        if (vote.Equals("Yay"))
+        {
+            host.VoteYea(repIdx);
+        }
+        else if (vote.Equals("Nah"))
+        {
+            host.VoteNay(repIdx);
+        }
+    }
+
     private void OnMessage(int fromDeviceID, JToken data)
     {
-        if (data["Vote"] != null)
+        Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
+        var topic = data["topic"].ToString();
+        Debug.Log("topic is: " + topic);
+        switch (topic)
         {
-            int repIdx = RepManager.instance.getRepIdx(fromDeviceID);
-            if (data["Vote"].ToString() == "Yay")
-            {
-                host.VoteYea(repIdx);
-            }
-            else if (data["Vote"].ToString() == "Nah")
-            {
-                host.VoteNay(repIdx);
-            }
+            case "vote":
+                ProcessVote(fromDeviceID, data);
+                break;
+            default:
+                break;
         }
+
+        //if (data["Vote"] != null)
+        //{
+        //    int repIdx = RepManager.instance.getRepIdx(fromDeviceID);
+        //    if (data["Vote"].ToString() == "Yay")
+        //    {
+        //        host.VoteYea(repIdx);
+        //    }
+        //    else if (data["Vote"].ToString() == "Nah")
+        //    {
+        //        host.VoteNay(repIdx);
+        //    }
+        //}
     }
 
     private void OnDisconnect(int device_id)

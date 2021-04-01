@@ -2170,6 +2170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539563858}
   - component: {fileID: 1539563859}
+  - component: {fileID: 1539563860}
   m_Layer: 0
   m_Name: CityCouncilHost
   m_TagString: Untagged
@@ -2210,6 +2211,112 @@ MonoBehaviour:
   nayReps: 
   yea: {fileID: 0}
   nay: {fileID: 0}
+--- !u!114 &1539563860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539563857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4888714aa281345aa79193ad384a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amendments:
+  - name: medicinal
+    passNext: 1
+    failNext: 1
+    passImpact:
+      letterYes: 0
+      letterNo: 0
+      mapYes: 0
+      mapNo: 0
+      cityImpact:
+        happiness: 1
+        money: 1
+        safety: 0
+        health: 1
+    failImpact:
+      letterYes: 0
+      letterNo: 1
+      mapYes: 1
+      mapNo: 1
+      cityImpact:
+        happiness: -1
+        money: 0
+        safety: 0
+        health: 0
+  - name: decriminalize
+    passNext: 2
+    failNext: -1
+    passImpact:
+      letterYes: 0
+      letterNo: -1
+      mapYes: 0
+      mapNo: -2
+      cityImpact:
+        happiness: 1
+        money: 0
+        safety: 0
+        health: 0
+    failImpact:
+      letterYes: 1
+      letterNo: 2
+      mapYes: 1
+      mapNo: 3
+      cityImpact:
+        happiness: -1
+        money: 0
+        safety: 0
+        health: 0
+  - name: legalize
+    passNext: 3
+    failNext: -1
+    passImpact:
+      letterYes: 0
+      letterNo: -1
+      mapYes: 0
+      mapNo: -2
+      cityImpact:
+        happiness: 2
+        money: 2
+        safety: -1
+        health: -1
+    failImpact:
+      letterYes: 0
+      letterNo: 2
+      mapYes: 0
+      mapNo: 2
+      cityImpact:
+        happiness: -1
+        money: 0
+        safety: 0
+        health: 0
+  - name: license system
+    passNext: -1
+    failNext: -1
+    passImpact:
+      letterYes: 1
+      letterNo: 1
+      mapYes: 1
+      mapNo: 1
+      cityImpact:
+        happiness: 1
+        money: 1
+        safety: 1
+        health: -1
+    failImpact:
+      letterYes: 0
+      letterNo: 0
+      mapYes: 0
+      mapNo: 0
+      cityImpact:
+        happiness: 0
+        money: 0
+        safety: -1
+        health: -1
+  cityMetrics: 00000000000000000000000000000000
 --- !u!1001 &1597713619
 PrefabInstance:
   m_ObjectHideFlags: 0

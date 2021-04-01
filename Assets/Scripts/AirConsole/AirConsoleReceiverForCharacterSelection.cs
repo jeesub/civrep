@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
 {
-    public int sessionTime = 10;
+    public int sessionTime = 500;
+
+    public GameObject cityCanvas;
+    public GameObject hamilton;
 
     private int maxPlayer;
 
@@ -26,12 +30,15 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
 
     private void Start()
     {
+        //cityCanvas.SetActive(false);
+        cityCanvas.GetComponent<Canvas>().enabled = false;
+
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
 
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Prep & Research");
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(sessionTime);
+        cityCanvas.GetComponent<SetForecast>().SetSceneName("Prep & Research");
+        cityCanvas.GetComponent<SetForecast>().ResetRemainTime();
+        cityCanvas.GetComponent<SetForecast>().SetRemainTime(sessionTime);
     }
 
     private void NoticeController()
@@ -71,7 +78,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
 
     private void SelectCharacter(int fromDeviceID, JToken data)
     {
-        int repIdx = data["Character"].ToObject<int>();
+        int repIdx = data["message"].ToObject<int>();
         Debug.Log("repIdx: " + repIdx);
         if (RepManager.instance.SelectCharacter(fromDeviceID, repIdx))
         {
@@ -111,30 +118,50 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         if (RepManager.instance.CheckAllPlayerOnCharacterSelection())
         {
             //SceneManager.LoadScene(1);
-            StartCoroutine(GameManager.Instance.LoadNextScene());
+            //StartCoroutine(GameManager.Instance.LoadNextScene());
+            //cityCanvas.SetActive(true);
+            cityCanvas.GetComponent<Canvas>().enabled = true;
+            hamilton.GetComponent<PlayableDirector>().Play();
         }
     }
 
     private void SetRepName(int fromDeviceID, JToken data)
     {
-        string name = data["Connected"].ToString();
+        string name = data["message"].ToString();
         RepManager.instance.SetRepName(fromDeviceID, name);
     }
 
     private void OnMessage(int fromDeviceID, JToken data)
     {
-
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
-
-        if (data["Character"]!=null)
+        var topic = data["topic"].ToString();
+        Debug.Log("topic is: " + topic);
+        switch(topic)
         {
-            SelectCharacter(fromDeviceID, data);
-        }        
-        else if (data["Connected"]!=null)
-        {
-            SetRepName(fromDeviceID, data);
-            CheckAllPlayer();
+            case "name":
+                SetRepName(fromDeviceID, data);
+                CheckAllPlayer();
+                break;
+            case "character":
+                SelectCharacter(fromDeviceID, data);
+                break;
+            case "appearance":                
+                break;
+            case "hamilton":
+                break;
+            default:
+                break;
         }
+
+        //if (data["Character"]!=null)
+        //{
+        //    SelectCharacter(fromDeviceID, data);
+        //}        
+        //else if (data["Connected"]!=null)
+        //{
+        //    SetRepName(fromDeviceID, data);
+        //    CheckAllPlayer();
+        //}
     }
 
     private void OnDisconnect(int device_id)

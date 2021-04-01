@@ -27,9 +27,9 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
 
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Public Hearing");
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Research on the bill");
         GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(300);
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(630);
     }
 
     private void NoticeController()
@@ -62,7 +62,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 
     private void GoToDestination(int fromDeviceID, JToken data)
     {
-        string dest = data["Destination"].ToString();
+        string dest = data["message"].ToString();
         Debug.Log("Destination is: " + dest);
         if (dest.Equals("main"))
         {
@@ -76,7 +76,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 
     private void TakeAction(int fromDeviceID, JToken data)
     {
-        string action = data["Action"].ToString();
+        string action = data["message"].ToString();
         Debug.Log("Old Action is: " + action);
         action = action.Replace("-", "");
         Debug.Log("Action is: " + action);
@@ -91,18 +91,60 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         }
     }
 
+    private void RecordLetter(int fromDeviceID, JToken data)
+    {
+        string decisionStr = data["message"].ToString();
+        Debug.Log("Decision on letter is: " + decisionStr);
+        bool decision = (decisionStr.Equals("yes"));
+        Debug.Log("Convert to bool is: " + decision);
+        RepManager.instance.RecordRepLetter(fromDeviceID, decision);
+    }
+
+    private void RecordMap(int fromDeviceID, JToken data)
+    {
+        string decisionStr = data["message"].ToString();
+        Debug.Log("Decision on map is: " + decisionStr);
+        bool decision = (decisionStr.Equals("yes"));
+        Debug.Log("Convert to bool is: " + decision);
+        RepManager.instance.RecordRepMap(fromDeviceID, decision);
+    }
+
     private void OnMessage(int fromDeviceID, JToken data)
     {
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
-        if (data["Destination"]!=null)
+        var topic = data["topic"].ToString();
+        Debug.Log("topic is: " + topic);
+        switch (topic)
         {
-            GoToDestination(fromDeviceID, data);
-            CheckAllPlayer();
+            case "destination":
+                GoToDestination(fromDeviceID, data);
+                CheckAllPlayer();
+                break;
+            case "action":
+                //TakeAction(fromDeviceID, data);
+                break;
+            case "letter":
+                RecordLetter(fromDeviceID, data);
+                break;
+            case "map":
+                RecordMap(fromDeviceID, data);
+                break;
+            case "hamilton":
+                break;
+            default:
+                break;
         }
-        else if (data["Action"] != null)
-        {
-            TakeAction(fromDeviceID, data);
-        }
+
+
+        //if (data["Destination"]!=null)
+        //{
+        //    GoToDestination(fromDeviceID, data);
+        //    CheckAllPlayer();
+        //}
+        //else if (data["Action"] != null)
+        //{
+        //    TakeAction(fromDeviceID, data);
+        //}
     }
 
 

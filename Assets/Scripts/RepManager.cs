@@ -122,6 +122,18 @@ public class RepManager : MonoBehaviour
         guide.GuidePrep(repIdx, dest);
     }
 
+    public void RecordRepLetter(int deviceID, bool decision)
+    {
+        int repIdx = getRepIdx(deviceID);
+        PrepRoomStatus.instance.RecordRepLetterDecision(repIdx, decision);
+    }
+
+    public void RecordRepMap(int deviceID, bool decision)
+    {
+        int repIdx = getRepIdx(deviceID);
+        PrepRoomStatus.instance.RecordRepMapDecision(repIdx, decision);
+    }
+
     public void TakeAction(int deviceID, string action)
     {
         // Can extract this line out as a function
@@ -139,7 +151,7 @@ public class RepManager : MonoBehaviour
             Debug.Log("Social point is: " + social);
             Debug.Log("type value is " + typeIdx);
 
-            PrepRoomStatus.instance.UpdateRepStatus(repIdx, political, social, typeIdx);
+            // PrepRoomStatus.instance.UpdateRepStatus(repIdx, political, social, typeIdx);
 
             repActions[repIdx].Add(action);
         }        
