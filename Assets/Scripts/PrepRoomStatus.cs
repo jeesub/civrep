@@ -203,6 +203,24 @@ public class PrepRoomStatus : MonoBehaviour
         UpdateCityImpact(voteImpact.cityImpact);        
     }
 
+    public void ShowOverallImpact()
+    {
+        cityMetrics[0].ShowOverallChange(cityImpact.happiness);
+        cityMetrics[1].ShowOverallChange(cityImpact.money);
+        cityMetrics[2].ShowOverallChange(cityImpact.health);
+        cityMetrics[3].ShowOverallChange(cityImpact.safety);
+
+        ResetCityImpact();
+    }
+
+    public void HideOverallImpact()
+    {
+        cityMetrics[0].HideOverallChange();
+        cityMetrics[1].HideOverallChange();
+        cityMetrics[2].HideOverallChange();
+        cityMetrics[3].HideOverallChange();
+    }
+
     //public void UpdateRepStatus(int repIdx, int political, int social, int typeIdx)
     //{
     //    if (repIdx < repStatusItems.Count)

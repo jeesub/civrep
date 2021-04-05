@@ -12,6 +12,9 @@ public class CoinPlacer : MonoBehaviour
     public GameObject nextCoin;
     public GameObject coinPrefab;
 
+    //public bool decrease;
+    //public bool increase;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,20 @@ public class CoinPlacer : MonoBehaviour
         {
             AddCoin();
         }
+    }
+
+    private void Update()
+    {
+        //if (decrease)
+        //{
+        //    decrease = false;
+        //    UpdateCoinNum(-1);
+        //}
+        //else if (increase)
+        //{
+        //    increase = false;
+        //    UpdateCoinNum(1);
+        //}
     }
 
     private void AddCoin()
@@ -36,6 +53,7 @@ public class CoinPlacer : MonoBehaviour
     {
         if (coins.Count > 0)
         {
+            Destroy(coins[coins.Count - 1]);
             coins.RemoveAt(coins.Count - 1);
             MoveNextCoinBack();
         }        
@@ -46,10 +64,10 @@ public class CoinPlacer : MonoBehaviour
         Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
         if (coins.Count == 4)
         {
-            position.x += 4 * interval;
+            position.x += 5 * interval;
             position.y += 55;
         }
-        position.x += interval;
+        position.x -= interval;
         nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
     }
 
@@ -58,7 +76,7 @@ public class CoinPlacer : MonoBehaviour
         Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
         if (coins.Count == 5)
         {
-            position.x -= 4 * interval;
+            position.x -= 5 * interval;
             position.y -= 55;
         }
         position.x += interval;

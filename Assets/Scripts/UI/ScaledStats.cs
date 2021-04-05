@@ -111,6 +111,28 @@ public class ScaledStats : MonoBehaviour
         SetScale();
     }
 
+    public void ShowOverallChange(int change)
+    {
+        SetScale();
+        if (change > 0)
+        {
+            changeText.gameObject.SetActive(true);
+            changeText.text = "+" + change.ToString();
+            changeText.color = increaseColor;
+        }
+        else if (change < 0)
+        {
+            changeText.gameObject.SetActive(true);
+            changeText.text = "-" + change.ToString();
+            changeText.color = decreaseColor;
+        }        
+    }
+
+    public void HideOverallChange()
+    {
+        changeText.gameObject.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json.Linq;
 using NDream.AirConsole;
 using TMPro;
+using UnityEngine.UI;
 
 public enum EventType
 {
@@ -65,6 +66,12 @@ public class CityCouncilHost : MonoBehaviour
     [TextArea]
     public List<string> explainImapctTexts = new List<string>();
 
+    [Header("Result")]
+    [TextArea]
+    public List<string> finalResultTexts = new List<string>();
+    public Image finalResult;
+    public string votingResults;
+
     private string[] orderNum = new string[] { "first", "second", "third", "fourth" };
     private AmendmentHost amendmentHost;
 
@@ -72,6 +79,8 @@ public class CityCouncilHost : MonoBehaviour
     {
         amendmentHost = GetComponent<AmendmentHost>();
         votePanel.SetActive(false);
+        finalResult.gameObject.SetActive(false);
+        votingResults = "";
 
         forecast = GameObject.Find("Canvas-City").GetComponent<SetForecast>();
         forecast.hearing = this;
@@ -327,6 +336,9 @@ public class CityCouncilHost : MonoBehaviour
         // Calculate the result
         bool result = yeaReps.Count > nayReps.Count;
 
+        // Update voting results
+        votingResults += result ? "y" : "n";
+
         // Hide the vote panel, reset elements
         ResetYeaNay();
         votePanel.SetActive(false);        
@@ -359,7 +371,7 @@ public class CityCouncilHost : MonoBehaviour
         }
 
         // Make Hamilton Talk now
-        Debug.Log("Summonging Hamilton");
+        Debug.Log("Summonning Hamilton");
         Debug.Log("Hamilton now has " + hamilton.GetComponent<HamiltonTexts>().texts.Count
             + "pieces of text to read");
         SummonHamilton();
@@ -390,6 +402,28 @@ public class CityCouncilHost : MonoBehaviour
     private void HostResult()
     {
         Debug.Log("Hosting result here!");
+        foreach (string impactText in finalResultTexts)
+        {
+            hamilton.GetComponent<HamiltonTexts>().texts.Add(impactText);
+        }
+
+        // Make Hamilton Talk now
+        Debug.Log("Summonning Hamilton");
+        Debug.Log("Hamilton now has " + hamilton.GetComponent<HamiltonTexts>().texts.Count
+            + "pieces of text to read");
+        SummonHamilton();
+        hamilton.GetComponent<HamiltonTexts>().panel.SetActive(false);
+
+        // Show overall impact on the city
+        PrepRoomStatus.instance.ShowOverallImpact();
+
+        // Bring up the summary sprite
+        finalResult.gameObject.SetActive(true);
+        Debug.Log("result string is: " + votingResults);
+        Sprite resultSprite = Resources.Load<Sprite>("Sprites/VoteResults/" + votingResults);
+        Debug.Log(resultSprite.rect);
+        finalResult.sprite = resultSprite;
+        finalResult.preserveAspect = true;
     }
 
     private void ShowResult()
