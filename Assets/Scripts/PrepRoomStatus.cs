@@ -19,7 +19,9 @@ public class RepStatusItem
 public class PrepRoomStatus : MonoBehaviour
 {
     public List<RepStatusItem> repStatusItems;
+    public List<ScaledStats> cityMetrics;
 
+    // Accumulate the impact on city metrics
     public CityImpact cityImpact;
 
     public static PrepRoomStatus instance;
@@ -141,17 +143,28 @@ public class PrepRoomStatus : MonoBehaviour
     {
         for (int repIdx = 0; repIdx < repStatusItems.Count; repIdx++)
         {
+            
             RepStatusItem item = repStatusItems[repIdx];
+            int totalChange = 0;
             if (item.letter >= 0)
             {
                 // Rep responds to the letter
-                item.changeInPolitical += (item.letter == 0) ? impact.letterYes : impact.letterNo;
+                int capitalChange = (item.letter == 0) ? impact.letterYes : impact.letterNo;
+                totalChange += capitalChange;
             }
             if (item.map >= 0)
             {
                 // Rep responds to the interview
-                item.changeInPolitical += (item.map == 0) ? impact.mapYes : impact.mapNo;
+                int capitalChange = (item.map == 0) ? impact.mapYes : impact.mapNo;                
+                totalChange += capitalChange;
             }
+
+            // Update the accumulate change on Rep
+            Debug.Log("Rep" + repIdx + "has total PC change of " + totalChange);
+            item.changeInPolitical += totalChange;
+            // Update the UI
+            Debug.Log("Updating PC coins");
+            item.political.GetComponent<CoinPlacer>().UpdateCoinNum(totalChange);
         }
     }
 
@@ -160,7 +173,7 @@ public class PrepRoomStatus : MonoBehaviour
         cityImpact.happiness = 0;
         cityImpact.money = 0;
         cityImpact.safety = 0;
-        cityImpact.health = 0;
+        cityImpact.health = 0;      
     }
 
     private void UpdateCityImpact(CityImpact impact)
@@ -169,7 +182,20 @@ public class PrepRoomStatus : MonoBehaviour
         cityImpact.money += impact.money;
         cityImpact.safety += impact.safety;
         cityImpact.health += impact.health;
+
+        cityMetrics[0].ChangeScale(impact.happiness);
+        cityMetrics[1].ChangeScale(impact.money);
+        cityMetrics[2].ChangeScale(impact.health);
+        cityMetrics[3].ChangeScale(impact.safety);
     } 
+
+    public void HideCityImpactChange()
+    {
+        cityMetrics[0].ChangeScale(0);
+        cityMetrics[1].ChangeScale(0);
+        cityMetrics[2].ChangeScale(0);
+        cityMetrics[3].ChangeScale(0);
+    }
 
     public void UpdateImpact(AmendmentImpact voteImpact)
     {

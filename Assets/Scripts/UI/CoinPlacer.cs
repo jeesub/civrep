@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CoinPlacer : MonoBehaviour
 {
+    // total number of coins
     public int num = 1;
     public float interval = 30.0f;
     public List<GameObject> coins = new List<GameObject>();
@@ -27,25 +29,59 @@ public class CoinPlacer : MonoBehaviour
 
         coin.gameObject.name = "subCoin" + coins.Count.ToString();
         coins.Add(coin);
-        UpdateNextCoinTrans(1);
+        MoveNextCoinAhead();
     }
 
-    private void UpdateNextCoinTrans(int step)
+    private void RemoveCoin()
+    {
+        if (coins.Count > 0)
+        {
+            coins.RemoveAt(coins.Count - 1);
+            MoveNextCoinBack();
+        }        
+    }
+
+    private void MoveNextCoinBack()
     {
         Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
-        position.x += step * interval;
+        if (coins.Count == 4)
+        {
+            position.x += 4 * interval;
+            position.y += 55;
+        }
+        position.x += interval;
         nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
     }
 
-    public void UpdateCoinNum(int coinNum)
+    private void MoveNextCoinAhead()
     {
-        if (coinNum >= 0)
+        Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
+        if (coins.Count == 5)
         {
-            for (int i = 0; i < coinNum; i++)
+            position.x -= 4 * interval;
+            position.y -= 55;
+        }
+        position.x += interval;
+        nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
+    }
+
+    public void UpdateCoinNum(int numChange)
+    {
+        if (numChange > 0)
+        {
+            for (int i = 0; i < numChange; i++)
             {
                 AddCoin();
                 num++;
             }
+        }
+        else if (numChange < 0)
+        {
+            for (int i = 0; i < Mathf.Abs(numChange); i++)
+            {
+                RemoveCoin();
+                num--;
+            } 
         }
     }
 }

@@ -5,39 +5,14 @@ using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using UnityEngine.UI;
 
-public enum EventType
-{
-    Hearing,
-    Discussion,
-    Voting,
-    Result
-}
 
-public enum ControllerPage
-{
-    idle,
-    inventory,
-    vote
-}
-
-[System.Serializable]
-public class CityCouncilEvent
-{
-    public int eventDuration;
-    public EventType curEventType;
-    public EventType nextEventType;
-    public ControllerPage controllerPage;
-}
 
 public class AirConsoleReceiverForHearing : MonoBehaviour
 {
     public CityCouncilHost host;
-    public List<CityCouncilEvent> sequence = new List<CityCouncilEvent>();
 
     public List<GameObject> yayReps;
     public List<GameObject> nahReps;
-
-    private SetForecast forecast;
 
     private void Awake()
     {
@@ -48,39 +23,7 @@ public class AirConsoleReceiverForHearing : MonoBehaviour
 
     void Start()
     {
-        forecast = GameObject.Find("Canvas-City").GetComponent<SetForecast>();
-        forecast.hearing = this;
 
-        NextEventInSequence();
-    }
-
-    public void NextEventInSequence()
-    {
-        if (sequence.Count > 0)
-        {
-            CityCouncilEvent eventItem = sequence[0];
-            sequence.RemoveAt(0);
-
-            // Set the timer
-            forecast.ResetRemainTime();
-            forecast.SetRemainTime(eventItem.eventDuration);
-            // Set the upcoming event name on UI
-            forecast.SetSceneName(System.Enum.GetName(typeof(EventType), eventItem.nextEventType));
-            // Broadcast message to all controllers
-            NoticeController(System.Enum.GetName(typeof(ControllerPage), eventItem.controllerPage));
-            // Actually make the event
-            host.HostEvent(eventItem.curEventType, eventItem.eventDuration);
-        }
-    }
-
-    private void NoticeController(string status)
-    {
-        JObject messageData = new JObject
-                {
-                    {"topic", "screen" },
-                    {"message", status }
-                };
-        AirConsole.instance.Broadcast(messageData);
     }
 
     private void OnConnect(int device_id)

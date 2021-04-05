@@ -36,7 +36,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
 
-        cityCanvas.GetComponent<SetForecast>().SetSceneName("Prep & Research");
+        cityCanvas.GetComponent<SetForecast>().SetSceneName("Character Selection");
         cityCanvas.GetComponent<SetForecast>().ResetRemainTime();
         cityCanvas.GetComponent<SetForecast>().SetRemainTime(sessionTime);
     }

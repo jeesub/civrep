@@ -21,6 +21,8 @@ public class HamiltonTexts : MonoBehaviour
     [TextArea]
     public List<string> texts;
 
+    public CityCouncilHost host;
+
     private void Start()
     {
         hUI = GameObject.Find("Hamilton UI");
@@ -43,9 +45,15 @@ public class HamiltonTexts : MonoBehaviour
 
             hText.ForceMeshUpdate();
             int totalVisibleChars = hText.textInfo.characterCount;
-            Debug.Log("count: " + totalVisibleChars);
+            //Debug.Log("count: " + totalVisibleChars);
             hText.maxVisibleCharacters = 0;
             StartCoroutine(DisplayText(totalVisibleChars));
+        }
+
+        // Notify city council host
+        else if (host!=null && host.gameObject.activeSelf)
+        {
+            host.HamiltonDone();
         }
     }
 

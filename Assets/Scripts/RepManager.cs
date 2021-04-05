@@ -125,12 +125,14 @@ public class RepManager : MonoBehaviour
     public void RecordRepLetter(int deviceID, bool decision)
     {
         int repIdx = getRepIdx(deviceID);
+        Debug.Log("Rep" + repIdx + "says " + decision + "to the letter"); 
         PrepRoomStatus.instance.RecordRepLetterDecision(repIdx, decision);
     }
 
     public void RecordRepMap(int deviceID, bool decision)
     {
         int repIdx = getRepIdx(deviceID);
+        Debug.Log("Rep" + repIdx + "says " + decision + "to the map");
         PrepRoomStatus.instance.RecordRepMapDecision(repIdx, decision);
     }
 
