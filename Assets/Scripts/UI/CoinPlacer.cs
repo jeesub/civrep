@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CoinPlacer : MonoBehaviour
 {
+    // total number of coins
     public int num = 1;
     public float interval = 30.0f;
     public List<GameObject> coins = new List<GameObject>();
     public GameObject nextCoin;
     public GameObject coinPrefab;
+
+    //public bool decrease;
+    //public bool increase;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,20 @@ public class CoinPlacer : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //if (decrease)
+        //{
+        //    decrease = false;
+        //    UpdateCoinNum(-1);
+        //}
+        //else if (increase)
+        //{
+        //    increase = false;
+        //    UpdateCoinNum(1);
+        //}
+    }
+
     private void AddCoin()
     {
         GameObject coin = Instantiate(coinPrefab, new Vector3(nextCoin.transform.position.x,
@@ -27,25 +46,60 @@ public class CoinPlacer : MonoBehaviour
 
         coin.gameObject.name = "subCoin" + coins.Count.ToString();
         coins.Add(coin);
-        UpdateNextCoinTrans(1);
+        MoveNextCoinAhead();
     }
 
-    private void UpdateNextCoinTrans(int step)
+    private void RemoveCoin()
+    {
+        if (coins.Count > 0)
+        {
+            Destroy(coins[coins.Count - 1]);
+            coins.RemoveAt(coins.Count - 1);
+            MoveNextCoinBack();
+        }        
+    }
+
+    private void MoveNextCoinBack()
     {
         Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
-        position.x += step * interval;
+        if (coins.Count == 4)
+        {
+            position.x += 5 * interval;
+            position.y += 55;
+        }
+        position.x -= interval;
         nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
     }
 
-    public void UpdateCoinNum(int coinNum)
+    private void MoveNextCoinAhead()
     {
-        if (coinNum >= 0)
+        Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
+        if (coins.Count == 5)
         {
-            for (int i = 0; i < coinNum; i++)
+            position.x -= 5 * interval;
+            position.y -= 55;
+        }
+        position.x += interval;
+        nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
+    }
+
+    public void UpdateCoinNum(int numChange)
+    {
+        if (numChange > 0)
+        {
+            for (int i = 0; i < numChange; i++)
             {
                 AddCoin();
                 num++;
             }
+        }
+        else if (numChange < 0)
+        {
+            for (int i = 0; i < Mathf.Abs(numChange); i++)
+            {
+                RemoveCoin();
+                num--;
+            } 
         }
     }
 }

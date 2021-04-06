@@ -8,8 +8,9 @@ public class SetForecast : MonoBehaviour
 {
     public TextMeshProUGUI sceneName;
     public TextMeshProUGUI timeRemain;
+    public TextMeshProUGUI staticText;
 
-    public AirConsoleReceiverForHearing hearing;
+    public CityCouncilHost hearing;
 
     public int remaintime = -1;
     public bool updatingTime = false;
@@ -58,6 +59,7 @@ public class SetForecast : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 3)
         {
             // Load next Scene if it's not the City Council scene
+            Debug.Log("going to next scene");
             StartCoroutine(GameManager.Instance.LoadNextScene());
         }
         else
@@ -65,19 +67,39 @@ public class SetForecast : MonoBehaviour
             // In City Council Scene, proceed to the next event in sequence
             if (hearing)
             {
-                hearing.NextEventInSequence();
+                hearing.EventTimeUp();
             }
         }
         
     }
 
+    public void SetRemainTime(int seconds)
+    {
+        if (seconds > 0) 
+        {
+            ShowRemainTime(true);
+            remaintime = seconds;            
+        }
+        else
+        {
+            ShowRemainTime(false);
+        }
+    }
+
+    private void ShowRemainTime(bool state)
+    {
+        staticText.gameObject.SetActive(state);
+        timeRemain.gameObject.SetActive(state);
+    }
+
     public void SetSceneName(string name)
     {
+        sceneName.enabled = true;
         sceneName.text = name;
     }
 
-    public void SetRemainTime(int seconds)
+    public void HideSceneName()
     {
-        remaintime = seconds;
+        sceneName.enabled = false;
     }
 }

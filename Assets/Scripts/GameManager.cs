@@ -147,14 +147,17 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(sceneLoadTime);
-        GameObject background = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
-        background.SetActive(false);
-
-
-        if (GameObject.Find("Canvas").GetComponent<SetForecast>())
+        if (GameObject.Find("Canvas-City"))
         {
-            GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
-        }       
+            GameObject background = GameObject.Find("Canvas-City").transform.GetChild(0).gameObject;
+            background.SetActive(false);
+
+
+            if (GameObject.Find("Canvas-City").GetComponent<SetForecast>())
+            {
+                GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
+            }
+        }        
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

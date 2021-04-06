@@ -8,7 +8,11 @@ using UnityEngine.UI;
 
 public class AirConsoleReceiverForPrep : MonoBehaviour
 {
+    public GameObject pc, amendments;
+
     private int maxPlayer;
+    private int pcOn = 0;
+    private int amendmentOn = 0;
 
     public void TestOnMessage(int fromDeviceID, JToken data)
     {
@@ -24,12 +28,15 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 
     private void Start()
     {
+        pc.SetActive(false);
+        amendments.SetActive(false);
+
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
 
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetSceneName("Public Hearing");
-        GameObject.Find("Canvas").GetComponent<SetForecast>().ResetRemainTime();
-        GameObject.Find("Canvas").GetComponent<SetForecast>().SetRemainTime(300);
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Research on the bill");
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(930);
     }
 
     private void NoticeController()
@@ -62,7 +69,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 
     private void GoToDestination(int fromDeviceID, JToken data)
     {
-        string dest = data["Destination"].ToString();
+        string dest = data["message"].ToString();
         Debug.Log("Destination is: " + dest);
         if (dest.Equals("main"))
         {
@@ -76,7 +83,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 
     private void TakeAction(int fromDeviceID, JToken data)
     {
-        string action = data["Action"].ToString();
+        string action = data["message"].ToString();
         Debug.Log("Old Action is: " + action);
         action = action.Replace("-", "");
         Debug.Log("Action is: " + action);
@@ -91,18 +98,121 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         }
     }
 
+    private void RecordLetter(int fromDeviceID, JToken data)
+    {
+        string decisionStr = data["message"].ToString();
+        Debug.Log("Decision on letter is: " + decisionStr);
+        bool decision = (decisionStr.Equals("yes"));
+        Debug.Log("Convert to bool is: " + decision);
+        RepManager.instance.RecordRepLetter(fromDeviceID, decision);
+    }
+
+    private void RecordMap(int fromDeviceID, JToken data)
+    {
+        string decisionStr = data["message"].ToString();
+        Debug.Log("Decision on map is: " + decisionStr);
+        bool decision = (decisionStr.Equals("yes"));
+        Debug.Log("Convert to bool is: " + decision);
+        RepManager.instance.RecordRepMap(fromDeviceID, decision);
+    }
+
+    private void ShowHamiltonPC(string arg)
+    {
+        pcOn += arg.Equals("on") ? 1 : -1;
+        Debug.Log("pcOn: " + pcOn);
+        Debug.Log("arg is: " + arg);
+        if (pcOn > 0)
+        {
+            StopCoroutine("ClosePC");
+            pc.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine("ClosePC");
+        }
+    }
+
+    IEnumerator ClosePC()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        pc.SetActive(false);
+    }
+
+    private void ShowHamiltonAmendment(string arg)
+    {
+        amendmentOn += arg.Equals("on") ? 1 : -1;
+        if (amendmentOn > 0)
+        {
+            StopCoroutine("CloseAmendment");
+            amendments.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine("CloseAmendment");
+        }
+    }
+
+    IEnumerator CloseAmendment()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        amendments.SetActive(false);
+    }
+
+    private void ShowHamiltonQA(JToken data)
+    {
+        string question = data["message"].ToString();
+        string[] subs = question.Split(' ');
+        Debug.Log("Question is about: " + subs[0] + "/" + subs[1]);
+        switch (subs[0])
+        {
+            case "amendment":
+                ShowHamiltonAmendment(subs[1]);
+                break;
+            case "politicalcapital":
+                ShowHamiltonPC(subs[1]);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void OnMessage(int fromDeviceID, JToken data)
     {
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
-        if (data["Destination"]!=null)
+        var topic = data["topic"].ToString();
+        Debug.Log("topic is: " + topic);
+        switch (topic)
         {
-            GoToDestination(fromDeviceID, data);
-            CheckAllPlayer();
+            case "destination":
+                GoToDestination(fromDeviceID, data);
+                CheckAllPlayer();
+                break;
+            case "action":
+                //TakeAction(fromDeviceID, data);
+                break;
+            case "letter":
+                RecordLetter(fromDeviceID, data);
+                break;
+            case "map":
+                RecordMap(fromDeviceID, data);
+                break;
+            case "hamilton":
+                ShowHamiltonQA(data);
+                break;
+            default:
+                break;
         }
-        else if (data["Action"] != null)
-        {
-            TakeAction(fromDeviceID, data);
-        }
+
+
+        //if (data["Destination"]!=null)
+        //{
+        //    GoToDestination(fromDeviceID, data);
+        //    CheckAllPlayer();
+        //}
+        //else if (data["Action"] != null)
+        //{
+        //    TakeAction(fromDeviceID, data);
+        //}
     }
 
 

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class AirConsoleReceiverForIntro : MonoBehaviour
 {
-    public GameObject dialogParent;
-    public float interval = 2f;
+    public GameObject hamilton;
 
     private int maxPlayer;
 
@@ -31,8 +31,8 @@ public class AirConsoleReceiverForIntro : MonoBehaviour
             if (AirConsole.instance.GetControllerDeviceIds().Count >= maxPlayer)
             {
                 AirConsole.instance.SetActivePlayers(maxPlayer);
-                StartCoroutine(PlayersReady());
                 Debug.Log("We have enough players!");
+                StartIntro();
             }
             else
             {
@@ -43,22 +43,31 @@ public class AirConsoleReceiverForIntro : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayersReady()
+    private void StartIntro()
     {
-        for (int i = 0; i < dialogParent.transform.childCount; i++)
-        {
-            GameObject dialog = dialogParent.transform.GetChild(i).gameObject;
-            Debug.Log(dialog.name);
-            yield return new WaitForSeconds(interval);
-            dialog.SetActive(true);
-        }
+        hamilton.GetComponent<PlayableDirector>().Play();
+    }
 
-        StartCoroutine(GameManager.Instance.LoadNextScene());
+    private void AnswerHamilton(int fromDeviceID, JToken data)
+    {
+        int answer = data["message"].ToObject<int>();
+        Debug.Log("message is: " + answer);
+        hamilton.GetComponent<HamiltonChoices>().RecordAnswer(fromDeviceID, answer);
     }
 
     private void OnMessage(int fromDeviceID, JToken data)
     {
-        
+        Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
+        var topic = data["topic"].ToString();
+        Debug.Log("topic is: " + topic);
+        switch (topic)
+        {
+            case "hamilton":
+                AnswerHamilton(fromDeviceID, data);
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnDisconnect(int device_id)
