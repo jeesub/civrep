@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
+
 
 public class HamiltonTexts : MonoBehaviour
 {
-    
-
     public GameObject hUI;
     public GameObject panel;
     public GameObject hamiltonCapture;
@@ -19,7 +19,7 @@ public class HamiltonTexts : MonoBehaviour
     public bool isTalking = false;
 
     [TextArea]
-    public List<string> texts;
+    public List<string> texts = new List<string>();
 
     public CityCouncilHost host;
 
@@ -106,7 +106,10 @@ public class HamiltonTexts : MonoBehaviour
                 if (curChar.Equals('?'))
                 {
                     // This is a question
-                    hChoices.ShowChoices();
+                    if (SceneManager.GetActiveScene().buildIndex != 3)
+                    {
+                        hChoices.ShowChoices();
+                    }                    
                 }
                 else if (curChar.Equals('!'))
                 {

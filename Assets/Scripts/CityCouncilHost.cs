@@ -312,12 +312,12 @@ public class CityCouncilHost : MonoBehaviour
         votePanel.SetActive(true);
 
         // Disable all repPhotos
-        foreach (GameObject rep in repPhotos)
-        {
-            rep.SetActive(false);
-        }        
+        //foreach (GameObject rep in repPhotos)
+        //{
+        //    rep.SetActive(false);
+        //}        
 
-        // TODO: Set up Hamilton UI
+        // Set up Hamilton UI
         (string topicText, string descriptionText, int num) = amendmentHost.GetCurAmendment();
         topicAmend.text = "Should We " + topicText + "?";
         descriptionAmend.text = descriptionText;

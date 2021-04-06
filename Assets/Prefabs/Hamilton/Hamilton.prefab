@@ -145,6 +145,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbf783a9ebb3f543806eb2b0804f27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hUI: {fileID: 0}
+  panel: {fileID: 0}
+  hamiltonCapture: {fileID: 0}
+  hText: {fileID: 0}
+  choices: {fileID: 0}
+  hSound: {fileID: 429867809712054486}
+  hChoices: {fileID: 429867808725991375}
+  isTalking: 0
   texts:
   - "Hello, dear Representatives, I\u2019m your perfectly normal assistant, <b><color=blue><size=130%>Hamilton!</size></color></b>"
   - I will help keep track of things and support you through every step of the <b><color=blue><size=110%>legislative
@@ -158,12 +166,7 @@ MonoBehaviour:
   - Just to let you know, some committees are already leaning to one side of the
     argument, so choose <b><color=blue><size=110%>..... wisely!</b></color></size>
   - End
-  hUI: {fileID: 0}
-  hText: {fileID: 0}
-  choices: {fileID: 0}
-  hSound: {fileID: 429867809712054486}
-  hChoices: {fileID: 429867808725991375}
-  isTalking: 0
+  host: {fileID: 0}
 --- !u!114 &429867808725991375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +180,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choices: {fileID: 0}
+  choiceTexts: []
+  indicatorPrefab: {fileID: 1443908528443606062, guid: 3481bf2ad3b63cd48ad4e08454443ad8, type: 3}
+  indicators:
+  - {fileID: 21300000, guid: 57caaaf7481d2d846bde01f5a104ea92, type: 3}
+  - {fileID: 21300000, guid: 4e76e5c324944f94da10536b04cf1852, type: 3}
+  - {fileID: 21300000, guid: e4f36c5f4583c7d41aadc416246b5ae7, type: 3}
+  - {fileID: 21300000, guid: 28f4dc4636739814e9b2980640618b4d, type: 3}
 --- !u!1 &429867809712054485
 GameObject:
   m_ObjectHideFlags: 0

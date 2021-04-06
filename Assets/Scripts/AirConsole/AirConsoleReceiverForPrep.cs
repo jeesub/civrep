@@ -8,7 +8,11 @@ using UnityEngine.UI;
 
 public class AirConsoleReceiverForPrep : MonoBehaviour
 {
+    public GameObject pc, amendments;
+
     private int maxPlayer;
+    private int pcOn = 0;
+    private int amendmentOn = 0;
 
     public void TestOnMessage(int fromDeviceID, JToken data)
     {
@@ -24,12 +28,15 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
 
     private void Start()
     {
+        pc.SetActive(false);
+        amendments.SetActive(false);
+
         maxPlayer = RepManager.instance.maxPlayer;
         NoticeController();
 
         GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Research on the bill");
         GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(630);
+        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(930);
     }
 
     private void NoticeController()
@@ -109,6 +116,66 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         RepManager.instance.RecordRepMap(fromDeviceID, decision);
     }
 
+    private void ShowHamiltonPC(string arg)
+    {
+        pcOn += arg.Equals("on") ? 1 : -1;
+        Debug.Log("pcOn: " + pcOn);
+        Debug.Log("arg is: " + arg);
+        if (pcOn > 0)
+        {
+            StopCoroutine("ClosePC");
+            pc.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine("ClosePC");
+        }
+    }
+
+    IEnumerator ClosePC()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        pc.SetActive(false);
+    }
+
+    private void ShowHamiltonAmendment(string arg)
+    {
+        amendmentOn += arg.Equals("on") ? 1 : -1;
+        if (amendmentOn > 0)
+        {
+            StopCoroutine("CloseAmendment");
+            amendments.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine("CloseAmendment");
+        }
+    }
+
+    IEnumerator CloseAmendment()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        amendments.SetActive(false);
+    }
+
+    private void ShowHamiltonQA(JToken data)
+    {
+        string question = data["message"].ToString();
+        string[] subs = question.Split(' ');
+        Debug.Log("Question is about: " + subs[0] + "/" + subs[1]);
+        switch (subs[0])
+        {
+            case "amendment":
+                ShowHamiltonAmendment(subs[1]);
+                break;
+            case "politicalcapital":
+                ShowHamiltonPC(subs[1]);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void OnMessage(int fromDeviceID, JToken data)
     {
         Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
@@ -130,6 +197,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
                 RecordMap(fromDeviceID, data);
                 break;
             case "hamilton":
+                ShowHamiltonQA(data);
                 break;
             default:
                 break;

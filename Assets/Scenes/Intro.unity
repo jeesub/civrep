@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af43bd67776344b6a437b537323b9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLoadTime: 5
+  sceneLoadTime: 2
 --- !u!114 &104604924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,7 +688,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4562848030817172066, guid: 3f1edccb38d849a4fb675a3c3d60ae71, type: 3}
       propertyPath: browserStartMode
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4562848030817172067, guid: 3f1edccb38d849a4fb675a3c3d60ae71, type: 3}
       propertyPath: m_LocalPosition.x
@@ -769,7 +769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b057a978a2331f4797e456933aae921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayer: 2
+  maxPlayer: 1
+  repCharacters: []
 --- !u!4 &1594126598
 Transform:
   m_ObjectHideFlags: 0
@@ -840,9 +841,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 226085312}
     - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: choiceTexts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: choices
       value: 
       objectReference: {fileID: 5457999}
+    - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: choiceTexts.Array.data[0].first
+      value: Sure, what committees are there?
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: choiceTexts.Array.data[0].second
+      value: Wait, how do I choose one?
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: choiceTexts.Array.data[0].name
+      value: hamilton-0
+      objectReference: {fileID: 0}
     - target: {fileID: 429867808725991408, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1122646
@@ -906,12 +923,22 @@ PrefabInstance:
     - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: texts.Array.data[0]
       value: "Hello, dear Representatives, I\u2019m your perfectly normal assistant,
-        <b><color=blue><size=120%>Hamilton!</size></color></b>"
+        <b><color=#5193B3><size=120%>Hamilton!</size></color></b>"
       objectReference: {fileID: 0}
     - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: texts.Array.data[2]
       value: Quick update, a new bill proposing <b><color=red><size=110%>legalization
         of marijuana</size></color></b> was introduced to the council.
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: texts.Array.data[1]
+      value: I will help keep track of things and support you through every step
+        of the <b><color=#5193B3><size=110%>legislative process.</size></color></b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: texts.Array.data[6]
+      value: Just to let you know, some committees are already leaning to one side
+        of the argument, so choose <b><color=#5193B3><size=110%>..... wisely!</b></color></size>
       objectReference: {fileID: 0}
     - target: {fileID: 429867808725991414, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: m_Name
@@ -926,6 +953,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1289152494}
     m_Modifications:
+    - target: {fileID: 537218196628305302, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 537218197098099302, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1024,7 +1055,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537218197849728557, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_text
-      value: Abusoltely
+      value: Sure, what committees are there?
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728557, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_fontSize
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728557, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728557, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728557, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728558, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 537218197849728558, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331192772581414322, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_text
+      value: Wait, how do I choose one?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331192772581414322, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331192772581414322, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331192772581414322, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331192772581414322, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 7435468629365621941, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7435468629365621941, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e88617a82ade83f4aa72f309c228204d, type: 3}

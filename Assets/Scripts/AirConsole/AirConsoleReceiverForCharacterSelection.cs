@@ -14,6 +14,8 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
     public GameObject cityCanvas;
     public GameObject hamilton;
 
+    public List<CharacterSelection> repCharacters = new List<CharacterSelection>();
+
     private int maxPlayer;
 
     public void TestOnMessage(int fromDeviceID, JToken data)
@@ -39,6 +41,9 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         cityCanvas.GetComponent<SetForecast>().SetSceneName("Character Selection");
         cityCanvas.GetComponent<SetForecast>().ResetRemainTime();
         cityCanvas.GetComponent<SetForecast>().SetRemainTime(sessionTime);
+
+        // Set the repCharacters in RepManager
+        RepManager.instance.repCharacters = repCharacters;
     }
 
     private void NoticeController()
@@ -120,15 +125,34 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
             //SceneManager.LoadScene(1);
             //StartCoroutine(GameManager.Instance.LoadNextScene());
             //cityCanvas.SetActive(true);
+            foreach(CharacterSelection repCharacter in repCharacters)
+            {
+                repCharacter.gameObject.SetActive(false);
+            }
+
             cityCanvas.GetComponent<Canvas>().enabled = true;
             hamilton.GetComponent<PlayableDirector>().Play();
         }
+    }
+
+    private void ChangeAppearance(int fromDeviceID, JToken data)
+    {
+        string appearance = data["message"].ToObject<string>();
+        Debug.Log("message is: " + appearance);
+        RepManager.instance.ChangeRepApperance(fromDeviceID, appearance);
     }
 
     private void SetRepName(int fromDeviceID, JToken data)
     {
         string name = data["message"].ToString();
         RepManager.instance.SetRepName(fromDeviceID, name);
+    }
+
+    private void AnswerHamilton(int fromDeviceID, JToken data)
+    {
+        int answer = data["message"].ToObject<int>();
+        Debug.Log("message is: " + answer);
+        hamilton.GetComponent<HamiltonChoices>().RecordAnswer(fromDeviceID, answer);
     }
 
     private void OnMessage(int fromDeviceID, JToken data)
@@ -139,15 +163,17 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         switch(topic)
         {
             case "name":
-                SetRepName(fromDeviceID, data);
-                CheckAllPlayer();
+                SetRepName(fromDeviceID, data);                
                 break;
             case "character":
                 SelectCharacter(fromDeviceID, data);
                 break;
-            case "appearance":                
+            case "appearance":
+                ChangeAppearance(fromDeviceID, data);
+                CheckAllPlayer();
                 break;
             case "hamilton":
+                AnswerHamilton(fromDeviceID, data);
                 break;
             default:
                 break;

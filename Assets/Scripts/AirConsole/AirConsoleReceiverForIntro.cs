@@ -48,9 +48,26 @@ public class AirConsoleReceiverForIntro : MonoBehaviour
         hamilton.GetComponent<PlayableDirector>().Play();
     }
 
+    private void AnswerHamilton(int fromDeviceID, JToken data)
+    {
+        int answer = data["message"].ToObject<int>();
+        Debug.Log("message is: " + answer);
+        hamilton.GetComponent<HamiltonChoices>().RecordAnswer(fromDeviceID, answer);
+    }
+
     private void OnMessage(int fromDeviceID, JToken data)
     {
-        
+        Debug.Log("Message from: " + fromDeviceID + "\n Data: " + data);
+        var topic = data["topic"].ToString();
+        Debug.Log("topic is: " + topic);
+        switch (topic)
+        {
+            case "hamilton":
+                AnswerHamilton(fromDeviceID, data);
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnDisconnect(int device_id)

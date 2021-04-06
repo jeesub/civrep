@@ -2889,9 +2889,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1748431309}
     - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: choiceTexts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: choices
       value: 
       objectReference: {fileID: 1748431307}
+    - target: {fileID: 429867808725991375, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
+      propertyPath: choiceTexts.Array.data[0].name
+      value: hamilton-4
+      objectReference: {fileID: 0}
     - target: {fileID: 429867808725991408, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.950001

@@ -71,8 +71,6 @@ public class AmendmentHost : MonoBehaviour
         return (curAmend.topic, curAmend.description, numAmend);
     }
 
-    // TODO: add one method to get amendment going
-
     public (List<string>, bool) ProcessVoteResult(bool result)
     {
         Debug.Log("Processing vote result");

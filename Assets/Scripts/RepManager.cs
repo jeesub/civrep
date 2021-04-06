@@ -18,6 +18,9 @@ public class RepManager : MonoBehaviour
     // Map repIdx to player's name
     public Dictionary<int, string> repToName = new Dictionary<int, string>();
 
+    public List<CharacterSelection> repCharacters = new List<CharacterSelection>();
+    private List<int> readyCharacters = new List<int>();
+
     private Dictionary<int, List<string>> repActions = new Dictionary<int, List<string>>();
 
     private List<int> readyReps = new List<int>();
@@ -46,13 +49,19 @@ public class RepManager : MonoBehaviour
 
     public int getRepIdx(int deviceID)
     {
-        return idToRep[deviceID];
+        if (idToRep.ContainsKey(deviceID))
+        {
+            return idToRep[deviceID];
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     public bool CheckAllPlayerOnCharacterSelection()
     {
-        
-        return (idToName.Count == maxPlayer);
+        return (readyCharacters.Count == maxPlayer);
     }
 
     public bool CheckAllPlayerOnPrep()
@@ -77,6 +86,7 @@ public class RepManager : MonoBehaviour
     private void UpdateRepName(int repIdx, string name)
     {
         PrepRoomStatus.instance.UpdateRepName(repIdx, name);
+        repCharacters[repIdx].SetName(name);
     }
 
     private void AddRepName(int deviceID, string name)
@@ -106,6 +116,40 @@ public class RepManager : MonoBehaviour
             idToName.Add(deviceID, name);
             AddRepName(deviceID, name);
         }
+    }
+
+    public void ChangeRepApperance(int deviceID, string appearance)
+    {
+        int repIdx = getRepIdx(deviceID);
+        if (repCharacters.Count > repIdx)
+        {
+            CharacterSelection repCharacter = repCharacters[repIdx];
+            switch (appearance)
+            {
+                case "face":
+                    repCharacter.ChangeFace();
+                    break;
+                case "hair":
+                    repCharacter.ChangeHair();
+                    break;
+                case "accessories":
+                    repCharacter.ChangeAccessory();
+                    break;
+                case "ready":
+                    if (!readyCharacters.Contains(repIdx))
+                    {
+                        readyCharacters.Add(repIdx);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("repIdx out of range: " + repIdx + "/" + repCharacters.Count);
+        }
+        
     }
 
     public void GoToDestination(int deviceID, string dest)

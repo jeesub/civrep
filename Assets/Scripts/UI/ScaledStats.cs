@@ -67,7 +67,8 @@ public class ScaledStats : MonoBehaviour
             }
             // Start a coroutine to clear the color
             //StartCoroutine(RefreshScale());
-            // TODO: update the text to reflect the numerical change
+
+            // update the text to reflect the numerical change
             if (changeText)
             {
                 changeText.gameObject.SetActive(true);
@@ -85,7 +86,7 @@ public class ScaledStats : MonoBehaviour
             // Start a coroutine to clear the color 
             // StartCoroutine(RefreshScale());
 
-            // TODO: update the text to reflect the numerical change
+            // update the text to reflect the numerical change
             if (changeText)
             {
                 changeText.gameObject.SetActive(true);
