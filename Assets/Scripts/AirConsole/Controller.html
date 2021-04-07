@@ -372,6 +372,7 @@
                 }
             }
 
+            /** ACTIVATE **/
             function activate(screen) {
                 var elements = document.getElementsByClassName("controller-screen");
                 var i;
@@ -390,6 +391,15 @@
                 var set = new Set(arr);
                 if (set.has(screen)) {
                     window.app.sendMessageToScreen({'topic': 'action', 'message': screen});
+                }
+
+                if (screen = "prep") {
+                    if (hamiltonButtonOne) {
+                        toggleHamilton("0");
+                    }
+                    if (hamiltonButtonTwo) {
+                        toggleHamilton("1");
+                    }
                 }
             }
 
