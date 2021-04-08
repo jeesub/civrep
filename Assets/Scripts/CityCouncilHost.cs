@@ -53,7 +53,12 @@ public class CityCouncilHost : MonoBehaviour
     public GameObject hearingPerson;
     public GameObject hearingCanvas;
 
+    [Header("Discussion")]
+    public bool jumpDiscussion = false;
+
     [Header("Voting")]
+    public bool toNextVoting = false;
+    private bool lastAmend;
     public GameObject votePanel;
     public TextMeshProUGUI numAmend;
     public TextMeshProUGUI topicAmend;
@@ -86,6 +91,20 @@ public class CityCouncilHost : MonoBehaviour
         forecast.hearing = this;
 
         NextEventInSequence();
+    }
+
+    void Update()
+    {
+        if (jumpDiscussion)
+        {
+            jumpDiscussion = false;
+            JumpDiscussion();
+        }
+        if (toNextVoting)
+        {
+            toNextVoting = false;
+            NextVoting();
+        }
     }
 
     #region utilities
@@ -226,6 +245,13 @@ public class CityCouncilHost : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration);
         NextEventInSequence();
     }
+
+    private void JumpDiscussion()
+    {
+        StopCoroutine("FreeDiscussion");
+        NextEventInSequence();
+    }
+
     #endregion
 
     #region voting
@@ -312,10 +338,10 @@ public class CityCouncilHost : MonoBehaviour
         votePanel.SetActive(true);
 
         // Disable all repPhotos
-        //foreach (GameObject rep in repPhotos)
-        //{
-        //    rep.SetActive(false);
-        //}        
+        foreach (GameObject rep in repPhotos)
+        {
+            rep.SetActive(false);
+        }
 
         // Set up Hamilton UI
         (string topicText, string descriptionText, int num) = amendmentHost.GetCurAmendment();
@@ -331,7 +357,7 @@ public class CityCouncilHost : MonoBehaviour
         NoticeController("idle");
 
         // Default time to display the impact
-        int displayTime = 30;
+        int displayTime = 60;
 
         // Calculate the result
         bool result = yeaReps.Count > nayReps.Count;
@@ -345,6 +371,7 @@ public class CityCouncilHost : MonoBehaviour
 
         // Reflect the result impact on the city UI
         (List<string> impactTexts, bool isLastAmend) = amendmentHost.ProcessVoteResult(result);
+        lastAmend = isLastAmend;
 
         // Setup the next event
         if (!isLastAmend)
@@ -363,7 +390,7 @@ public class CityCouncilHost : MonoBehaviour
         // If the first amendment, Let hamilton explain the changes
         if (amendmentHost.numAmend == 1)
         {
-            displayTime += 30;
+            displayTime += 60;
             foreach(string explainText in explainImapctTexts)
             {
                 hamilton.GetComponent<HamiltonTexts>().texts.Add(explainText);
@@ -381,6 +408,20 @@ public class CityCouncilHost : MonoBehaviour
         // Start timing the result display if it's not the last amendment
         Debug.Log("Start to time: " + displayTime + "seconds");
         StartCoroutine(DisplayImpact(displayTime, isLastAmend));        
+    }
+
+    private void NextVoting()
+    {
+        StopCoroutine("DisplayImpact");
+        PrepRoomStatus.instance.HideCityImpactChange();
+        if (!lastAmend)
+        {
+            NextEventInSequence();
+        }
+        else
+        {
+            HostResult();
+        }
     }
 
     IEnumerator DisplayImpact(int displayTime, bool isLastAmend)

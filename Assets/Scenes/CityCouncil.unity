@@ -1890,11 +1890,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 8e145324ae9408a40a9759eb93edce5d, type: 3}
-  - {fileID: 8300000, guid: 4d03acb0a97bde944b487a03bc7fd62b, type: 3}
-  - {fileID: 8300000, guid: 725745d540cc06d488e68abe1ba2b3e8, type: 3}
-  - {fileID: 8300000, guid: 4b3bd7ee841b29748ad6a9b837758cfb, type: 3}
-  - {fileID: 8300000, guid: 64b05d53e5b249740b29b7a706cc0d5b, type: 3}
+  - {fileID: 8300000, guid: 904917fce98da1f44b6338af4296e744, type: 3}
+  - {fileID: 8300000, guid: 2686dc640ba25ba439deb27e5f5a0ef2, type: 3}
+  - {fileID: 8300000, guid: 1246fda144351ad4baf11c0d9855aaf0, type: 3}
+  - {fileID: 8300000, guid: c4c02ac8b55829b4fa125283f49d76a7, type: 3}
+  - {fileID: 8300000, guid: ec874ef98ea58aa43a6e0e987fda0c18, type: 3}
 --- !u!82 &771513032
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1907,8 +1907,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1.2
+  m_Volume: 0.332
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -3082,7 +3082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: texts.Array.data[3]
-      value: Let's hear whay Jaime has to say!
+      value: Let's hear what Jaime has to say!
       objectReference: {fileID: 0}
     - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: texts.Array.data[4]
@@ -3113,7 +3113,7 @@ PrefabInstance:
     - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: texts.Array.data[10]
       value: "After all the research and discussion, it\u2019s time to cast your
-        votes on behalf of your contistuients!"
+        votes on behalf of your constituents!"
       objectReference: {fileID: 0}
     - target: {fileID: 429867808725991411, guid: 94af9ef7e4f1bca479fce7c45c0467f3, type: 3}
       propertyPath: texts.Array.data[11]
@@ -3492,7 +3492,7 @@ MonoBehaviour:
     needTimer: 0
     duration: 0
     needName: 1
-    eventName: Jamie's Hearing
+    eventName: Jaime's Hearing
     controllerPage: 0
   - eventType: 0
     needTimer: 0
@@ -3502,10 +3502,10 @@ MonoBehaviour:
     controllerPage: 0
   - eventType: 2
     needTimer: 1
-    duration: 10
+    duration: 600
     needName: 1
     eventName: Discussion Before Voting
-    controllerPage: 1
+    controllerPage: 0
   - eventType: 0
     needTimer: 0
     duration: 180
@@ -3514,14 +3514,16 @@ MonoBehaviour:
     controllerPage: 0
   - eventType: 3
     needTimer: 1
-    duration: 20
-    needName: 0
+    duration: 60
+    needName: 1
     eventName: Vote on Amendment
     controllerPage: 2
   hamilton: {fileID: 1219052925}
   hCanvas: {fileID: 1204277002}
   hearingPerson: {fileID: 119150459}
   hearingCanvas: {fileID: 598158966}
+  jumpDiscussion: 0
+  toNextVoting: 0
   votePanel: {fileID: 2791169833486414018}
   numAmend: {fileID: 537218196831377203}
   topicAmend: {fileID: 1999942843}
@@ -3540,6 +3542,7 @@ MonoBehaviour:
     earned your citizens\u2019 trust and confidence."
   - "By making the final vote result align with what you\u2019ve said, you\u2019ve
     accumulated political capital!"
+  - Stop
   finalResultTexts:
   - 'Well done Reps! Here is the final version of the bill being passed, with all
     of the amendments that were agreed upon. I think it looks great! '
@@ -3569,6 +3572,7 @@ MonoBehaviour:
         as powerful painkillers. '
       - The citizens are overall happy about your decision, and the new tax revenue
         from the substance is a nice bonus.
+      - Stop
       repImpact:
         letterYes: 0
         letterNo: 0
@@ -3583,6 +3587,7 @@ MonoBehaviour:
       hamiltonText:
       - Your decision to prohibit medical marijuana has left some citizens disgruntled.
       - Aside from that though, the status quo has been maintained in the city.
+      - Stop
       repImpact:
         letterYes: 0
         letterNo: 1
@@ -3605,6 +3610,7 @@ MonoBehaviour:
         the citizens.
       - 'It also seems that the police department is spending much less on policing
         the substance, for better or worse. '
+      - Stop
       repImpact:
         letterYes: 0
         letterNo: -1
@@ -3620,6 +3626,7 @@ MonoBehaviour:
       - Your decision to prevent the decriminalization of marijuana annoys a decent
         number of citizens.
       - Aside from that though, nothing much seems to have changed.
+      - Stop
       repImpact:
         letterYes: 1
         letterNo: 2
@@ -3641,6 +3648,7 @@ MonoBehaviour:
       - Approval ratings and tax revenue have skyrocketed!
       - Unfortunately, there have been increasing accidents and health problems related
         to the substance.
+      - Stop
       repImpact:
         letterYes: 0
         letterNo: -1
@@ -3656,6 +3664,7 @@ MonoBehaviour:
       - Blocking the legalization of marijuana is a decision that has made many citizens
         discontent.
       - Hopefully history will prove that your choice was not the worst one!
+      - Stop
       repImpact:
         letterYes: 0
         letterNo: 2
@@ -3666,8 +3675,8 @@ MonoBehaviour:
         money: 0
         safety: 0
         health: 0
-  - name: Liscense System
-    topic: Establish a <color=#5193B3>Liscense System</color> for Marijuana
+  - name: License System
+    topic: Establish a <color=#5193B3>License System</color> for Marijuana
     description: Cultivating and selling marijuana will require a license.
     passNext: -1
     failNext: -1
@@ -3677,6 +3686,7 @@ MonoBehaviour:
         much easier.
       - It seems the quality of marijuana products has improved, helping its users
         stay safer and healthier.
+      - Stop
       repImpact:
         letterYes: 1
         letterNo: 1
@@ -3686,13 +3696,14 @@ MonoBehaviour:
         happiness: 1
         money: 1
         safety: 1
-        health: -1
+        health: 1
     failImpact:
       hamiltonText:
       - "The council\u2019s decision to not institute a license system has made regulating
         the newly legalized drug a bit difficult."
       - "Let\u2019s hope the people and the businesses are responsible about how
         they use this substance."
+      - Stop
       repImpact:
         letterYes: 0
         letterNo: 0
