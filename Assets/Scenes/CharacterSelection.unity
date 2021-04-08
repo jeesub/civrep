@@ -874,7 +874,7 @@ MonoBehaviour:
   - eye12
   - eye13
   - eye14
-  faceIdx: 0
+  faceIdx: -1
   face: {fileID: 1441081365}
   hairNames:
   - hairb4
@@ -884,7 +884,7 @@ MonoBehaviour:
   - haire4
   - haira3
   - haira5
-  hairIdx: 0
+  hairIdx: -1
   hair: {fileID: 1739924722}
   accNames:
   - earphone4
@@ -893,7 +893,7 @@ MonoBehaviour:
   - hat5
   - glass4
   - glass5
-  accIdx: 0
+  accIdx: -1
   accessory: {fileID: 203317796}
   repName: {fileID: 1498624884}
 --- !u!1 &171183120
@@ -2069,7 +2069,7 @@ MonoBehaviour:
   - eye12
   - eye13
   - eye14
-  faceIdx: 0
+  faceIdx: -1
   face: {fileID: 1956035741}
   hairNames:
   - hairc2
@@ -2079,7 +2079,7 @@ MonoBehaviour:
   - haira3
   - hairb3
   - hairb5
-  hairIdx: 0
+  hairIdx: -1
   hair: {fileID: 1121672536}
   accNames:
   - hat1
@@ -2088,7 +2088,7 @@ MonoBehaviour:
   - glass2
   - earphone1
   - earphone2
-  accIdx: 0
+  accIdx: -1
   accessory: {fileID: 1753342721}
   repName: {fileID: 1244438065}
 --- !u!1 &366663171
@@ -3604,7 +3604,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Remaing Time: '
+  m_text: 'Remaining Time: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 126cc10cea3e7e647aba291bd59e790f, type: 2}
   m_sharedMaterial: {fileID: 3028709378055590659, guid: 126cc10cea3e7e647aba291bd59e790f, type: 2}
@@ -3631,7 +3631,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.2
+  m_fontSize: 18.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13241,6 +13241,18 @@ PrefabInstance:
     - target: {fileID: 2204718753806833378, guid: e11b3f73c6fd61e4196b6e445f86bf17, type: 3}
       propertyPath: m_Name
       value: Finance
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204718753806833380, guid: e11b3f73c6fd61e4196b6e445f86bf17, type: 3}
+      propertyPath: faceIdx
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204718753806833380, guid: e11b3f73c6fd61e4196b6e445f86bf17, type: 3}
+      propertyPath: hairIdx
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204718753806833380, guid: e11b3f73c6fd61e4196b6e445f86bf17, type: 3}
+      propertyPath: accIdx
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2204718753806833381, guid: e11b3f73c6fd61e4196b6e445f86bf17, type: 3}
       propertyPath: m_LocalPosition.x

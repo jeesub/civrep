@@ -127,6 +127,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
             //cityCanvas.SetActive(true);
             foreach(CharacterSelection repCharacter in repCharacters)
             {
+                repCharacter.RecordSelection();
                 repCharacter.gameObject.SetActive(false);
             }
 

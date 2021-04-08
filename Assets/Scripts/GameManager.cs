@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     // For scene loading (will refactor to another script in the future)
     public float sceneLoadTime = 5f;
 
+    public bool moveToNextScene = false;
+
     // CONSTANT VARIABLES
     // max value of each city status
     private static readonly int MAX_STAT = 5;
@@ -147,6 +149,16 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(sceneLoadTime);
+
+        // Replace this chuck of trash later
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            while (!moveToNextScene)
+            {
+                yield return new WaitForSecondsRealtime(0.5f);
+            }
+        }
+
         if (GameObject.Find("Canvas-City"))
         {
             GameObject background = GameObject.Find("Canvas-City").transform.GetChild(0).gameObject;

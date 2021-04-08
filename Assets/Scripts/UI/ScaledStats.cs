@@ -58,6 +58,10 @@ public class ScaledStats : MonoBehaviour
         {
             scales[i].GetComponent<Image>().color = setColor;
         }
+        for (int i = curValue; i < count; i++)
+        {
+            scales[i].GetComponent<Image>().color = defColor;
+        }
         if (prevValue < curValue)
         {
             // The value has been increased
@@ -124,7 +128,7 @@ public class ScaledStats : MonoBehaviour
         else if (change < 0)
         {
             changeText.gameObject.SetActive(true);
-            changeText.text = "-" + change.ToString();
+            changeText.text = change.ToString();
             changeText.color = decreaseColor;
         }        
     }

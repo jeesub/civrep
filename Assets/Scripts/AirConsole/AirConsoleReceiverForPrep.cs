@@ -14,6 +14,9 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
     private int pcOn = 0;
     private int amendmentOn = 0;
 
+    private List<int> repAskingPC = new List<int>();
+    private List<int> repAskingAmendment = new List<int>();
+
     public void TestOnMessage(int fromDeviceID, JToken data)
     {
         OnMessage(fromDeviceID, data);
@@ -116,19 +119,41 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         RepManager.instance.RecordRepMap(fromDeviceID, decision);
     }
 
-    private void ShowHamiltonPC(string arg)
+    private void ShowHamiltonPC(int fromDeviceID, string arg)
     {
-        pcOn += arg.Equals("on") ? 1 : -1;
-        Debug.Log("pcOn: " + pcOn);
-        Debug.Log("arg is: " + arg);
-        if (pcOn > 0)
+        if (repAskingPC.Contains(fromDeviceID))
         {
-            StopCoroutine("ClosePC");
-            pc.SetActive(true);
+            if (arg.Equals("off"))
+            {
+                repAskingPC.Remove(fromDeviceID);
+                pcOn--;
+                if (pcOn > 0)
+                {
+                    StopCoroutine("ClosePC");
+                    pc.SetActive(true);
+                }
+                else
+                {
+                    StartCoroutine("ClosePC");
+                }
+            }
         }
         else
         {
-            StartCoroutine("ClosePC");
+            if (arg.Equals("on"))
+            {
+                repAskingPC.Add(fromDeviceID);
+                pcOn++;
+                if (pcOn > 0)
+                {
+                    StopCoroutine("ClosePC");
+                    pc.SetActive(true);
+                }
+                else
+                {
+                    StartCoroutine("ClosePC");
+                }
+            }
         }
     }
 
@@ -138,17 +163,41 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         pc.SetActive(false);
     }
 
-    private void ShowHamiltonAmendment(string arg)
+    private void ShowHamiltonAmendment(int fromDeviceID, string arg)
     {
-        amendmentOn += arg.Equals("on") ? 1 : -1;
-        if (amendmentOn > 0)
+        if (repAskingAmendment.Contains(fromDeviceID))
         {
-            StopCoroutine("CloseAmendment");
-            amendments.SetActive(true);
+            if (arg.Equals("off"))
+            {
+                repAskingAmendment.Remove(fromDeviceID);
+                amendmentOn--;
+                if (amendmentOn > 0)
+                {
+                    StopCoroutine("CloseAmendment");
+                    amendments.SetActive(true);
+                }
+                else
+                {
+                    StartCoroutine("CloseAmendment");
+                }
+            }
         }
         else
         {
-            StartCoroutine("CloseAmendment");
+            if (arg.Equals("on"))
+            {
+                repAskingAmendment.Add(fromDeviceID);
+                amendmentOn++;
+                if (amendmentOn > 0)
+                {
+                    StopCoroutine("CloseAmendment");
+                    amendments.SetActive(true);
+                }
+                else
+                {
+                    StartCoroutine("CloseAmendment");
+                }
+            }
         }
     }
 
@@ -158,7 +207,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         amendments.SetActive(false);
     }
 
-    private void ShowHamiltonQA(JToken data)
+    private void ShowHamiltonQA(int fromDeviceID, JToken data)
     {
         string question = data["message"].ToString();
         string[] subs = question.Split(' ');
@@ -166,10 +215,10 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         switch (subs[0])
         {
             case "amendment":
-                ShowHamiltonAmendment(subs[1]);
+                ShowHamiltonAmendment(fromDeviceID, subs[1]);
                 break;
             case "politicalcapital":
-                ShowHamiltonPC(subs[1]);
+                ShowHamiltonPC(fromDeviceID, subs[1]);
                 break;
             default:
                 break;
@@ -197,7 +246,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
                 RecordMap(fromDeviceID, data);
                 break;
             case "hamilton":
-                ShowHamiltonQA(data);
+                ShowHamiltonQA(fromDeviceID, data);
                 break;
             default:
                 break;
