@@ -174,7 +174,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
                 if (amendmentOn > 0)
                 {
                     StopCoroutine("CloseAmendment");
-                    pc.SetActive(true);
+                    amendments.SetActive(true);
                 }
                 else
                 {
@@ -191,7 +191,7 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
                 if (amendmentOn > 0)
                 {
                     StopCoroutine("CloseAmendment");
-                    pc.SetActive(true);
+                    amendments.SetActive(true);
                 }
                 else
                 {
