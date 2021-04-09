@@ -382,7 +382,14 @@
 
             /** ACTIVATE **/
             function activate(screen) {
-                playSound();
+                var target = screen.split("-");
+                // want to play type writer sound
+                if (target[0] == "reply" && target.length > 2) {
+                    playLetterSound();
+                } else {
+                    playButtonSound();
+                }
+                
                 var elements = document.getElementsByClassName("controller-screen");
                 var i;
                 for (i = 0; i < elements.length; i++) {
@@ -487,7 +494,7 @@
             }
 
             function changeAppearance(part) {
-                playSound();
+                playButtonSound();
                 window.app.sendMessageToScreen({'topic': 'appearance', 'message': part});
                 if (part == "ready") {
                     activate("idle");
@@ -631,6 +638,7 @@
                     nayActive.classList.add("deactivated");
                 }
                 if (target == "nay") {
+                    playNoSound();
                     nayIdle.classList.add("deactivated");
                     nayActive.classList.remove("deactivated");
                     yeaIdle.classList.remove("deactivated");
@@ -638,6 +646,7 @@
                     window.app.sendMessageToScreen({"topic": "vote", "message": "Nah"});
                 }
                 if (target == "yea") {
+                    playYesSound();
                     yeaIdle.classList.add("deactivated");
                     yeaActive.classList.remove("deactivated");
                     nayIdle.classList.remove("deactivated");
@@ -651,14 +660,35 @@
                 }
             }
 
-            function playSound() {
+            function playButtonSound() {
                 document.getElementById("button-sound").play();
+            }
+
+            function playLetterSound() {
+                document.getElementById("letter-sound").play();
+            }
+
+            function playYesSound() {
+                document.getElementById("yes-sound").play();
+            }
+
+            function playNoSound() {
+                document.getElementById("no-sound").play();
             }
         </script>
     </head>
     <body onload="window.app = new App()">
         <audio id="button-sound">
             <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/button.wav" type="audio/wav">
+        </audio>
+        <audio id="letter-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/letter.wav" type="audio/wav">
+        </audio>
+        <audio id="yes-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/yes.wav" type="audio/wav">
+        </audio>
+        <audio id="no-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/no.wav" type="audio/wav">
         </audio>
         <!-- ALERT -->
         <div id="alert" class= "alert deactivated">ALERT</div>
