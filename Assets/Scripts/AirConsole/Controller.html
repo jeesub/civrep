@@ -532,6 +532,9 @@
             }
 
             function setLetterAndMap() {
+                document.getElementById("letter-button-1").classList.remove("deactivated");
+                document.getElementById("map-button-0-1").classList.remove("deactivated");
+                /*
                 if (selectedCharacter == "0") {
                     document.getElementById("letter-button-1").classList.remove("deactivated");
                     document.getElementById("map-button-0-1").classList.remove("deactivated");
@@ -544,6 +547,7 @@
                     document.getElementById("letter-button-0").classList.remove("deactivated");
                     document.getElementById("map-button-0-0").classList.remove("deactivated");
                 }
+                */
             }
 
             function setComputerContent() {
@@ -891,7 +895,7 @@
                 <div id="hamilton-0-1"  class="hamilton centered selectable" ontouchstart="window.selectHamilton('0-1')">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-1.png" class="full-width">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-1 -->
@@ -905,7 +909,7 @@
                 <div id="hamilton-1-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('1-1')">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-1.png" class="full-width">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-2 -->
@@ -919,7 +923,7 @@
                 <div id="hamilton-2-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('2-1')">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-1.png" class="full-width">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-3 -->
@@ -933,7 +937,7 @@
                 <div id="hamilton-3-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('3-1')">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-1.png" class="full-width">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-4 -->
@@ -947,7 +951,7 @@
                 <div id="hamilton-4-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('4-1')">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-1.png" class="full-width">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
 
@@ -1485,8 +1489,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0-0.png" id="reply-0-0-0-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1495,8 +1498,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0-1.png" id="reply-0-0-0-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1505,8 +1507,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1-0.png" id="reply-0-0-1-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1515,8 +1516,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1-1.png" id="reply-0-0-1-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1525,8 +1525,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0-0.png" id="reply-0-1-0-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1535,8 +1534,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0-1.png" id="reply-0-1-0-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1545,8 +1543,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1-0.png" id="reply-0-1-1-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1555,8 +1552,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1-1.png" id="reply-0-1-1-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1622,8 +1618,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-0.png" id="reply-1-1-0" class="sixty">
-                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-0-0')">agree</button>
-                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-0-1')">am unsure</button>
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-0-0')">support</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-0-1')">deliberate on</button>
             </div>
         </div>
         <!-- REPLY 1-1-1 -->
@@ -1631,8 +1627,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-1.png" id="reply-1-1-1" class="sixty">
-                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-1-0')">agree</button>
-                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-1-1')">am unsure</button>
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-1-0')">support</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-1-1')">deliberate on</button>
             </div>
         </div>
         <!-- REPLY 1-0-0-0 -->
@@ -1640,8 +1636,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-0-0.png" id="reply-1-0-0-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1650,8 +1645,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-0-1.png" id="reply-1-0-0-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1660,8 +1654,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-1-0.png" id="reply-1-0-1-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1670,8 +1663,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-1-1.png" id="reply-1-0-1-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1680,8 +1672,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-0-0.png" id="reply-1-1-0-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1690,8 +1681,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-0-1.png" id="reply-1-1-0-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
@@ -1700,8 +1690,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-1-0.png" id="reply-1-1-1-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
@@ -1710,8 +1699,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-1-1.png" id="reply-1-1-1-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-left bg-black" ontouchstart="window.activate('letter')">Redraft</button>
                 <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
