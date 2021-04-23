@@ -52,7 +52,8 @@
                 background-color: #B2B2B2;
                 color: #FFF;
                 width: 100%;
-                padding: 3vh 3vw;
+                height: 9vh;
+                padding: 3vh 1vw;
                 margin-bottom: 2vh;
             }
 
@@ -532,8 +533,6 @@
             }
 
             function setLetterAndMap() {
-                document.getElementById("letter-button-1").classList.remove("deactivated");
-                document.getElementById("map-button-0-1").classList.remove("deactivated");
                 /*
                 if (selectedCharacter == "0") {
                     document.getElementById("letter-button-1").classList.remove("deactivated");
@@ -1072,7 +1071,7 @@
                 <div id="map-button-0-0" ontouchstart="window.activate('police-0')" class="deactivated">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-0-0.png" class="img-button">
                 </div>
-                <div id="map-button-0-1" ontouchstart="window.activate('sam-0')" class="deactivated">
+                <div id="map-button-0-1" ontouchstart="window.activate('sam-0')">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-0-1.png" class="img-button">
                 </div>
                 <div id="map-button-1" ontouchstart="window.activate('prison-0')">
@@ -1216,7 +1215,6 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-0.png" id="map-description-0" class="seventy">
-                <div id="sam-0-description" class="map-description">What would you like to do?</div>
                 <button id="sam-0-button-0" class="button horizontal-button-left bg-mint" ontouchstart="window.activate('map')">
                     Come back later
                 </button>
@@ -1260,8 +1258,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-1-0.png" class="full-width">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.sendMapSam('no')">That's worrying...</button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.sendMapSam('yes')">I don't understand...</button>
+                <button class="button vertical-button-up bg-mint" ontouchstart="window.sendMapSam('no')">Hmm... I see...</button>
+                <button class="button vertical-button-down bg-mint" ontouchstart="window.sendMapSam('yes')">I believe I can help!</button>
             </div>
         </div>
         <!-- SAM BILL 1-1 -->
@@ -1269,8 +1267,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-1-1.png" class="full-width">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.sendMapSam('no')">I agree...</button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.sendMapSam('yes')">I disagree...</button>
+                <button class="button vertical-button-up bg-mint" ontouchstart="window.sendMapSam('no')">Hmm... I see...</button>
+                <button class="button vertical-button-down bg-mint" ontouchstart="window.sendMapSam('yes')">I believe I can help!</button>
             </div>
         </div>
         <!-- SAM BILL 2-0 -->
@@ -1306,7 +1304,7 @@
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-ask-0.png" class="full-width">
                 <button class="button vertical-button-up bg-mint" ontouchstart="window.activate('sam-ask-1-0')">
-                    Ask about the rising in hospital visits
+                    Ask about the rising hospital visits
                 </button>
                 <button class="button vertical-button-down bg-mint" ontouchstart="window.activate('sam-ask-1-1')">
                     Ask about medical marijuana
@@ -1405,7 +1403,7 @@
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-description.png" class="full-width">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-title.png" class="title-image">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0.png" id="letter-button-0" ontouchstart="window.activate('letter-0')" class="img-button deactivated">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-1.png" id="letter-button-1" ontouchstart="window.activate('letter-1')" class="img-button deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-1.png" id="letter-button-1" ontouchstart="window.activate('letter-1')" class="img-button">
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
