@@ -758,13 +758,13 @@
                     document.getElementById("bill-" + target + "-default").classList.add("deactivated");
                     document.getElementById("bill-" + target + "-selected").classList.remove("deactivated");
                     bills[numberTarget] = true;
-                    window.app.sendMessageToScreen({"topic": "bill", "message": "target"});
+                    window.app.sendMessageToScreen({"topic": "bill", "message": target});
                 }
                 if (type == "deselect") {
                     document.getElementById("bill-" + target + "-default").classList.remove("deactivated");
                     document.getElementById("bill-" + target + "-selected").classList.add("deactivated");
                     bills[numberTarget] = false;
-                    window.app.sendMessageToScreen({"topic": "bill", "message": "target"});
+                    window.app.sendMessageToScreen({"topic": "bill", "message": target});
                 }
 
                 if (type == "select") {
