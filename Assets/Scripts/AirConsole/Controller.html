@@ -63,7 +63,11 @@
                 top: 88vh;
                 left: 10vw;
                 color: #FFF;
-                background-color: #000;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/mint-button.png");
+                background-position: center;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-color: transparent;
             }
 
             .button:active {
@@ -89,7 +93,11 @@
 
             .bg-black {
                 color: #FFF;
-                background-color: #000;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/black-button.png");
+                background-position: center;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-color: transparent;
             }
 
             .bg-grey {
@@ -119,7 +127,11 @@
 
             .bg-mint {
                 color: #FFF;
-                background-color: #64C4C3;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/mint-button.png");
+                background-position: center;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-color: transparent;
             }
 
             .bg-white {
@@ -247,7 +259,14 @@
             }
 
             .hamilton {
-                background-color: #F8D49A;
+                border: 1.5vw solid #FFFFFF00;
+                border-radius: 6vw;
+                margin-top: 2vh;
+                background-color: transparent;
+            }
+
+            .hamilton-selected {
+                border: 1.5vw solid #000;
             }
 
             .prep-button {
@@ -323,6 +342,10 @@
                 height: 10vh;
                 max-width: 100%;
             }
+            .thirteen {
+                height: 13vh;
+                max-width: 100%;
+            }
             .fifteen {
                 height: 15vh;
                 max-width: 100%;
@@ -337,6 +360,10 @@
             }
             .twenty {
                 height: 20vh;
+                max-width: 100%;
+            }
+            .twentythree {
+                height: 23vh;
                 max-width: 100%;
             }
             .twentyfive {
@@ -508,9 +535,9 @@
                 var prefix = selected.substring(0, 2);
                 var num = selected.substring(2, 3);
                 selectedHamilton = num;
-                document.getElementById("hamilton-" + prefix + '0').classList.remove("selected");
-                document.getElementById("hamilton-" + prefix + '1').classList.remove("selected");
-                document.getElementById("hamilton-" + selected).classList.add("selected");
+                document.getElementById("hamilton-" + prefix + '0').classList.remove("hamilton-selected");
+                document.getElementById("hamilton-" + prefix + '1').classList.remove("hamilton-selected");
+                document.getElementById("hamilton-" + selected).classList.add("hamilton-selected");
             }
 
             function submitHamilton() {
@@ -646,7 +673,6 @@
                 document.getElementById("sam-0-button-0").classList.add("deactivated");
                 document.getElementById("sam-0-button-1").classList.add("deactivated");
                 document.getElementById("sam-0-button-2").classList.remove("deactivated");
-                document.getElementById("sam-0-description").innerHTML = "You have visited this place";
             }
 
             function sendMapSam(stance) {
@@ -888,13 +914,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-0-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('0-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-0.png" class="full-width">
+                <div id="hamilton-0-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('0-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-0-1"  class="hamilton centered selectable" ontouchstart="window.selectHamilton('0-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-1.png" class="full-width">
+                <div id="hamilton-0-1"  class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('0-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-1.png" class="seventeen">
                 </div>
-                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-1 -->
@@ -902,13 +928,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-1-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('1-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-0.png" class="full-width">
+                <div id="hamilton-1-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('1-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-1-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('1-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-1.png" class="full-width">
+                <div id="hamilton-1-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('1-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-1.png" class="seventeen">
                 </div>
-                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-2 -->
@@ -916,13 +942,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-2-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('2-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-0.png" class="full-width">
+                <div id="hamilton-2-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('2-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-2-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('2-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-1.png" class="full-width">
+                <div id="hamilton-2-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('2-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-1.png" class="seventeen">
                 </div>
-                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-3 -->
@@ -930,13 +956,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-3-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('3-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-0.png" class="full-width">
+                <div id="hamilton-3-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('3-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-3-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('3-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-1.png" class="full-width">
+                <div id="hamilton-3-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('3-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-1.png" class="seventeen">
                 </div>
-                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-4 -->
@@ -944,13 +970,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-4-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('4-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-0.png" class="full-width">
+                <div id="hamilton-4-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('4-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-4-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('4-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-1.png" class="full-width">
+                <div id="hamilton-4-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('4-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-1.png" class="seventeen">
                 </div>
-                <button class="button bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit bg-mint" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
 
@@ -1019,13 +1045,13 @@
         <div id="screen-computer" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content bg-computer">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-description.png" class="twentyfive">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-description.png" class="twentythree">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-title.png" class="title-image">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-0.png" class="img-button" ontouchstart="window.activate('computer-0')">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-1.png" class="img-button" ontouchstart="window.activate('computer-1')">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-0.png" class="img-button deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-0">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-1.png" class="img-button deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-1">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-2.png" class="img-button deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-2">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-0.png" class="thirteen" ontouchstart="window.activate('computer-0')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-1.png" class="thirteen" ontouchstart="window.activate('computer-1')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-0.png" class="thirteen deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-0">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-1.png" class="thirteen deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-1">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-2.png" class="thirteen deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-2">
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
