@@ -81,8 +81,9 @@ public class HamiltonChoices : MonoBehaviour
                 indicator.GetComponent<Image>().sprite = indicators[repIdx];
             }
         }
-        else
+        else if (answer == 1)
         {
+            // choosing the second
             GameObject indicator = Instantiate(indicatorPrefab,
                 new Vector3(second.transform.position.x, second.transform.position.y, second.transform.position.z),
                 Quaternion.identity);

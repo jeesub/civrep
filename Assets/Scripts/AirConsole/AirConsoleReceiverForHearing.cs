@@ -56,6 +56,10 @@ public class AirConsoleReceiverForHearing : MonoBehaviour
         {
             host.VoteNay(repIdx);
         }
+        else if (vote.Equals("Confirm"))
+        {
+            host.CheckAllVoted(repIdx);
+        }
     }
 
     private void OnMessage(int fromDeviceID, JToken data)

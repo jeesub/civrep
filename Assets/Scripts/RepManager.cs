@@ -18,7 +18,7 @@ public class RepManager : MonoBehaviour
     // Map repIdx to player's name
     public Dictionary<int, string> repToName = new Dictionary<int, string>();
 
-    public List<CharacterSelection> repCharacters = new List<CharacterSelection>();
+    public CharacterSelection repCharacter;
     private List<int> readyCharacters = new List<int>();
 
     private Dictionary<int, List<string>> repActions = new Dictionary<int, List<string>>();
@@ -61,11 +61,13 @@ public class RepManager : MonoBehaviour
 
     public bool CheckAllPlayerOnCharacterSelection()
     {
+        Debug.Log("CheckAllPlayerOnCharacterSelection");
         return (readyCharacters.Count == maxPlayer);
     }
 
     public bool CheckAllPlayerOnPrep()
     {
+        Debug.Log("Count is: " + readyReps.Count);
         return (readyReps.Count == maxPlayer);
     }
 
@@ -83,20 +85,20 @@ public class RepManager : MonoBehaviour
         }
     } 
 
-    private void UpdateRepName(int repIdx, string name)
+    private void UpdateRepName(string name)
     {
-        PrepRoomStatus.instance.UpdateRepName(repIdx, name);
-        repCharacters[repIdx].SetName(name);
+        PrepRoomStatus.instance.UpdateRepName(name);
+        repCharacter.SetName(name);
     }
 
     private void AddRepName(int deviceID, string name)
     {
-        int repIdx = getRepIdx(deviceID);
-        if (!repToName.ContainsKey(repIdx))
-        {
-            repToName.Add(repIdx, name);
-            UpdateRepName(repIdx, name);
-        }
+        //int repIdx = getRepIdx(deviceID);
+        //if (!repToName.ContainsKey(repIdx))
+        //{
+            //repToName.Add(repIdx, name);
+            UpdateRepName(name);
+        //}
     }
 
     public void SetRepName(int deviceID, string name)
@@ -120,10 +122,10 @@ public class RepManager : MonoBehaviour
 
     public void ChangeRepApperance(int deviceID, string appearance)
     {
-        int repIdx = getRepIdx(deviceID);
-        if (repCharacters.Count > repIdx)
-        {
-            CharacterSelection repCharacter = repCharacters[repIdx];
+        //int repIdx = getRepIdx(deviceID);
+        //if (repCharacters.Count > repIdx)
+        //{
+            //CharacterSelection repCharacter = repCharacters[repIdx];
             switch (appearance)
             {
                 case "face":
@@ -136,20 +138,45 @@ public class RepManager : MonoBehaviour
                     repCharacter.ChangeAccessory();
                     break;
                 case "ready":
-                    if (!readyCharacters.Contains(repIdx))
-                    {
-                        readyCharacters.Add(repIdx);
-                    }
+                    //if (!readyCharacters.Contains(repIdx))
+                    //{
+                        readyCharacters.Add(deviceID);
+                    //}
                     break;
                 default:
                     break;
             }
-        }
-        else
-        {
-            Debug.LogError("repIdx out of range: " + repIdx + "/" + repCharacters.Count);
-        }
+        //}
+        //else
+        //{
+        //    Debug.LogError("repIdx out of range: " + repIdx + "/" + repCharacters.Count);
+        //}
         
+    }
+
+    public void ChangeCommittee(int committee)
+    {
+        Debug.Log("The committe idx is: " + committee);
+        switch(committee)
+        {
+            case 0:
+                repCharacter.ChangeCommittee("Finance");
+                repCharacter.ChangeBody("Finance");
+                PrepRoomStatus.instance.UpdateCommittee("Finance");
+                break;
+            case 1:
+                repCharacter.ChangeCommittee("PublicService");
+                repCharacter.ChangeBody("PublicService");
+                PrepRoomStatus.instance.UpdateCommittee("PublicService");
+                break;
+            case 2:
+                repCharacter.ChangeCommittee("Law");
+                repCharacter.ChangeBody("Law");
+                PrepRoomStatus.instance.UpdateCommittee("Law");
+                break;
+            default:
+                break;
+        }
     }
 
     public void GoToDestination(int deviceID, string dest)
@@ -159,6 +186,7 @@ public class RepManager : MonoBehaviour
         {
             if (!readyReps.Contains(deviceID))
             {
+                Debug.Log("adding to ready reps");
                 readyReps.Add(deviceID);
             }
         }
@@ -168,16 +196,16 @@ public class RepManager : MonoBehaviour
 
     public void RecordRepLetter(int deviceID, bool decision)
     {
-        int repIdx = getRepIdx(deviceID);
-        Debug.Log("Rep" + repIdx + "says " + decision + "to the letter"); 
-        PrepRoomStatus.instance.RecordRepLetterDecision(repIdx, decision);
+        //int repIdx = getRepIdx(deviceID);
+        //Debug.Log("Rep" + repIdx + "says " + decision + "to the letter"); 
+        PrepRoomStatus.instance.RecordRepLetterDecision(decision);
     }
 
     public void RecordRepMap(int deviceID, bool decision)
     {
-        int repIdx = getRepIdx(deviceID);
-        Debug.Log("Rep" + repIdx + "says " + decision + "to the map");
-        PrepRoomStatus.instance.RecordRepMapDecision(repIdx, decision);
+        //int repIdx = getRepIdx(deviceID);
+        //Debug.Log("Rep" + repIdx + "says " + decision + "to the map");
+        PrepRoomStatus.instance.RecordRepMapDecision(decision);
     }
 
     public void TakeAction(int deviceID, string action)

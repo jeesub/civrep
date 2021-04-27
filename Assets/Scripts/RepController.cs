@@ -8,29 +8,46 @@ public class RepController : MonoBehaviour
 {
     public Vector3 start_pos;
 
-    public GameObject face, hair, acc;
+    public GameObject body, face, hair, acc;
+
+    private NavMeshAgent navMesh;
 
     void OnEnable()
     {
         start_pos = transform.position;
         SetAppearance();
+
+        if (GetComponent<NavMeshAgent>() != null)
+        {
+            navMesh = GetComponent<NavMeshAgent>();
+        }        
     }
 
     public void RepReady()
     {
-        GetComponent<NavMeshAgent>().SetDestination(start_pos);
+        navMesh.SetDestination(start_pos);
+    }
+
+    public void GoToDestination(Transform destination)
+    {
+        navMesh.SetDestination(destination.position);
+        transform.LookAt(destination);
     }
 
     private void SetAppearance()
     {
         
-        string selectionStr = System.IO.File.ReadAllText(Application.dataPath + "/" + gameObject.name + ".json");
+        string selectionStr = System.IO.File.ReadAllText(Application.dataPath + "/Player.json");
         Debug.Log("selection is: " + selectionStr);
 
         JObject selection = JObject.Parse(selectionStr);
+        string bodyStr = selection["body"].ToString();
         string faceStr = selection["face"].ToString();
         string hairStr = selection["hair"].ToString();
         string accStr = selection["accessory"].ToString();
+
+        GameObject new_body = Resources.Load<GameObject>("Characters/body/" + bodyStr);
+        body.GetComponent<MeshFilter>().mesh = new_body.GetComponent<MeshFilter>().sharedMesh;
 
         GameObject new_face = Resources.Load<GameObject>("Characters/eyes/" + faceStr);
         face.GetComponent<MeshFilter>().mesh = new_face.GetComponent<MeshFilter>().sharedMesh;

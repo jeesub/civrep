@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 796c2feeb04c8244fa647b5904756825
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Aleo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d8fb74b432e343546a9e519e71f1f1d2, type: 3}
+  - {fileID: 12800000, guid: 16c02fa736d3084489b919115a167d82, type: 3}
+  - {fileID: 12800000, guid: 24a1859b6679a8a4580e838f845db105, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

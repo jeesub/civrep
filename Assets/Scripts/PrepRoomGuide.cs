@@ -47,7 +47,7 @@ public class PrepRoomGuide : MonoBehaviour
                     reps[repIdx].SetActive(true);
                 }
                 Debug.Log("destination is: " + dest);
-                reps[repIdx].GetComponent<NavMeshAgent>().SetDestination(destination.position);
+                reps[repIdx].GetComponent<RepController>().GoToDestination(destination);
             }
             else
             {

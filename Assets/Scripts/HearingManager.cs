@@ -11,8 +11,10 @@ public class HearingManager : MonoBehaviour
 
     [Header("Texts & UI")]    
     public GameObject hearingUI;
+    public GameObject nameTags;
     public TextMeshProUGUI hearingText;
     public HamiltonSound hearingSound;
+    public List<TMP_FontAsset> fonts;
     [TextArea]
     public List<string> texts;
 
@@ -27,6 +29,7 @@ public class HearingManager : MonoBehaviour
     [Header("Characters")]
     private int hearingNum = 0;
     private GameObject person;
+    private GameObject personName;
 
     public void StartHearing()
     {
@@ -36,10 +39,20 @@ public class HearingManager : MonoBehaviour
         // Go to podium
         transform.position = positions[0].position;
         GetComponent<NavMeshAgent>().SetDestination(positions[1].position);
+        transform.LookAt(positions[1]);
 
         // Set the corresponding character active
         person = transform.GetChild(hearingNum).gameObject;
         person.SetActive(true);
+
+        personName = nameTags.transform.GetChild(hearingNum).gameObject;
+        personName.SetActive(true);
+
+        // Set the correct font
+        hearingText.font = fonts[hearingNum];
+
+        // Remove Possible "End" text at Start
+        //if (texts[0].Equals("End")) texts.RemoveAt(0);
 
         // Wait for the walk time
         StartCoroutine("ToPodium");
@@ -67,9 +80,9 @@ public class HearingManager : MonoBehaviour
 
     private void DisplayNextText()
     {
-        CheckEnd();
-        CheckHide();
-        if (texts.Count > 0 && !texts[0].Equals("Stop"))
+        bool hasEnd = CheckEnd();
+        bool hasHide = CheckHide();
+        if (!hasEnd && !hasHide && texts.Count > 0 && !texts[0].Equals("Stop"))
         {
             hearingText.text = texts[0];
             texts.RemoveAt(0);
@@ -82,16 +95,18 @@ public class HearingManager : MonoBehaviour
         }
     }
 
-    private void CheckHide()
+    private bool CheckHide()
     {
         if (texts.Count > 0 && texts[0].Equals("Hide"))
         {
             hearingUI.SetActive(false);
             texts.RemoveAt(0);
+            return true;
         }
+        return false;
     }
 
-    private void CheckEnd()
+    private bool CheckEnd()
     {
         if (texts.Count > 0 && texts[0].Equals("End"))
         {
@@ -103,8 +118,10 @@ public class HearingManager : MonoBehaviour
             SpeechLight(false);
 
             // Walk down the podium
-            StartCoroutine(LeavePodium());            
+            StartCoroutine(LeavePodium());
+            return true;
         }
+        return false;
     }
 
     IEnumerator DisplayText(int maxChars)
@@ -131,7 +148,7 @@ public class HearingManager : MonoBehaviour
                 hearingText.maxVisibleCharacters = num;
                 //hSound.PlayRandomVoice();
 
-                yield return new WaitForSecondsRealtime(0.1f);
+                yield return new WaitForSecondsRealtime(0.04f);
             }
 
         }
@@ -145,10 +162,12 @@ public class HearingManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         hearingUI.SetActive(false);
         GetComponent<NavMeshAgent>().SetDestination(positions[2].position);
+        transform.LookAt(positions[2].position);
 
         // Deactivate hearing person after walk time
         yield return new WaitForSeconds(walkTime);
         person.SetActive(false);
+        personName.SetActive(false);
         hearingNum++; 
         yield return new WaitForSeconds(1);
 
