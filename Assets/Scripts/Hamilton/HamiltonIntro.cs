@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class HamiltonIntro : MonoBehaviour
 {
+    public GameObject hamiltonCanvas;
+    public GameObject panel;
+    public GameObject capture;
     public GameObject hamiltonUI;
 
     void Start()
     {
-        hamiltonUI.SetActive(false);
+        hamiltonCanvas.SetActive(false);
     }
 
     void Update()
@@ -23,6 +26,9 @@ public class HamiltonIntro : MonoBehaviour
 
     public void DisplayHamiltonUI()
     {
-        hamiltonUI.SetActive(true);
+        hamiltonCanvas.SetActive(true);
+        if (panel != null) panel.SetActive(true);
+        if (capture != null) capture.SetActive(true);
+        if (hamiltonUI != null) hamiltonUI.SetActive(true);
     }
 }

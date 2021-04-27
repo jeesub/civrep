@@ -22,10 +22,11 @@ public class HamiltonTexts : MonoBehaviour
     public List<string> texts = new List<string>();
 
     public CityCouncilHost host;
+    public AmendmentOutcomes outcomes;
 
     private void Start()
     {
-        hUI = GameObject.Find("Hamilton UI");
+        if (hUI == null) hUI = GameObject.Find("Hamilton UI");
     }
 
     public void PlayNext()
@@ -36,9 +37,9 @@ public class HamiltonTexts : MonoBehaviour
 
     private void DisplayNextText()
     {
-        CheckEnd();
-        CheckHide();
-        if (texts.Count > 0 && !texts[0].Equals("Stop"))
+        bool hasEnd = CheckEnd();
+        bool hasHide = CheckHide();
+        if (!hasEnd && !hasHide && texts.Count > 0 && !texts[0].Equals("Stop"))
         {
             hText.text = texts[0];
             texts.RemoveAt(0);
@@ -57,22 +58,31 @@ public class HamiltonTexts : MonoBehaviour
         }
     }
 
-    private void CheckEnd()
+    private bool CheckEnd()
     {
         if (texts.Count > 0 && texts[0].Equals("End"))
         {
             texts.RemoveAt(0);
             Debug.Log("Going to next scene");
             StartCoroutine(GameManager.Instance.LoadNextScene());
+            return true;
         }
+        return false;
     }
 
-    private void CheckHide()
+    private bool CheckHide()
     {
         if (texts.Count > 0 && texts[0].Equals("Hide"))
         {
-            hUI.SetActive(false);
             texts.RemoveAt(0);
+            // Notify outcome display
+            if (outcomes != null && outcomes.gameObject.activeSelf)
+            {                
+                if (outcomes.DisplayRepChanges()) return true;
+            }
+
+            hUI.SetActive(false);
+            
             if (panel != null)
             {
                 panel.SetActive(false);
@@ -81,7 +91,9 @@ public class HamiltonTexts : MonoBehaviour
             {
                 hamiltonCapture.SetActive(false);
             }
+            return true;
         }
+        return false;
     }
 
     private void RemoveStopAtFirst()
@@ -125,12 +137,12 @@ public class HamiltonTexts : MonoBehaviour
                 hText.maxVisibleCharacters = num;
                 //hSound.PlayRandomVoice();
 
-                yield return new WaitForSecondsRealtime(0.07f);
+                yield return new WaitForSecondsRealtime(0.03f);
             }
             
         }
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2.5f);
         DisplayNextText();
     }
 }

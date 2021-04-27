@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class AirConsoleReceiverForPrep : MonoBehaviour
 {
-    public GameObject pc, amendments;
+    public GameObject pc, amendments, hamilton;
 
     private int maxPlayer;
     private int pcOn = 0;
@@ -38,8 +38,8 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         NoticeController();
 
         GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetSceneName("Research on the bill");
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
-        GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(930);
+        //GameObject.Find("Canvas-City").GetComponent<SetForecast>().ResetRemainTime();
+        //GameObject.Find("Canvas-City").GetComponent<SetForecast>().SetRemainTime(930);
     }
 
     private void NoticeController()
@@ -97,7 +97,9 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
     {
         if (RepManager.instance.CheckAllPlayerOnPrep())
         {
-            StartCoroutine(GameManager.Instance.LoadNextScene());            
+            //StartCoroutine(GameManager.Instance.LoadNextScene());            
+            hamilton.GetComponent<HamiltonIntro>().DisplayHamiltonUI();
+            hamilton.GetComponent<HamiltonTexts>().PlayNext();
         }
     }
 
@@ -207,21 +209,30 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
         amendments.SetActive(false);
     }
 
-    private void ShowHamiltonQA(int fromDeviceID, JToken data)
+    private void AnswerHamilton(int fromDeviceID, JToken data)
     {
+        int answer = data["message"].ToObject<int>();
+        Debug.Log("message is: " + answer);
+        hamilton.GetComponent<HamiltonChoices>().RecordAnswer(fromDeviceID, answer);
+    }
+
+    private bool ShowHamiltonQA(int fromDeviceID, JToken data)
+    {
+        // return true if the quest is about qa
         string question = data["message"].ToString();
         string[] subs = question.Split(' ');
+        if (subs.Length < 2) return false;
         Debug.Log("Question is about: " + subs[0] + "/" + subs[1]);
         switch (subs[0])
         {
             case "amendment":
                 ShowHamiltonAmendment(fromDeviceID, subs[1]);
-                break;
+                return true;
             case "politicalcapital":
                 ShowHamiltonPC(fromDeviceID, subs[1]);
-                break;
+                return true;
             default:
-                break;
+                return false;
         }
     }
 
@@ -246,7 +257,10 @@ public class AirConsoleReceiverForPrep : MonoBehaviour
                 RecordMap(fromDeviceID, data);
                 break;
             case "hamilton":
-                ShowHamiltonQA(fromDeviceID, data);
+                if (!ShowHamiltonQA(fromDeviceID, data))
+                {
+                    AnswerHamilton(fromDeviceID, data);
+                }                
                 break;
             default:
                 break;

@@ -7,7 +7,9 @@ public class CoinPlacer : MonoBehaviour
 {
     // total number of coins
     public int num = 1;
-    public float interval = 30.0f;
+    public int maxNumRow = 3;
+    public float horizontalInterval = 30.0f;
+    public float verticalInterval = 55f;
     public List<GameObject> coins = new List<GameObject>();
     public GameObject nextCoin;
     public GameObject coinPrefab;
@@ -62,24 +64,24 @@ public class CoinPlacer : MonoBehaviour
     private void MoveNextCoinBack()
     {
         Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
-        if (coins.Count == 4)
+        if (coins.Count == maxNumRow-1)
         {
-            position.x += 5 * interval;
-            position.y += 55;
+            position.x += maxNumRow * horizontalInterval;
+            position.y += verticalInterval;
         }
-        position.x -= interval;
+        position.x -= horizontalInterval;
         nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
     }
 
     private void MoveNextCoinAhead()
     {
         Vector2 position = nextCoin.GetComponent<RectTransform>().anchoredPosition;
-        if (coins.Count == 5)
+        if (coins.Count == maxNumRow)
         {
-            position.x -= 5 * interval;
-            position.y -= 55;
+            position.x -= maxNumRow * horizontalInterval;
+            position.y -= verticalInterval;
         }
-        position.x += interval;
+        position.x += horizontalInterval;
         nextCoin.GetComponent<RectTransform>().anchoredPosition = position;
     }
 

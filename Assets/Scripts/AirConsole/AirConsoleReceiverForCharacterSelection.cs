@@ -14,7 +14,11 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
     public GameObject cityCanvas;
     public GameObject hamilton;
 
-    public List<CharacterSelection> repCharacters = new List<CharacterSelection>();
+    public CoinPlacer coinPlacer;
+    public GameObject metric;
+    public GameObject metricCopyRoot;
+
+    public CharacterSelection repCharacter;
 
     private int maxPlayer;
 
@@ -39,11 +43,11 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
         NoticeController();
 
         cityCanvas.GetComponent<SetForecast>().SetSceneName("Character Selection");
-        cityCanvas.GetComponent<SetForecast>().ResetRemainTime();
-        cityCanvas.GetComponent<SetForecast>().SetRemainTime(sessionTime);
+        //cityCanvas.GetComponent<SetForecast>().ResetRemainTime();
+        //cityCanvas.GetComponent<SetForecast>().SetRemainTime(sessionTime);
 
         // Set the repCharacters in RepManager
-        RepManager.instance.repCharacters = repCharacters;
+        RepManager.instance.repCharacter = repCharacter;
     }
 
     private void NoticeController()
@@ -93,6 +97,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
                     {"message", true }
                 };
             AirConsole.instance.Message(fromDeviceID, messageData);
+            RepManager.instance.ChangeCommittee(repIdx);
 
             /*
             // Send the prep room info in a batch
@@ -120,20 +125,35 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
 
     private void CheckAllPlayer()
     {
+        Debug.Log("Checking all players");
         if (RepManager.instance.CheckAllPlayerOnCharacterSelection())
         {
             //SceneManager.LoadScene(1);
             //StartCoroutine(GameManager.Instance.LoadNextScene());
             //cityCanvas.SetActive(true);
-            foreach(CharacterSelection repCharacter in repCharacters)
-            {
-                repCharacter.RecordSelection();
-                repCharacter.gameObject.SetActive(false);
-            }
+            //foreach(CharacterSelection repCharacter in repCharacters)
+            //{
 
-            cityCanvas.GetComponent<Canvas>().enabled = true;
-            hamilton.GetComponent<PlayableDirector>().Play();
+            //}
+
+            Debug.Log("Calling hamiltontalk coroutine");
+            StartCoroutine(HamiltonTalk());
         }
+    }
+
+    IEnumerator HamiltonTalk()
+    {
+        coinPlacer.enabled = false;
+        GameObject metric_copy = Instantiate(metric, metricCopyRoot.transform);
+        metric_copy.transform.parent = metricCopyRoot.transform;
+        coinPlacer.enabled = true;
+        Debug.Log("finished instantiating");
+        yield return new WaitForSeconds(2f);
+
+        repCharacter.RecordSelection();
+        repCharacter.gameObject.SetActive(false);
+        cityCanvas.GetComponent<Canvas>().enabled = true;
+        hamilton.GetComponent<PlayableDirector>().Play();
     }
 
     private void ChangeAppearance(int fromDeviceID, JToken data)

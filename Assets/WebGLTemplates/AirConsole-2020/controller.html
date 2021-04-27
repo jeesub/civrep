@@ -4,15 +4,15 @@
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
         <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
         <style type=text/css>
-            @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Rowdies&display=swap');
             body {
                 -ms-user-select: none;
                 -moz-user-select: none;
                 -webkit-user-select: none;
                 user-select: none;
                 margin: 0;
-                font-family: 'Quicksand', sans-serif;
+                font-family: 'Rowdies', sans-serif;
                 font-size: 5vw;
                 line-height: 20pt;
                 background-color: #D9D9D9;
@@ -46,12 +46,13 @@
                 -moz-border-radius: 11;
                 border-radius: 11px;
                 border: none;
-                font-family: 'Quicksand', sans-serif;
+                font-family: 'Rowdies', cursive;
                 font-size: 4vw;
                 background-color: #B2B2B2;
                 color: #FFF;
                 width: 100%;
-                padding: 3vh 3vw;
+                height: 9vh;
+                padding: 3vh 1vw;
                 margin-bottom: 2vh;
             }
 
@@ -61,7 +62,29 @@
                 top: 88vh;
                 left: 10vw;
                 color: #FFF;
-                background-color: #000;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/black-button.png");
+                background-position: center;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-color: transparent;
+            }
+
+            .black-button {
+                color: #FFF;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/black-button.png");
+                background-position: center;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-color: transparent;
+            }
+
+            .mint-button {
+                color: #FFF;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/mint-button.png");
+                background-position: center;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-color: transparent;
             }
 
             .button:active {
@@ -110,24 +133,23 @@
                 background-color: #62462B;
             }
 
-            .bg-mint {
-                color: #FFF;
-                background-color: #64C4C3;
-            }
-
             .bg-white {
                 color: #000;
                 background-color: #FFF;
             }
 
+            .bg-black {
+                color: #FFF;
+                background-color: #303030;
+            }
+
             .selectable {
                 border: 1.5vw solid #FFFFFF00;
-                border-radius: 3vw;
-                margin-top: 2vh;
+                border-radius: 7vw;
             }
 
             .selected {
-                border: 1.5vw solid #000;
+                border: 1.5vw solid #FFF;
             }
 
             .controller-screen {
@@ -150,7 +172,7 @@
                 background-position: center;
                 background-size: contain;
                 background-repeat: no-repeat;
-                background-color: #FFF;
+                background-color: #303030;
             }
 
             .controller-content {
@@ -187,6 +209,10 @@
                 margin-bottom: 1vh;
             }
 
+            .margin-bottom {
+                margin-bottom: 5vh;
+            }
+
             /** LETTER **/
             .horizontal-button-left {
                 position: absolute;
@@ -221,18 +247,35 @@
             }
 
             /** Custom **/
+            .idle-description {
+                font-size: 9vw;
+                line-height: 10vw;
+            }
+
             #username {
                 margin-top: -1vh;
                 border: 2vw solid #64C4C3;
                 width: 72%;
             }
+
             .img-button {
                 width: 100%;
                 margin-bottom: 2vh;
             }
 
+            .img-button:active {
+                transform: translateY(4px);
+            }
+
             .hamilton {
-                background-color: #F8D49A;
+                border: 1.5vw solid #FFFFFF00;
+                border-radius: 6vw;
+                margin-top: 2vh;
+                background-color: transparent;
+            }
+
+            .hamilton-selected {
+                border: 1.5vw solid #000;
             }
 
             .prep-button {
@@ -258,17 +301,87 @@
                 width: 44vw;
             }
 
+            .feedback-description {
+                font-family: 'Rowdies', cursive;
+                font-size: 4vw;
+            }
+
+            .prepham-0-0 {
+                height: 76vh;
+                max-width: 100%;
+            }
+
+            /** Bill **/
+            .bill-content {
+                position: relative;
+                width: 100%;
+                height: 70vh;
+                max-height: 134vw;
+                text-align: left;
+                background-image: url("https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-bg.png");
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            .bill-buttons {
+                width: 26vw;
+                height: 30vw;
+            }
+            .bill-safety-button {
+                margin-top: 2vh;
+                margin-left: 7vw;
+            }
+            .bill-marijuana-button {
+                margin-top: 2vh;
+                margin-left: 20vw;
+            }
+            .bill-health-button {
+                margin-top: 8vh;
+                margin-left: 7vw;
+            }
+            .bill-public-button {
+                margin-top: 8vh;
+                margin-left: 20vw;
+            }
+            .bill-rehab-button {
+                margin-left: 54vw;
+            }
+
             /** HEIGHT **/
+            .five {
+                height: 5vh;
+                max-width: 100%;
+            }
             .ten {
                 height: 10vh;
+                max-width: 100%;
+            }
+            .thirteen {
+                height: 13vh;
                 max-width: 100%;
             }
             .fifteen {
                 height: 15vh;
                 max-width: 100%;
             }
+            .sixteen {
+                height: 16vh;
+                max-width: 100%;
+            }
+            .seventeen {
+                height: 17vh;
+                max-width: 100%;
+            }
+            .eighteen {
+                height: 18vh;
+                max-width: 100%;
+            }
             .twenty {
                 height: 20vh;
+                max-width: 100%;
+            }
+            .twentythree {
+                height: 23vh;
                 max-width: 100%;
             }
             .twentyfive {
@@ -277,6 +390,10 @@
             }
             .thirty {
                 height: 30vh;
+                max-width: 100%;
+            }
+            .forty {
+                height: 40vh;
                 max-width: 100%;
             }
             .fifty {
@@ -344,6 +461,9 @@
                         console.log(data["message"]);
                         setInfo(data["message"]);
                         break;
+                    case "feedback":
+                        activateFeedback(data["message"]);
+                        break;
                     default:
                         break;
                 }
@@ -372,7 +492,16 @@
                 }
             }
 
+            /** ACTIVATE **/
             function activate(screen) {
+                var target = screen.split("-");
+                // want to play type writer sound
+                if (target[0] == "reply" && target.length > 2) {
+                    playLetterSound();
+                } else {
+                    playButtonSound();
+                }
+                
                 var elements = document.getElementsByClassName("controller-screen");
                 var i;
                 for (i = 0; i < elements.length; i++) {
@@ -391,6 +520,19 @@
                 if (set.has(screen)) {
                     window.app.sendMessageToScreen({'topic': 'action', 'message': screen});
                 }
+
+                if (screen == "prep") {
+                    if (hamiltonButtonOne) {
+                        toggleHamilton("0");
+                    }
+                    if (hamiltonButtonTwo) {
+                        toggleHamilton("1");
+                    }
+                }
+
+                if (screen == "vote") {
+                    vote("reset");
+                }
             }
 
             function selectCharacter(selected) {
@@ -408,6 +550,9 @@
             function submitCharacter() {
                 if (selectedCharacter != -1) {
                     window.app.sendMessageToScreen({'topic': 'character', 'message': selectedCharacter});
+                    setComputerContent();
+                    setVoteContent();
+                    activate("name");
                 }
             }
 
@@ -415,9 +560,9 @@
                 var prefix = selected.substring(0, 2);
                 var num = selected.substring(2, 3);
                 selectedHamilton = num;
-                document.getElementById("hamilton-" + prefix + '0').classList.remove("selected");
-                document.getElementById("hamilton-" + prefix + '1').classList.remove("selected");
-                document.getElementById("hamilton-" + selected).classList.add("selected");
+                document.getElementById("hamilton-" + prefix + '0').classList.remove("hamilton-selected");
+                document.getElementById("hamilton-" + prefix + '1').classList.remove("hamilton-selected");
+                document.getElementById("hamilton-" + selected).classList.add("hamilton-selected");
             }
 
             function submitHamilton() {
@@ -429,13 +574,33 @@
             }
 
             function lockCharacter(status){
+                /*
                 if (status) {
+                    setLetterAndMap();
                     setComputerContent();
                     setVoteContent();
                     activate("name");
                 } else {
                     showAlert("character was selected by another player");
-                }                
+                }
+                */               
+            }
+
+            function setLetterAndMap() {
+                /*
+                if (selectedCharacter == "0") {
+                    document.getElementById("letter-button-1").classList.remove("deactivated");
+                    document.getElementById("map-button-0-1").classList.remove("deactivated");
+                }
+                if (selectedCharacter == "1") {
+                    document.getElementById("letter-button-0").classList.remove("deactivated");
+                    document.getElementById("map-button-0-1").classList.remove("deactivated");
+                }
+                if (selectedCharacter == "2") {
+                    document.getElementById("letter-button-0").classList.remove("deactivated");
+                    document.getElementById("map-button-0-0").classList.remove("deactivated");
+                }
+                */
             }
 
             function setComputerContent() {
@@ -467,8 +632,15 @@
                 for (i = 0; i < letterButtons.length; i++) {
                     letterButtons[i].classList.add("deactivated");
                 }
+                var letterButtons2 = document.getElementsByClassName("letter-1-button");
+                i = 0;
+                for (i = 0; i < letterButtons2.length; i++) {
+                    letterButtons[i].classList.add("deactivated");
+                }
                 document.getElementById("letter-0-description").innerHTML = "You have replied to this mail";
                 document.getElementById("letter-0-return-button").classList.remove("deactivated");
+                document.getElementById("letter-1-description").innerHTML = "You have replied to this mail";
+                document.getElementById("letter-1-return-button").classList.remove("deactivated");
             }
 
             var visitedPoliceBill = false;
@@ -496,13 +668,47 @@
                 document.getElementById("police-0-description").innerHTML = "You have visited this place";
             }
 
-            function sendMap(stance) {
+            function sendMapPolice(stance) {
                 window.app.sendMessageToScreen({'topic': 'map', 'message': stance});
-                if (stance == 'yes') {
+                if (stance == 'no') {
                     activate('police-bill-2-0');
                 }
-                if (stance == 'no') {
+                if (stance == 'yes') {
                     activate('police-bill-2-1');
+                }
+            }
+
+            var visitedSamBill = false;
+            var visitedSamAsk = false;
+            function startSam(target) {
+                if (target == 'bill') {
+                    visitedSamBill = true;
+                    activate('sam-bill-0');
+                    document.getElementById("sam-bill-button-2-0-return").classList.add("deactivated");
+                    document.getElementById("sam-bill-button-2-1-return").classList.add("deactivated");
+                    document.getElementById("sam-ask-button-1-0-bill").classList.add("deactivated");
+                    document.getElementById("sam-ask-button-1-1-bill").classList.add("deactivated");
+                }
+                if (target == 'ask') {
+                    visitedSamAsk = true;
+                    activate('sam-ask-0');
+                    document.getElementById("sam-bill-button-2-0-ask").classList.add("deactivated");
+                    document.getElementById("sam-bill-button-2-1-ask").classList.add("deactivated");
+                    document.getElementById("sam-ask-button-1-0-return").classList.add("deactivated");
+                    document.getElementById("sam-ask-button-1-1-return").classList.add("deactivated");
+                }
+                document.getElementById("sam-0-button-0").classList.add("deactivated");
+                document.getElementById("sam-0-button-1").classList.add("deactivated");
+                document.getElementById("sam-0-button-2").classList.remove("deactivated");
+            }
+
+            function sendMapSam(stance) {
+                window.app.sendMessageToScreen({'topic': 'map', 'message': stance});
+                if (stance == 'no') {
+                    activate('sam-bill-2-0');
+                }
+                if (stance == 'yes') {
+                    activate('sam-bill-2-1');
                 }
             }
 
@@ -542,7 +748,14 @@
                 var nayActive = document.getElementById("nay-active");
                 var yeaIdle = document.getElementById("yea-idle");
                 var yeaActive = document.getElementById("yea-active");
+                if (target == "reset") {
+                    yeaIdle.classList.remove("deactivated");
+                    yeaActive.classList.add("deactivated");
+                    nayIdle.classList.remove("deactivated");
+                    nayActive.classList.add("deactivated");
+                }
                 if (target == "nay") {
+                    playNoSound();
                     nayIdle.classList.add("deactivated");
                     nayActive.classList.remove("deactivated");
                     yeaIdle.classList.remove("deactivated");
@@ -550,6 +763,7 @@
                     window.app.sendMessageToScreen({"topic": "vote", "message": "Nah"});
                 }
                 if (target == "yea") {
+                    playYesSound();
                     yeaIdle.classList.add("deactivated");
                     yeaActive.classList.remove("deactivated");
                     nayIdle.classList.remove("deactivated");
@@ -557,25 +771,171 @@
                     window.app.sendMessageToScreen({"topic": "vote", "message": "Yay"});
                 }
                 if (target == "confirm") {
-                    yeaIdle.classList.remove("deactivated");
-                    yeaActive.classList.add("deactivated");
-                    nayIdle.classList.remove("deactivated");
-                    nayActive.classList.add("deactivated");
+                    vote("reset");
                     window.app.sendMessageToScreen({"topic": "vote", "message": "Confirm"});
                     activate("idle");
                 }
             }
+
+            var bills = [false, false, false, false, false, false];
+            function selectBill(type, target) {
+                var numberTarget = getNumberTarget(target);
+
+                if (type == "select") {
+                    document.getElementById("bill-" + target + "-default").classList.add("deactivated");
+                    document.getElementById("bill-" + target + "-selected").classList.remove("deactivated");
+                    bills[numberTarget] = true;
+                    window.app.sendMessageToScreen({"topic": "bill", "message": target});
+                }
+                if (type == "deselect") {
+                    document.getElementById("bill-" + target + "-default").classList.remove("deactivated");
+                    document.getElementById("bill-" + target + "-selected").classList.add("deactivated");
+                    bills[numberTarget] = false;
+                    window.app.sendMessageToScreen({"topic": "bill", "message": target});
+                }
+
+                if (type == "select") {
+                    // activate bill3
+                    if (target == "1") {
+                        document.getElementById("bill-3-deactivated").classList.add("deactivated");
+                        document.getElementById("bill-3-default").classList.remove("deactivated");
+                    }
+                    if ((target == "2" && !bills[3]) || (target == "3" && !bills[2])) {
+                        document.getElementById("bill-4a-deactivated").classList.add("deactivated");
+                        document.getElementById("bill-4a-default").classList.remove("deactivated");
+                        document.getElementById("bill-4b-deactivated").classList.add("deactivated");
+                        document.getElementById("bill-4b-default").classList.remove("deactivated");
+                    }
+                }
+
+                if (type == "deselect") {
+                    if (!canActivateBill3()) {
+                        if (bills[3]) {
+                            document.getElementById("bill-3-selected").classList.add("deactivated");
+                            document.getElementById("bill-3-default").classList.remove("deactivated");
+                            bills[3] = false;
+                        }
+                        document.getElementById("bill-3-default").classList.add("deactivated");
+                        document.getElementById("bill-3-deactivated").classList.remove("deactivated");
+                    }
+                    if (!canActivateBill4()) {
+                        if (bills[4]) {
+                            document.getElementById("bill-4a-selected").classList.add("deactivated");
+                            document.getElementById("bill-4a-deactivated").classList.remove("deactivated");
+                            bills[4] = false;
+                        }
+                        if (bills[5]) {
+                            document.getElementById("bill-4b-selected").classList.add("deactivated");
+                            document.getElementById("bill-4b-deactivated").classList.remove("deactivated");
+                            bills[5] = false;
+                        }
+                        document.getElementById("bill-4a-default").classList.add("deactivated");
+                        document.getElementById("bill-4a-deactivated").classList.remove("deactivated");
+                        document.getElementById("bill-4b-default").classList.add("deactivated");
+                        document.getElementById("bill-4b-deactivated").classList.remove("deactivated");
+                    }
+                }
+            }
+
+            function getNumberTarget(target) {
+                if (target == "4a") {
+                    return "4";
+                }
+                if (target == "4b") {
+                    return "5";
+                }
+                return target;
+            }
+
+            function canActivateBill3() {
+                return bills[1];
+            }
+
+            function canActivateBill4() {
+                return ((bills[1] && bills[3]) || bills[2]);
+            }
+
+            function activateFeedback(feedbacks) {
+                var i = 0;
+                var yesCount = 0;
+
+                // set feedback images
+                for (i = 0; i < 4; i++) {
+                    if (feedbacks[i] == "yes") {
+                        document.getElementById("bill-feedback-" + i + "-yes").classList.remove("deactivated");
+                        document.getElementById("bill-feedback-" + i + "-no").classList.add("deactivated");
+                        yesCount++;
+                        continue;
+                    }
+                    document.getElementById("bill-feedback-" + i + "-no").classList.remove("deactivated");
+                    document.getElementById("bill-feedback-" + i + "-yes").classList.add("deactivated");
+                }
+                // set buttons
+                if (yesCount < 2) {
+                    document.getElementById("bill-feedback-fail").classList.remove("deactivated");
+                    document.getElementById("bill-feedback-success").classList.add("deactivated");
+                } else {
+                    document.getElementById("bill-feedback-success").classList.remove("deactivated");
+                    document.getElementById("bill-feedback-fail").classList.add("deactivated");
+                }
+                activate("feedback");
+            }
+
+            function draftBill() {
+                window.app.sendMessageToScreen({"topic": "bill", "message": "draft"});
+                activate("idle");
+            }
+
+            function redraftBill() {
+                window.app.sendMessageToScreen({"topic": "bill", "message": "redraft"});
+                activate("bill");
+            }
+
+            function submitBill() {
+                window.app.sendMessageToScreen({"topic": "bill", "message": "submit"});
+                activate("idle");
+            }
+
+            function playButtonSound() {
+                document.getElementById("button-sound").play();
+            }
+
+            function playLetterSound() {
+                document.getElementById("letter-sound").play();
+            }
+
+            function playYesSound() {
+                document.getElementById("yes-sound").play();
+            }
+
+            function playNoSound() {
+                document.getElementById("no-sound").play();
+            }
         </script>
     </head>
     <body onload="window.app = new App()">
+        <audio id="button-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/button.wav" type="audio/wav">
+        </audio>
+        <audio id="letter-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/letter.wav" type="audio/wav">
+        </audio>
+        <audio id="yes-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/yes.wav" type="audio/wav">
+        </audio>
+        <audio id="no-sound">
+            <source src="https://jeesub.github.io/assets/inventory/CivRep/sound/no.wav" type="audio/wav">
+        </audio>
         <!-- ALERT -->
         <div id="alert" class= "alert deactivated">ALERT</div>
         <!-- IDLE -->
         <div id="screen-idle" class="controller-screen">
             <div class="controller-header"></div>
-            <div class="controller-content">
+            <div class="controller-content bg-black">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/CivRep_logo 1.png" width="100%">
-                Please look up at the main screen.
+                <div class="idle-description">
+                    Please look up at the main screen.
+                </div>
             </div>
         </div>
 
@@ -584,13 +944,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-0-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('0-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-0.png" class="full-width">
+                <div id="hamilton-0-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('0-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-0-1"  class="hamilton centered selectable" ontouchstart="window.selectHamilton('0-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-1.png" class="full-width">
+                <div id="hamilton-0-1"  class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('0-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-0-1.png" class="seventeen">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit mint-button" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-1 -->
@@ -598,13 +958,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-1-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('1-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-0.png" class="full-width">
+                <div id="hamilton-1-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('1-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-1-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('1-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-1.png" class="full-width">
+                <div id="hamilton-1-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('1-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-1-1.png" class="seventeen">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit mint-button" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-2 -->
@@ -612,13 +972,13 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-2-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('2-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-0.png" class="full-width">
+                <div id="hamilton-2-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('2-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-2-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('2-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-1.png" class="full-width">
+                <div id="hamilton-2-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('2-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-2-1.png" class="seventeen">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit mint-button" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
         <!-- HAMILTON-3 -->
@@ -626,56 +986,42 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <div class="ten"></div>
-                <div id="hamilton-3-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('3-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-0.png" class="full-width">
+                <div id="hamilton-3-0" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('3-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-0.png" class="seventeen">
                 </div>
-                <div id="hamilton-3-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('3-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-1.png" class="full-width">
+                <div id="hamilton-3-1" class="hamilton centered hamilton-selectable seventeen" ontouchstart="window.selectHamilton('3-1')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-3-1.png" class="seventeen">
                 </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
-            </div>
-        </div>
-        <!-- HAMILTON-4 -->
-        <div id="screen-hamilton-4" class="controller-screen deactivated">
-            <div class="controller-header"></div>
-            <div class="controller-content bg-hamilton">
-                <div class="ten"></div>
-                <div id="hamilton-4-0" class="hamilton centered selectable" ontouchstart="window.selectHamilton('4-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-0.png" class="full-width">
-                </div>
-                <div id="hamilton-4-1" class="hamilton centered selectable" ontouchstart="window.selectHamilton('4-1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-button-4-1.png" class="full-width">
-                </div>
-                <button class="button submit" ontouchstart="window.submitHamilton()">Confirm</button>
+                <button class="button submit mint-button" ontouchstart="window.submitHamilton()">Confirm</button>
             </div>
         </div>
 
         <!-- CHARACTER SELECTION -->
         <div id="screen-character" class="controller-screen deactivated">
             <div class="controller-header"></div>
-            <div class="controller-content">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-description.png" class="three-quarters-width">
-                <div id="character-0" class="character centered selectable bg-color0" ontouchstart="window.selectCharacter(0)">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-button-0.png" class="three-quarters-width">
+            <div class="controller-content bg-black">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-description.png" class="seventeen">
+                <div id="character-0" class="character centered selectable seventeen" ontouchstart="window.selectCharacter(0)">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-button-0.png" class="seventeen">
                 </div>
-                <div id="character-1" class="character centered selectable bg-color1" ontouchstart="window.selectCharacter(1)">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-button-1.png" class="three-quarters-width">
+                <div id="character-1" class="character centered selectable seventeen" ontouchstart="window.selectCharacter(1)">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-button-1.png" class="seventeen">
                 </div>
-                <div id="character-2" class="character centered selectable bg-color2" ontouchstart="window.selectCharacter(2)">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-button-2.png" class="three-quarters-width">
+                <div id="character-2" class="character centered selectable seventeen" ontouchstart="window.selectCharacter(2)">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/character-button-2.png" class="seventeen">
                 </div>
-                <button class="button submit" ontouchstart="window.submitCharacter()">Enroll</button>
+                <button class="button submit mint-button" ontouchstart="window.submitCharacter()">Enroll</button>
             </div>
         </div>
         <!-- NAME -->
         <div id="screen-name" class="controller-screen deactivated">
             <div class="controller-header"></div>
-            <div class="controller-content">
+            <div class="controller-content bg-black">
                 <div class="intro-description">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/name-description.png" class="full-width">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/name-description.png" class="twenty">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/name-decoration.png" class="full-width">
                     <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Type your name"><br>
-                    <button class="button submit" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
+                    <button class="button submit mint-button" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
                 </div>
             </div>
         </div>
@@ -683,27 +1029,24 @@
         <div id="screen-appearance" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content">
-                <div id="face-button" class="centered selectable" ontouchstart="window.changeAppearance('face')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/appearance-button-0.png" class="full-width">
+                <div class="appearance-description margin-bottom">
+                    Look up at the main screen to design your character.
                 </div>
-                <div id="face-button" class="centered selectable" ontouchstart="window.changeAppearance('hair')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/appearance-button-1.png" class="full-width">
-                </div>
-                <div id="face-button" class="centered selectable" ontouchstart="window.changeAppearance('accessories')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/appearance-button-2.png" class="full-width">
-                </div>
-                <button class="button submit" ontouchstart="window.changeAppearance('ready')">I'm Ready!</button>
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/appearance-button-0.png" id="face-button" class="img-button fifteen" ontouchstart="window.changeAppearance('face')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/appearance-button-1.png" id="face-button" class="img-button fifteen" ontouchstart="window.changeAppearance('hair')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/appearance-button-2.png" id="face-button" class="img-button fifteen" ontouchstart="window.changeAppearance('accessories')">
+                <button class="button submit mint-button" ontouchstart="window.changeAppearance('ready')">I'm Ready!</button>
             </div>
         </div>
         <!-- PREP ROOM -->
         <div id="screen-prep" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton-button.png" id="hamilton-button" class="prep-button" ontouchstart="window.activate('hamilton')">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letter-button.png" class="prep-button" ontouchstart="window.activate('letter')">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/map-button.png" class="prep-button" ontouchstart="window.activate('map')">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer-button.png" class="prep-button" ontouchstart="window.activate('computer')">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton-button.png" id="hamilton-button" class="prep-button" ontouchstart="window.activate('hamilton')">
-                <button class="button submit" ontouchstart="window.activate('rest')">All Set!</button>
+                <button class="button submit mint-button" ontouchstart="window.activate('rest')">Finish Research!</button>
             </div>
         </div>
         <!-- REST -->
@@ -718,12 +1061,13 @@
         <div id="screen-computer" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content bg-computer">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-description.png" class="twentyfive">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-0.png" class="img-button" ontouchstart="window.activate('computer-0')">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-1.png" class="img-button" ontouchstart="window.activate('computer-1')">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-0.png" class="img-button deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-0">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-1.png" class="img-button deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-1">
-                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-2.png" class="img-button deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-2">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-description.png" class="twentythree">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-title.png" class="title-image">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-0.png" class="thirteen" ontouchstart="window.activate('computer-0')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-1.png" class="thirteen" ontouchstart="window.activate('computer-1')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-0.png" class="thirteen deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-0">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-1.png" class="thirteen deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-1">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/computer/computer-button-2-2.png" class="thirteen deactivated" ontouchstart="window.activate('computer-2')" id="computer-button-2-2">
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
@@ -766,11 +1110,14 @@
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-description.png" class="twenty">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-title.png" class="title-image">
-                <div id="map-button-0" ontouchstart="window.activate('police-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-0.png" id="map-button-0" class="img-button">
+                <div id="map-button-0-0" ontouchstart="window.activate('police-0')" class="deactivated">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-0-0.png" class="img-button">
+                </div>
+                <div id="map-button-0-1" ontouchstart="window.activate('sam-0')">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-0-1.png" class="img-button">
                 </div>
                 <div id="map-button-1" ontouchstart="window.activate('prison-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-1.png" id="map-button-1" class="img-button">
+                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/map-button-1.png" class="img-button">
                 </div>
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
@@ -782,10 +1129,10 @@
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-0.png" id="map-description-0" class="seventy">
                 <div id="police-0-description" class="map-description">What would you like to do?</div>
-                <button id="police-0-button-0" class="button horizontal-button-left bg-mint" ontouchstart="window.activate('map')">
+                <button id="police-0-button-0" class="button horizontal-button-left mint-button" ontouchstart="window.activate('map')">
                     Come back later
                 </button>
-                <button id="police-0-button-1" class="button horizontal-button-right bg-mint" ontouchstart="window.activate('police-1')">
+                <button id="police-0-button-1" class="button horizontal-button-right mint-button" ontouchstart="window.activate('police-1')">
                     Interview!
                 </button>
                 <button id="police-0-button-2" class="button submit deactivated" ontouchstart="window.activate('map')">
@@ -806,8 +1153,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-2.png" class="sixty">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.startPolice('bill')">Ask for opinion on Bill</button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.startPolice('ask')">Ask about the City</button>
+                <button class="button vertical-button-up mint-button" ontouchstart="window.startPolice('bill')">Ask for opinion on Bill</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.startPolice('ask')">Ask about the City</button>
             </div>
         </div>
 
@@ -816,8 +1163,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-bill-0.png" class="full-width">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.activate('police-bill-1-0')">Do you Support it?</button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.activate('police-bill-1-1')">Do you Oppose it?</button>
+                <button class="button vertical-button-up mint-button" ontouchstart="window.activate('police-bill-1-0')">Do you Support it?</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.activate('police-bill-1-1')">Do you Oppose it?</button>
             </div>
         </div>
         <!-- POLICE BILL 1-0 -->
@@ -825,8 +1172,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-bill-1-0.png" class="full-width">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.sendMap('yes')">I agree...</button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.sendMap('no')">I disagree...</button>
+                <button class="button vertical-button-up mint-button" ontouchstart="window.sendMapPolice('no')">I agree...</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.sendMapPolice('yes')">I disagree...</button>
             </div>
         </div>
         <!-- POLICE BILL 1-1 -->
@@ -834,8 +1181,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-bill-1-1.png" class="full-width">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.sendMap('yes')">I agree...</button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.sendMap('no')">I disagree...</button>
+                <button class="button vertical-button-up mint-button" ontouchstart="window.sendMapPolice('no')">I agree...</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.sendMapPolice('yes')">I disagree...</button>
             </div>
         </div>
         <!-- POLICE BILL 2-0 -->
@@ -843,7 +1190,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-bill-2-0.png" class="seventy">
-                <button id="police-bill-button-2-0-ask" class="button submit bg-mint" ontouchstart="window.activate('police-ask-0')">
+                <button id="police-bill-button-2-0-ask" class="button submit mint-button" ontouchstart="window.activate('police-ask-0')">
                     Ask about the City
                 </button>
                 <button id="police-bill-button-2-0-return" class="button submit" ontouchstart="window.activate('map')">
@@ -856,7 +1203,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-bill-2-1.png" class="seventy">
-                <button id="police-bill-button-2-1-ask" class="button submit bg-mint" ontouchstart="window.activate('police-ask-0')">
+                <button id="police-bill-button-2-1-ask" class="button submit mint-button" ontouchstart="window.activate('police-ask-0')">
                     Ask about the City
                 </button>
                 <button id="police-bill-button-2-1-return" class="button submit" ontouchstart="window.activate('map')">
@@ -870,10 +1217,10 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-ask-0.png" class="full-width">
-                <button class="button vertical-button-up bg-mint" ontouchstart="window.activate('police-ask-1-0')">
+                <button class="button vertical-button-up mint-button" ontouchstart="window.activate('police-ask-1-0')">
                     Ask about the police's perspective
                 </button>
-                <button class="button vertical-button-down bg-mint" ontouchstart="window.activate('police-ask-1-1')">
+                <button class="button vertical-button-down mint-button" ontouchstart="window.activate('police-ask-1-1')">
                     Do you think this City is a Safe place?
                 </button>
             </div>
@@ -883,7 +1230,7 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-ask-1-0.png" class="full-width">
-                <button id="police-ask-button-1-0-bill" class="button submit bg-mint" ontouchstart="window.activate('police-bill-0')">
+                <button id="police-ask-button-1-0-bill" class="button submit mint-button" ontouchstart="window.activate('police-bill-0')">
                     Ask for opinion on Bill
                 </button>
                 <button id="police-ask-button-1-0-return" class="button submit" ontouchstart="window.activate('map')">
@@ -896,10 +1243,138 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/police-description-ask-1-1.png" class="full-width">
-                <button id="police-ask-button-1-1-bill" class="button submit bg-mint" ontouchstart="window.activate('police-bill-0')">
+                <button id="police-ask-button-1-1-bill" class="button submit mint-button" ontouchstart="window.activate('police-bill-0')">
                     Ask for opinion on Bill
                 </button>
                 <button id="police-ask-button-1-1-return" class="button submit" ontouchstart="window.activate('map')">
+                    Return to Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- SAM 0 -->
+        <div id="screen-sam-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-0.png" id="map-description-0" class="seventy">
+                <button id="sam-0-button-0" class="button horizontal-button-left black-button" ontouchstart="window.activate('map')">
+                    Come back later
+                </button>
+                <button id="sam-0-button-1" class="button horizontal-button-right mint-button" ontouchstart="window.activate('sam-1')">
+                    Interview!
+                </button>
+                <button id="sam-0-button-2" class="button submit deactivated" ontouchstart="window.activate('map')">
+                    Return
+                </button>
+            </div>
+        </div>
+        <!-- SAM 1 -->
+        <div id="screen-sam-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-1.png" id="sam-description-1" class="seventy">
+                <button class="button submit" ontouchstart="window.activate('sam-2')">Start the Interview!</button>
+            </div>
+        </div>
+        <!-- SAM 2 -->
+        <div id="screen-sam-2" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-2.png" class="sixty">
+                <button class="button vertical-button-up mint-button" ontouchstart="window.startSam('bill')">Ask for opinion on Bill</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.startSam('ask')">Ask about marijuana research</button>
+            </div>
+        </div>
+
+        <!-- SAM BILL 0 -->
+        <div id="screen-sam-bill-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-0.png" class="full-width">
+                <button class="button vertical-button-up mint-button" ontouchstart="window.activate('sam-bill-1-0')">Ask about Mental Health</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.activate('sam-bill-1-1')">Ask about Addiction</button>
+            </div>
+        </div>
+        <!-- SAM BILL 1-0 -->
+        <div id="screen-sam-bill-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-1-0.png" class="full-width">
+                <button class="button vertical-button-up mint-button" ontouchstart="window.sendMapSam('no')">Hmm... I see...</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.sendMapSam('yes')">I believe I can help!</button>
+            </div>
+        </div>
+        <!-- SAM BILL 1-1 -->
+        <div id="screen-sam-bill-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-1-1.png" class="full-width">
+                <button class="button vertical-button-up mint-button" ontouchstart="window.sendMapSam('no')">Hmm... I see...</button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.sendMapSam('yes')">I believe I can help!</button>
+            </div>
+        </div>
+        <!-- SAM BILL 2-0 -->
+        <div id="screen-sam-bill-2-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-2-0.png" class="seventy">
+                <button id="sam-bill-button-2-0-ask" class="button submit mint-button" ontouchstart="window.activate('sam-ask-0')">
+                    Ask about marijuana research
+                </button>
+                <button id="sam-bill-button-2-0-return" class="button submit" ontouchstart="window.activate('map')">
+                    Return to Menu
+                </button>
+            </div>
+        </div>
+        <!-- SAM BILL 2-1 -->
+        <div id="screen-sam-bill-2-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-bill-2-1.png" class="seventy">
+                <button id="sam-bill-button-2-1-ask" class="button submit mint-button" ontouchstart="window.activate('sam-ask-0')">
+                    Ask about marijuana research
+                </button>
+                <button id="sam-bill-button-2-1-return" class="button submit" ontouchstart="window.activate('map')">
+                    Return to Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- SAM ASK 0 -->
+        <div id="screen-sam-ask-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-ask-0.png" class="full-width">
+                <button class="button vertical-button-up mint-button" ontouchstart="window.activate('sam-ask-1-0')">
+                    Ask about the rising hospital visits
+                </button>
+                <button class="button vertical-button-down mint-button" ontouchstart="window.activate('sam-ask-1-1')">
+                    Ask about medical marijuana
+                </button>
+            </div>
+        </div>
+        <!-- SAM ASK 1-0 -->
+        <div id="screen-sam-ask-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-ask-1-0.png" class="full-width">
+                <button id="sam-ask-button-1-0-bill" class="button submit mint-button" ontouchstart="window.activate('sam-bill-0')">
+                    Ask for opinion on Bill
+                </button>
+                <button id="sam-ask-button-1-0-return" class="button submit" ontouchstart="window.activate('map')">
+                    Return to Menu
+                </button>
+            </div>
+        </div>
+        <!-- SAM ASK 1-1 -->
+        <div id="screen-sam-ask-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-map">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/sam-description-ask-1-1.png" class="full-width">
+                <button id="sam-ask-button-1-1-bill" class="button submit mint-button" ontouchstart="window.activate('sam-bill-0')">
+                    Ask for opinion on Bill
+                </button>
+                <button id="sam-ask-button-1-1-return" class="button submit" ontouchstart="window.activate('map')">
                     Return to Menu
                 </button>
             </div>
@@ -910,11 +1385,10 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-map">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/maps/prison-description-0.png" class="seventy">
-                <div class="priron-0-description">What would you like to do?</div>
-                <button id="prison-0-button-0" class="button horizontal-button-left bg-mint" ontouchstart="window.activate('map')">
+                <button id="prison-0-button-0" class="button horizontal-button-left black-button" ontouchstart="window.activate('map')">
                     Maybe not now
                 </button>
-                <button id="prison-0-button-1" class="button horizontal-button-right bg-mint" ontouchstart="window.activate('prison-1')">
+                <button id="prison-0-button-1" class="button horizontal-button-right mint-button" ontouchstart="window.activate('prison-1')">
                     Tour the Facility!
                 </button>
             </div>
@@ -969,20 +1443,20 @@
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-description.png" class="full-width">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-title.png" class="title-image">
-                <div id="letter-button-0" ontouchstart="window.activate('letter-0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0.png" id="letter-button-0" class="img-button">
-                </div>
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-0.png" id="letter-button-0" ontouchstart="window.activate('letter-0')" class="img-button deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-button-1.png" id="letter-button-1" ontouchstart="window.activate('letter-1')" class="img-button">
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
+
         <!-- LETTER 0 -->
         <div id="screen-letter-0" class="controller-screen deactivated">
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-0.png" id="letter-0" class="seventy">
                 <div id="letter-0-description" class="letter-description">What will you do with the letter?</div>
-                <button class="letter-0-button button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Ignore</button>
-                <button class="letter-0-button button horizontal-button-right bg-mint" ontouchstart="window.activate('reply-0')">Reply</button>
+                <button class="letter-0-button button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Ignore</button>
+                <button class="letter-0-button button horizontal-button-right mint-button" ontouchstart="window.activate('reply-0')">Reply</button>
                 <button id="letter-0-return-button" class="button submit deactivated" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
@@ -1054,9 +1528,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0-0.png" id="reply-0-0-0-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-0-0-1 -->
@@ -1064,9 +1537,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-0-1.png" id="reply-0-0-0-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-0-1-0 -->
@@ -1074,9 +1546,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1-0.png" id="reply-0-0-1-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-0-1-1 -->
@@ -1084,9 +1555,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-0-1-1.png" id="reply-0-0-1-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-1-0-0 -->
@@ -1094,9 +1564,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0-0.png" id="reply-0-1-0-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-1-0-1 -->
@@ -1104,9 +1573,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-0-1.png" id="reply-0-1-0-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-1-1-0 -->
@@ -1114,9 +1582,8 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1-0.png" id="reply-0-1-1-0" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('yes')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
             </div>
         </div>
         <!-- REPLY 0-1-1-1 -->
@@ -1124,9 +1591,155 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-letter">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-0-1-1-1.png" id="reply-0-1-1-1" class="seventy">
-                <div class="letter-description">What will you do with the letter?</div>
-                <button class="button horizontal-button-left bg-mint" ontouchstart="window.activate('letter')">Redraft</button>
-                <button class="button horizontal-button-right bg-mint" ontouchstart="window.sendLetter('no')">Send</button>
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+
+        <!-- LETTER 1 -->
+        <div id="screen-letter-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/letter-1.png" id="letter-1" class="seventy">
+                <div id="letter-1-description" class="letter-description">What will you do with the letter?</div>
+                <button class="letter-1-button button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Ignore</button>
+                <button class="letter-1-button button horizontal-button-right mint-button" ontouchstart="window.activate('reply-1')">Reply</button>
+                <button id="letter-1-return-button" class="button submit deactivated" ontouchstart="window.activate('prep')">Return</button>
+            </div>
+        </div>
+        <!-- REPLY 1 -->
+        <div id="screen-reply-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1.png" id="reply-1" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-0')">agree with</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1')">understand</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0 -->
+        <div id="screen-reply-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0.png" id="reply-1-0" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-0-0')">am unsure</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-0-1')">also believe</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1 -->
+        <div id="screen-reply-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1.png" id="reply-1-1" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-0')">benefits</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-1')">costs</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0-0 -->
+        <div id="screen-reply-1-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-0.png" id="reply-1-0-0" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-0-0-0')">deliberate on</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-0-0-1')">support</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0-1 -->
+        <div id="screen-reply-1-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-1.png" id="reply-1-0-1" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-0-1-0')">deliberate on</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-0-1-1')">support</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1-0 -->
+        <div id="screen-reply-1-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-0.png" id="reply-1-1-0" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-0-0')">support</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-0-1')">deliberate on</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1-1 -->
+        <div id="screen-reply-1-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-1.png" id="reply-1-1-1" class="sixty">
+                <button class="button vertical-button-up bg-white type-writing" ontouchstart="window.activate('reply-1-1-1-0')">support</button>
+                <button class="button vertical-button-down bg-white type-writing" ontouchstart="window.activate('reply-1-1-1-1')">deliberate on</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0-0-0 -->
+        <div id="screen-reply-1-0-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-0-0.png" id="reply-1-0-0-0" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0-0-1 -->
+        <div id="screen-reply-1-0-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-0-1.png" id="reply-1-0-0-1" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0-1-0 -->
+        <div id="screen-reply-1-0-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-1-0.png" id="reply-1-0-1-0" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-0-1-1 -->
+        <div id="screen-reply-1-0-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-0-1-1.png" id="reply-1-0-1-1" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1-0-0 -->
+        <div id="screen-reply-1-1-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-0-0.png" id="reply-1-1-0-0" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1-0-1 -->
+        <div id="screen-reply-1-1-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-0-1.png" id="reply-1-1-0-1" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1-1-0 -->
+        <div id="screen-reply-1-1-1-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-1-0.png" id="reply-1-1-1-0" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('yes')">Send</button>
+            </div>
+        </div>
+        <!-- REPLY 1-1-1-1 -->
+        <div id="screen-reply-1-1-1-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-letter">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/letters/reply-1-1-1-1.png" id="reply-1-1-1-1" class="seventy">
+                <button class="button horizontal-button-left black-button" ontouchstart="window.activate('letter')">Redraft</button>
+                <button class="button horizontal-button-right mint-button" ontouchstart="window.sendLetter('no')">Send</button>
             </div>
         </div>
         
@@ -1135,16 +1748,47 @@
             <div class="controller-header"></div>
             <div class="controller-content bg-hamilton">
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-description.png" class="twenty">
-                <div id="hamiltonButtonOne" class="toggle-off" ontouchstart="window.toggleHamilton('0')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/prep-hamilton-0.png" class="fifteen">
-                </div>
-                <div id="hamiltonButtonTwo" class="toggle-off" ontouchstart="window.toggleHamilton('1')">
-                    <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/prep-hamilton-1.png" class="fifteen">
-                </div>
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/prep-hamilton-0.png" class="twenty img-button" ontouchstart="window.activate('prepham-0')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/prep-hamilton-1.png" class="twenty img-button" ontouchstart="window.activate('prepham-1')">
                 <div class="hamilton-description">Any other quesitons? Just shout out directly!</div>
                 <button class="button submit" ontouchstart="window.activate('prep')">Return</button>
             </div>
         </div>
+        <!-- HAMILTON (PREPHAM-0) -->
+        <div id="screen-prepham-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-hamilton">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-description.png" class="forty">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-button-0.png" class="thirteen img-button" ontouchstart="window.activate('prepham-0-0')">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-button-1.png" class="thirteen img-button" ontouchstart="window.activate('prepham-0-1')">
+                <button class="button submit" ontouchstart="window.activate('hamilton')">Return</button>
+            </div>
+        </div>
+        <!-- HAMILTON (PREPHAM-0-0) -->
+        <div id="screen-prepham-0-0" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-hamilton">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-0-description.png" class="prepham-0-0">
+                <button class="button submit" ontouchstart="window.activate('prepham-0')">Return</button>
+            </div>
+        </div>
+        <!-- HAMILTON (PREPHAM-0-1) -->
+        <div id="screen-prepham-0-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-hamilton">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-1-description.png" class="seventy">
+                <button class="button submit" ontouchstart="window.activate('prepham-0')">Return</button>
+            </div>
+        </div>
+        <!-- HAMILTON (PREPHAM-1) -->
+        <div id="screen-prepham-1" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content bg-hamilton">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-1-description.png" class="seventy">
+                <button class="button submit" ontouchstart="window.activate('hamilton')">Return</button>
+            </div>
+        </div>
+
         <!-- VOTE -->
         <div id="screen-vote" class="controller-screen deactivated">
             <div class="controller-header"></div>
@@ -1158,6 +1802,62 @@
                 <img id="rep-1" src="https://jeesub.github.io/assets/inventory/CivRep/imgs/reps/rep1.png" class="twentyfive rep-1 deactivated">
                 <img id="rep-2" src="https://jeesub.github.io/assets/inventory/CivRep/imgs/reps/rep2.png" class="twentyfive rep-2 deactivated">
                 <button class="button submit" ontouchstart="window.vote('confirm')">Confirm</button>
+            </div>
+        </div>
+        <!-- BILL -->
+        <div id="screen-bill" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <div class="bill-content">
+                    <div>
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-safety-button.png" class="bill-buttons bill-safety-button" id="bill-1-default" ontouchstart="window.selectBill('select', '1')">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-safety-button-selected.png" class="bill-buttons bill-safety-button deactivated" id="bill-1-selected" ontouchstart="window.selectBill('deselect', '1')">
+
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-marijuana-button-deactivated.png" class="bill-buttons bill-marijuana-button" id="bill-3-deactivated">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-marijuana-button.png" class="bill-buttons bill-marijuana-button deactivated" id="bill-3-default" ontouchstart="window.selectBill('select', '3')">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-marijuana-button-selected.png" class="bill-buttons bill-marijuana-button deactivated" id="bill-3-selected"  ontouchstart="window.selectBill('deselect', '3')">
+                    </div>
+                    
+                    <div>
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-health-button.png" class="bill-buttons bill-health-button" id="bill-2-default" ontouchstart="window.selectBill('select', '2')">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-health-button-selected.png" class="bill-buttons bill-health-button deactivated" id="bill-2-selected" ontouchstart="window.selectBill('deselect', '2')">
+
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-public-button-deactivated.png" class="bill-buttons bill-public-button" id="bill-4a-deactivated">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-public-button.png" class="bill-buttons bill-public-button deactivated" id="bill-4a-default" ontouchstart="window.selectBill('select', '4a')">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-public-button-selected.png" class="bill-buttons bill-public-button deactivated" id="bill-4a-selected" ontouchstart="window.selectBill('deselect', '4a')">
+                    </div>
+                    
+                    <div>
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-rehab-button-deactivated.png" class="bill-buttons bill-rehab-button" id="bill-4b-deactivated">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-rehab-button.png" class="bill-buttons bill-rehab-button deactivated" id="bill-4b-default" ontouchstart="window.selectBill('select', '4b')">
+                        <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-rehab-button-selected.png" class="bill-buttons bill-rehab-button deactivated" id="bill-4b-selected" ontouchstart="window.selectBill('deselect', '4b')">
+                    </div>
+                </div>
+                <button class="button submit mint-button" ontouchstart="window.draftBill()">Present Draft</button>
+            </div>
+        </div>
+        <!-- FEEDBACK -->
+        <div id="screen-feedback" class="controller-screen deactivated">
+            <div class="controller-header"></div>
+            <div class="controller-content">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-0-no.png" id="bill-feedback-0-no" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-0-yes.png" id="bill-feedback-0-yes" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-1-no.png" id="bill-feedback-1-no" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-1-yes.png" id="bill-feedback-1-yes" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-2-no.png" id="bill-feedback-2-no" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-2-yes.png" id="bill-feedback-2-yes" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-3-no.png" id="bill-feedback-3-no" class="seventeen deactivated">
+                <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/bill/bill-feedback-3-yes.png" id="bill-feedback-3-yes" class="seventeen deactivated">
+                <div id="bill-feedback-fail" class="deactivated">
+                    <div class="feedback-description">
+                        Seems like the council won't pass this bill...
+                    </div>
+                    <button class="button submit" ontouchstart="window.redraftBill()">Redraft</button>
+                </div>
+                <div id="bill-feedback-success" class="deactivated">
+                    <button class="button horizontal-button-left black-button" ontouchstart="window.redraftBill()">Redraft</button>
+                    <button class="button horizontal-button-right mint-button" ontouchstart="window.submitBill()">Send</button>
+                </div>
             </div>
         </div>
         <!-- TEMPLATE -->

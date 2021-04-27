@@ -70,6 +70,7 @@ public class CityCouncilHost : MonoBehaviour
     public List<int> nayReps = new List<int>();
     [TextArea]
     public List<string> explainImapctTexts = new List<string>();
+    private List<int> votedReps = new List<int>();
 
     [Header("Result")]
     [TextArea]
@@ -83,9 +84,9 @@ public class CityCouncilHost : MonoBehaviour
     void Start()
     {
         amendmentHost = GetComponent<AmendmentHost>();
-        votePanel.SetActive(false);
-        finalResult.gameObject.SetActive(false);
-        votingResults = "";
+        //votePanel.SetActive(false);
+        //finalResult.gameObject.SetActive(false);
+        //votingResults = "";
 
         forecast = GameObject.Find("Canvas-City").GetComponent<SetForecast>();
         forecast.hearing = this;
@@ -160,6 +161,11 @@ public class CityCouncilHost : MonoBehaviour
 
             // Actually make the event on Unity
             HostEvent(curEvent.eventType, curEvent.duration);
+        }
+        else
+        {
+            // all sequences are out go to next scene -> drafting amendments
+            StartCoroutine(GameManager.Instance.LoadNextScene());
         }
     }
 
@@ -343,6 +349,9 @@ public class CityCouncilHost : MonoBehaviour
             rep.SetActive(false);
         }
 
+        // Clear the voted rep list
+        votedReps.Clear();
+
         // Set up Hamilton UI
         (string topicText, string descriptionText, int num) = amendmentHost.GetCurAmendment();
         topicAmend.text = "Should We " + topicText + "?";
@@ -350,8 +359,29 @@ public class CityCouncilHost : MonoBehaviour
         numAmend.text = "The " + orderNum[num] + " amendment being voted on is...";
     }
 
+    public void CheckAllVoted(int repIdx)
+    {
+        if (!votedReps.Contains(repIdx))
+        {
+            votedReps.Add(repIdx);
+            if (votedReps.Count == RepManager.instance.maxPlayer)
+            {
+                // All players have voted
+                StartCoroutine("AllRepsVoted");
+            }
+        }
+    }
+
+    IEnumerator AllRepsVoted()
+    {
+        yield return new WaitForSeconds(2f);
+        VoteDone();
+    }
+
     public void VoteDone()
     {
+        forecast.ResetRemainTime();
+
         Debug.Log("Vote is done!");
         // Notice Controller
         NoticeController("idle");

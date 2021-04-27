@@ -3,33 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CityImpact
-{
-    public int happiness;
-    public int money;
-    public int safety;
-    public int health;
-}
-
-[System.Serializable]
-public class RepImpact
-{
-    public int letterYes;
-    public int letterNo;
-    public int mapYes;
-    public int mapNo;
-}
-
-[System.Serializable]
-public class AmendmentImpact
-{
-    [TextArea]
-    public List<string> hamiltonText = new List<string>();
-    public RepImpact repImpact;
-    public CityImpact cityImpact;
-}
-
-[System.Serializable]
 public class Amendment
 {
     public string name;

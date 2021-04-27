@@ -6,6 +6,9 @@ using TMPro;
 
 public class CharacterSelection : MonoBehaviour
 {
+    [Header("Body")]
+    public string bodyName;
+    public GameObject body;
     [Header("Face")]
     public List<string> faceNames;
     public int faceIdx = 0;
@@ -18,9 +21,12 @@ public class CharacterSelection : MonoBehaviour
     public List<string> accNames;
     public int accIdx = 0;
     public GameObject accessory;
+    [Header("Background")]
+    public List<Sprite> backgrounds;
+    public SpriteRenderer background;
 
     [Space]
-    public TextMeshPro repName;
+    public TextMeshPro repName;    
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +67,18 @@ public class CharacterSelection : MonoBehaviour
         accessory.GetComponent<MeshFilter>().mesh = new_acc.GetComponent<MeshFilter>().sharedMesh;        
     }
 
+    public void ChangeBody(string committee)
+    {
+        bodyName = committee;
+        GameObject new_body = Resources.Load<GameObject>("Characters/body/" + committee);
+        body.GetComponent<MeshFilter>().mesh = new_body.GetComponent<MeshFilter>().sharedMesh;
+    }
+
+    public void ChangeCommittee(string committee)
+    {
+        background.sprite = Resources.Load<Sprite>("Sprites/CharacterSelectionBG/" + committee);
+    }
+
     public void SetName(string newName)
     {
         if (newName.Length > 0)
@@ -69,16 +87,21 @@ public class CharacterSelection : MonoBehaviour
         }        
     }
 
+    public void SetBackground(int idx)
+    {
+        background.sprite = backgrounds[idx];
+    }
+
     public void RecordSelection()
     {
         JObject characterData = new JObject
         {
-            {"body", gameObject.name},
+            {"body", bodyName},
             {"face", faceNames[faceIdx]},
             {"hair", hairNames[hairIdx]},
             {"accessory", accNames[accIdx]}
         };
         Debug.Log("Recording selection: \n" + characterData.ToString());
-        System.IO.File.WriteAllText(Application.dataPath + "/" + gameObject.name + ".json", characterData.ToString());
+        System.IO.File.WriteAllText(Application.dataPath + "/Player.json", characterData.ToString());
     }
 }
