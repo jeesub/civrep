@@ -456,6 +456,10 @@
                 this.airconsole.message(AirConsole.SCREEN, msg);
             }
 
+            AirConsole.prototype.vibrate = function(time) {
+                this.set_("vibrate", time);
+            };
+
             function interpretMessage(data) {
                 var topic = data["topic"];
                 console.log("topic: " + topic);
@@ -463,6 +467,7 @@
                     case "screen":
                         //ex) {"topic": "screen", "message": "prep"}
                         activate(data["message"]);
+                        vibrate(300);
                         break;
                     case "character selection":
                         console.log(data["message"]);
@@ -1046,6 +1051,7 @@
             <div class="controller-content bg-peach">
                 <div class="intro-description">
                     <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/name-description.png" class="twenty">
+                    <div class="two"></div>
                     <input type="text" id="username" name="username" required minlength="1" maxlength="24" size="10" placeholder="Type your name"><br>
                     <button class="button submit mint-button" ontouchstart="window.sendName(getElementById('username').value)">Submit</button>
                 </div>
@@ -1800,6 +1806,7 @@
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-description.png" class="forty">
                 <div class="three"></div>
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-button-0.png" class="thirteen img-button" ontouchstart="window.activate('prepham-0-0')">
+                <div class="one"></div>
                 <img src="https://jeesub.github.io/assets/inventory/CivRep/imgs/hamilton/hamilton-0-button-1.png" class="thirteen img-button" ontouchstart="window.activate('prepham-0-1')">
                 <button class="button submit" ontouchstart="window.activate('hamilton')">Return</button>
             </div>
