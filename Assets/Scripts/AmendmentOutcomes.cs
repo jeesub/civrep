@@ -81,15 +81,13 @@ public class AmendmentOutcomes : MonoBehaviour
 
         // Record the change in city metric
         PrepRoomStatus.instance.UpdateImpact(finalImpact);
-
-        // Show the change in city metric
-        PrepRoomStatus.instance.ShowOverallImpact();
-
-
     }
 
     public bool DisplayRepChanges()
     {
+        // Show the change in city metric
+        PrepRoomStatus.instance.ShowOverallImpact();
+
         bool hasNextTexts = false;
         if (finalImpact != null)
         {

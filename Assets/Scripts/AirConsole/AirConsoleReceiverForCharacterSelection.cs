@@ -145,7 +145,7 @@ public class AirConsoleReceiverForCharacterSelection : MonoBehaviour
     {
         coinPlacer.enabled = false;
         GameObject metric_copy = Instantiate(metric, metricCopyRoot.transform);
-        metric_copy.transform.parent = metricCopyRoot.transform;
+        metric_copy.transform.SetParent(metricCopyRoot.transform);
         coinPlacer.enabled = true;
         Debug.Log("finished instantiating");
         yield return new WaitForSeconds(2f);

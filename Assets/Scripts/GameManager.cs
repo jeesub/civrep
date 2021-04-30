@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json.Linq;
 
 public class GameManager : MonoBehaviour
 {
     // For scene loading (will refactor to another script in the future)
     public float sceneLoadTime = 5f;
 
+    public JObject repAppearance = new JObject();
+
     public string finalBill;
+
+    // Record playtime for preproom and crafting amendment
+    public List<float> playTimes = new List<float>();
+    public float startTime = 0.0f;
+    public float endTime = 0.0f;
 
     // CONSTANT VARIABLES
     // max value of each city status
@@ -47,6 +55,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this.gameObject);
+
+        SceneManager.activeSceneChanged += ChangedActiveScene;
     }
 
     // Instance to use
@@ -143,6 +153,22 @@ public class GameManager : MonoBehaviour
             default:
                 throw new System.ArgumentException("Cannot find a status name: " + statusName);
         }
+    }
+
+    void ChangedActiveScene(Scene current, Scene next)
+    {
+        if (next.buildIndex == 3 || next.buildIndex == 5)
+        {
+            endTime = Time.time;
+            playTimes.Add(Time.time - startTime);
+            Debug.Log("End playing at time: " + Time.time);
+        }
+
+        if (next.buildIndex == 2 || next.buildIndex == 4)
+        {
+            startTime = Time.time;
+            Debug.Log("Start playing at time: " + startTime);
+        }        
     }
 
     public void StoreFinalBill(string bill)

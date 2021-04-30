@@ -24,31 +24,33 @@ public class HamiltonTexts : MonoBehaviour
     public CityCouncilHost host;
     public AmendmentOutcomes outcomes;
 
-    private void Start()
+    private void Awake()
     {
         if (hUI == null) hUI = GameObject.Find("Hamilton UI");
+        if (hSound == null) hSound = transform.GetChild(0).GetComponent<HamiltonSound>();
     }
 
     public void PlayNext()
     {
+        Debug.Log("Play Next");
         RemoveStopAtFirst();
         DisplayNextText();
     }
 
     private void DisplayNextText()
     {
+        Debug.Log("Display Next Text");
         bool hasEnd = CheckEnd();
         bool hasHide = CheckHide();
         if (!hasEnd && !hasHide && texts.Count > 0 && !texts[0].Equals("Stop"))
         {
             hText.text = texts[0];
             texts.RemoveAt(0);
-
             hText.ForceMeshUpdate();
             int totalVisibleChars = hText.textInfo.characterCount;
-            //Debug.Log("count: " + totalVisibleChars);
+            Debug.Log("count: " + totalVisibleChars);
             hText.maxVisibleCharacters = 0;
-            StartCoroutine(DisplayText(totalVisibleChars));
+            StartCoroutine(DisplayText(totalVisibleChars, hText.textInfo.characterInfo));
         }
 
         // Notify city council host
@@ -60,6 +62,7 @@ public class HamiltonTexts : MonoBehaviour
 
     private bool CheckEnd()
     {
+        Debug.Log("Check End");
         if (texts.Count > 0 && texts[0].Equals("End"))
         {
             texts.RemoveAt(0);
@@ -72,6 +75,7 @@ public class HamiltonTexts : MonoBehaviour
 
     private bool CheckHide()
     {
+        Debug.Log("Check Hide");
         if (texts.Count > 0 && texts[0].Equals("Hide"))
         {
             texts.RemoveAt(0);
@@ -100,21 +104,37 @@ public class HamiltonTexts : MonoBehaviour
     {
         if (texts.Count > 0 && texts[0].Equals("Stop"))
         {
+            Debug.Log("Removing text");
             texts.RemoveAt(0);
+            Debug.Log("Check hChoices");
             hChoices.HideChoices();
         }
     }
 
-    IEnumerator DisplayText(int maxChars)
+    IEnumerator DisplayText(int maxChars, TMP_CharacterInfo[] curInfo)
     {
+        Debug.Log("Display Text Coroutine Start");
         int num = 0;
         while (num < maxChars)
         {
             
-            char curChar = hText.textInfo.characterInfo[num].character;
+            char curChar = curInfo[num].character;
+            if (hText.textInfo == null) Debug.Log("textinfo is null");
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                Debug.Log("curChar: ");
+                Debug.Log(curChar);
+            }
             num++;
             if (!char.IsWhiteSpace(curChar))
             {
+                if (SceneManager.GetActiveScene().buildIndex == 3)
+                {
+                    Debug.Log("Not white space");
+                    Debug.Log("curChar: ");
+                    Debug.Log(curChar);
+                }
+
                 if (curChar.Equals('?'))
                 {
                     // This is a question
@@ -122,27 +142,31 @@ public class HamiltonTexts : MonoBehaviour
                     {
                         hChoices.ShowChoices();
                     }                    
-                }
-                else if (curChar.Equals('!'))
-                {
-                    // This is an exclaimation mark
-                    
-                }
+                }                
                 else if (char.IsLetter(curChar))
                 {
+                    if (SceneManager.GetActiveScene().buildIndex == 3)
+                    {
+                        Debug.Log("curChar: ");
+                        Debug.Log(curChar);
+                    }
                     int idx = curChar % hSound.clips.Count;
-                    hSound.PlayVoice(idx);
+                    if (hSound != null) hSound.PlayVoice(idx);
+                    if (SceneManager.GetActiveScene().buildIndex == 3) Debug.Log("hSound");
                 }
-
+                if (SceneManager.GetActiveScene().buildIndex == 3)
+                {
+                    Debug.Log("update max visisble character");
+                }
                 hText.maxVisibleCharacters = num;
                 //hSound.PlayRandomVoice();
 
-                yield return new WaitForSecondsRealtime(0.03f);
+                yield return new WaitForSecondsRealtime(0.02f);
             }
-            
         }
 
-        yield return new WaitForSecondsRealtime(2.5f);
+        yield return new WaitForSecondsRealtime(4f);
+        Debug.Log("Display Text Coroutine Done");
         DisplayNextText();
     }
 }

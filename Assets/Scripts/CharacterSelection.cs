@@ -37,7 +37,7 @@ public class CharacterSelection : MonoBehaviour
         ChangeHair();
         ChangeAccessory();
 
-        System.IO.File.WriteAllText(Application.dataPath + "/" + gameObject.name + ".json", "");
+        //System.IO.File.WriteAllText(Application.dataPath + "/" + gameObject.name + ".json", "");
     }
     public void ChangeFace()
     {
@@ -102,6 +102,6 @@ public class CharacterSelection : MonoBehaviour
             {"accessory", accNames[accIdx]}
         };
         Debug.Log("Recording selection: \n" + characterData.ToString());
-        System.IO.File.WriteAllText(Application.dataPath + "/Player.json", characterData.ToString());
+        GameManager.Instance.repAppearance = characterData;
     }
 }

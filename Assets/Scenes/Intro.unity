@@ -175,6 +175,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoadTime: 2
   finalBill: 
+  playTimes: []
+  startTime: 0
+  endTime: 0
 --- !u!114 &104604924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +693,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4562848030817172066, guid: 3f1edccb38d849a4fb675a3c3d60ae71, type: 3}
       propertyPath: browserStartMode
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4562848030817172066, guid: 3f1edccb38d849a4fb675a3c3d60ae71, type: 3}
       propertyPath: controllerHtml

@@ -6,10 +6,10 @@ public class HamiltonSound : MonoBehaviour
 {
     public List<AudioClip> clips;
 
-    private AudioSource source;
+    public AudioSource source;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         source = GetComponent<AudioSource>();
     }

@@ -3249,7 +3249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537218197098099303, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 537218197163560626, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_Layer
@@ -3257,9 +3257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537218197269917409, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_text
-      value: Now..., you can get a general sense of how the city is doing by checking
-        out the <color=blue><size=110%><b>city metrics</b></size></color> on the
-        <color=blue><size=110%>right.
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 537218197269917411, guid: e88617a82ade83f4aa72f309c228204d, type: 3}
       propertyPath: m_Name
@@ -6709,7 +6707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
