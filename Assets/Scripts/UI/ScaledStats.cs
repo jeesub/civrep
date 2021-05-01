@@ -38,7 +38,7 @@ public class ScaledStats : MonoBehaviour
                             transform.position.y, 
                             transform.position.z),
                 Quaternion.identity);
-            child.transform.parent = transform;
+            child.transform.SetParent(transform);
             child.name = "scale" + i;
             child.GetComponent<Image>().color = defColor;
             scales.Add(child);

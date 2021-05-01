@@ -175,6 +175,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoadTime: 2
   finalBill: 
+  playTimes: []
+  startTime: 0
+  endTime: 0
 --- !u!114 &104604924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +695,10 @@ PrefabInstance:
       propertyPath: browserStartMode
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4562848030817172066, guid: 3f1edccb38d849a4fb675a3c3d60ae71, type: 3}
+      propertyPath: controllerHtml
+      value: 
+      objectReference: {fileID: 4900000, guid: 4e144b82a5526de469ba17d04a222a8c, type: 3}
     - target: {fileID: 4562848030817172067, guid: 3f1edccb38d849a4fb675a3c3d60ae71, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

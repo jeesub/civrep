@@ -171,6 +171,7 @@ public class CityCouncilHost : MonoBehaviour
 
     private void NoticeController(string status)
     {
+        Debug.Log("Noticing Controllers");
         JObject messageData = new JObject
                 {
                     {"topic", "screen" },
@@ -184,9 +185,11 @@ public class CityCouncilHost : MonoBehaviour
         switch (eventType)
         {
             case EventType.Hamilton:
+                Debug.Log("Event type is hamilton");
                 SummonHamilton();
                 break;
             case EventType.Hearing:
+                Debug.Log("Event type is hearing");
                 HostHearing();
                 break;
             case EventType.Discussion:
@@ -207,10 +210,13 @@ public class CityCouncilHost : MonoBehaviour
     #region hamilton
     private void SummonHamilton()
     {
+        Debug.Log("Enable hCanvas");
         hCanvas.SetActive(true);
         hamilton.GetComponent<HamiltonIntro>().DisplayHamiltonUI();
+        Debug.Log("Set Host");
         hamilton.GetComponent<HamiltonTexts>().host = this;
         hamilton.GetComponent<HamiltonTexts>().PlayNext();
+        Debug.Log("Summon Hamilton done");
     }
 
     public void HamiltonDone()

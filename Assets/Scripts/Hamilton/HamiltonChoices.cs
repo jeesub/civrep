@@ -69,7 +69,7 @@ public class HamiltonChoices : MonoBehaviour
             GameObject indicator = Instantiate(indicatorPrefab,
                 new Vector3(first.transform.position.x, first.transform.position.y, first.transform.position.z),
                 Quaternion.identity);
-            indicator.transform.parent = first.transform;
+            indicator.transform.SetParent(first.transform);
             indicator.GetComponent<RectTransform>().localScale = Vector3.one;
             indicator.GetComponent<RectTransform>().anchoredPosition = new Vector2(-24 - firstIndicators.Count * 30, -2);
             firstIndicators.Add(indicator);
@@ -87,7 +87,7 @@ public class HamiltonChoices : MonoBehaviour
             GameObject indicator = Instantiate(indicatorPrefab,
                 new Vector3(second.transform.position.x, second.transform.position.y, second.transform.position.z),
                 Quaternion.identity);
-            indicator.transform.parent = second.transform;
+            indicator.transform.SetParent(second.transform);
             indicator.GetComponent<RectTransform>().localScale = Vector3.one;
             indicator.GetComponent<RectTransform>().anchoredPosition = new Vector2(-24 - secondIndicators.Count * 30, -2);
             secondIndicators.Add(indicator);

@@ -37,10 +37,11 @@ public class RepController : MonoBehaviour
     private void SetAppearance()
     {
         
-        string selectionStr = System.IO.File.ReadAllText(Application.dataPath + "/Player.json");
-        Debug.Log("selection is: " + selectionStr);
+        //string selectionStr = System.IO.File.ReadAllText(Application.dataPath + "/Player.json");
+        //Debug.Log("selection is: " + selectionStr);
 
-        JObject selection = JObject.Parse(selectionStr);
+        JObject selection = GameManager.Instance.repAppearance;
+        Debug.Log("selection is: " + selection);
         string bodyStr = selection["body"].ToString();
         string faceStr = selection["face"].ToString();
         string hairStr = selection["hair"].ToString();

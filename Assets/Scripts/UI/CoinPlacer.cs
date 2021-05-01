@@ -44,7 +44,7 @@ public class CoinPlacer : MonoBehaviour
     {
         GameObject coin = Instantiate(coinPrefab, new Vector3(nextCoin.transform.position.x,
                     nextCoin.transform.position.y, nextCoin.transform.position.z), Quaternion.identity);
-        coin.transform.parent = transform;
+        coin.transform.SetParent(transform);
 
         coin.gameObject.name = "subCoin" + coins.Count.ToString();
         coins.Add(coin);

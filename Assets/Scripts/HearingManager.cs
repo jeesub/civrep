@@ -153,7 +153,7 @@ public class HearingManager : MonoBehaviour
 
         }
 
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(4f);
         DisplayNextText();
     }
 
