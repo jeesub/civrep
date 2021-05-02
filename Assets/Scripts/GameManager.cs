@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public JObject repAppearance = new JObject();
 
     public string finalBill;
+    public int draftNum = 0;
 
     // Record playtime for preproom and crafting amendment
     public List<float> playTimes = new List<float>();
@@ -169,6 +170,29 @@ public class GameManager : MonoBehaviour
             startTime = Time.time;
             Debug.Log("Start playing at time: " + startTime);
         }        
+    }
+
+    public string GetResearchTime()
+    {
+        int researchTime = (int) playTimes[0];
+        int minute = researchTime / 60;
+        int second = researchTime % 60;
+        string timeStr = minute.ToString() + " min " + second.ToString() + " sec";
+        return timeStr;
+    }
+
+    public string GetCraftingTime()
+    {
+        int craftingTime = (int)playTimes[1];
+        int minute = craftingTime / 60;
+        int second = craftingTime % 60;
+        string timeStr = minute.ToString() + " min " + second.ToString() + " sec";
+        return timeStr;
+    }
+
+    public string GetDraftNum()
+    {
+        return draftNum.ToString();
     }
 
     public void StoreFinalBill(string bill)
