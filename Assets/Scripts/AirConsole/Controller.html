@@ -456,10 +456,6 @@
                 this.airconsole.message(AirConsole.SCREEN, msg);
             }
 
-            App.prototype.vibrate = function(time) {
-                this.set_("vibrate", time);
-            };
-
             function interpretMessage(data) {
                 var topic = data["topic"];
                 console.log("topic: " + topic);
@@ -467,7 +463,6 @@
                     case "screen":
                         //ex) {"topic": "screen", "message": "prep"}
                         activate(data["message"]);
-                        vibrate(300);
                         break;
                     case "character selection":
                         console.log(data["message"]);
