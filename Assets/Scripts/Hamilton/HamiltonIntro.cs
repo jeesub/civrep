@@ -26,7 +26,6 @@ public class HamiltonIntro : MonoBehaviour
 
     public void DisplayHamiltonUI()
     {
-        Debug.Log("Display Hamilton UI");
         hamiltonCanvas.SetActive(true);
         if (panel != null) panel.SetActive(true);
         if (capture != null) capture.SetActive(true);

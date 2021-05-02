@@ -148,7 +148,7 @@ public class HearingManager : MonoBehaviour
                 hearingText.maxVisibleCharacters = num;
                 //hSound.PlayRandomVoice();
 
-                yield return new WaitForSecondsRealtime(0.04f);
+                yield return new WaitForSecondsRealtime(0.02f);
             }
 
         }

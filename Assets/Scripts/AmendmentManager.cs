@@ -17,6 +17,7 @@ public class AmendmentManager : MonoBehaviour
     private Vector3 clausesRectPos;
     public Transform reps;
     public GameObject s1doc, s2doc, s3doc, s4adoc, s4bdoc;
+    private float docScale = 1.0f;
     private List<GameObject> generatedDocs = new List<GameObject>();
     private bool[] repDecisions = new bool[] {false, false, false, false};
 
@@ -53,6 +54,8 @@ public class AmendmentManager : MonoBehaviour
         hamilton.GetComponent<HamiltonTexts>().PlayNext();
 
         PrepRoomStatus.instance.gameObject.GetComponent<SetForecast>().SetSceneName("Craft Amendments");
+
+        docScale = Screen.width / 1920f;
     }
 
     void Update()
@@ -171,6 +174,8 @@ public class AmendmentManager : MonoBehaviour
         // Let Hamilton talk if it's first time
         if (firstDraft)
         {
+            GameManager.Instance.draftNum = 1;
+
             firstDraft = false;
             hamilton.GetComponent<HamiltonIntro>().DisplayHamiltonUI();
             hamilton.GetComponent<HamiltonTexts>().PlayNext();
@@ -186,6 +191,8 @@ public class AmendmentManager : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.draftNum++;
+
             // Send message to phone
             JArray feedbacks = new JArray(sato, lee, ke, he);
             JObject messageData = new JObject
@@ -207,7 +214,7 @@ public class AmendmentManager : MonoBehaviour
 
     IEnumerator FirstDraftFeedback(JObject messageData)
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(22f);
         
         AirConsole.instance.Broadcast(messageData);
 
@@ -230,6 +237,16 @@ public class AmendmentManager : MonoBehaviour
         }
     }
 
+    private void StopRepDecision()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Transform curRep = reps.GetChild(i);
+            Transform repParticle = repDecisions[i] ? curRep.GetChild(1) : curRep.GetChild(0);
+            repParticle.GetComponent<ParticleSystem>().Stop();
+        }
+    }
+
     private void GenerateDocument()
     {
         // Normally the vertical interval is 120
@@ -237,63 +254,78 @@ public class AmendmentManager : MonoBehaviour
         int count = 1;
         if (s1_bool)
         {
-            GameObject s1_doc = Instantiate(s1doc, clauses.transform.position, Quaternion.identity);
-            s1_doc.transform.SetParent(clauses.transform.parent);
+            GameObject s1_doc = Instantiate(s1doc, clauses.transform.parent, false);
+            s1_doc.GetComponent<RectTransform>().localPosition = clauses.GetComponent<RectTransform>().localPosition;
+            //GameObject s1_doc = Instantiate(s1doc, clauses.transform.position, Quaternion.identity);
+            //s1_doc.transform.SetParent(clauses.transform.parent);
+            //s1_doc.transform.localScale *= docScale;
             generatedDocs.Add(s1_doc);
             // Set the text
             s1_doc.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Section " + count;
             count++;
             // Update clauses position
             Vector3 clausePos = clauses.GetComponent<RectTransform>().position;
-            clausePos.y -= 120;
+            clausePos.y -= 120 * docScale;
             clauses.GetComponent<RectTransform>().position = clausePos;
         }
 
         if (s2_bool)
         {
-            GameObject s2_doc = Instantiate(s2doc, clauses.transform.position, Quaternion.identity);
-            s2_doc.transform.SetParent(clauses.transform.parent);
+            GameObject s2_doc = Instantiate(s1doc, clauses.transform.parent, false);
+            s2_doc.GetComponent<RectTransform>().localPosition = clauses.GetComponent<RectTransform>().localPosition;
+            //GameObject s2_doc = Instantiate(s2doc, clauses.transform.position, Quaternion.identity);
+            //s2_doc.transform.SetParent(clauses.transform.parent);
+            //s2_doc.transform.localScale *= docScale;
             generatedDocs.Add(s2_doc);
             // Set the text
             s2_doc.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Section " + count;
             count++;
             // Update clauses position
             Vector3 clausePos = clauses.GetComponent<RectTransform>().position;
-            clausePos.y -= 120;
+            clausePos.y -= 120 * docScale;
             clauses.GetComponent<RectTransform>().position = clausePos;
         }
 
         if (s3_bool)
         {
-            GameObject s3_doc = Instantiate(s3doc, clauses.transform.position, Quaternion.identity);
-            s3_doc.transform.SetParent(clauses.transform.parent);
+            GameObject s3_doc = Instantiate(s1doc, clauses.transform.parent, false);
+            s3_doc.GetComponent<RectTransform>().localPosition = clauses.GetComponent<RectTransform>().localPosition;
+            //GameObject s3_doc = Instantiate(s3doc, clauses.transform.position, Quaternion.identity);
+            //s3_doc.transform.SetParent(clauses.transform.parent);
+            //s3_doc.transform.localScale *= docScale;
             generatedDocs.Add(s3_doc);
             // Set the text
             s3_doc.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Section " + count;
             count++;
             // Update clauses position
             Vector3 clausePos = clauses.GetComponent<RectTransform>().position;
-            clausePos.y -= 120;
+            clausePos.y -= 120 * docScale;
             clauses.GetComponent<RectTransform>().position = clausePos;
         }
 
         if (s4a_bool)
         {
-            GameObject s4a_doc = Instantiate(s4adoc, clauses.transform.position, Quaternion.identity);
-            s4a_doc.transform.SetParent(clauses.transform.parent);
+            GameObject s4a_doc = Instantiate(s1doc, clauses.transform.parent, false);
+            s4a_doc.GetComponent<RectTransform>().localPosition = clauses.GetComponent<RectTransform>().localPosition;
+            //GameObject s4a_doc = Instantiate(s4adoc, clauses.transform.position, Quaternion.identity);
+            //s4a_doc.transform.SetParent(clauses.transform.parent);
+            //s4a_doc.transform.localScale *= docScale;
             generatedDocs.Add(s4a_doc);
             // Set the text
             s4a_doc.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Section " + count + "a";
             // Update clauses position
             Vector3 clausePos = clauses.GetComponent<RectTransform>().position;
-            clausePos.y -= 140;
+            clausePos.y -= 140 * docScale;
             clauses.GetComponent<RectTransform>().position = clausePos;
         }
 
         if (s4b_bool)
         {
-            GameObject s4b_doc = Instantiate(s4bdoc, clauses.transform.position, Quaternion.identity);
-            s4b_doc.transform.SetParent(clauses.transform.parent);
+            GameObject s4b_doc = Instantiate(s1doc, clauses.transform.parent, false);
+            s4b_doc.GetComponent<RectTransform>().localPosition = clauses.GetComponent<RectTransform>().localPosition;
+            //GameObject s4b_doc = Instantiate(s4bdoc, clauses.transform.position, Quaternion.identity);
+            //s4b_doc.transform.SetParent(clauses.transform.parent);
+            //s4b_doc.transform.localScale *= docScale;
             generatedDocs.Add(s4b_doc);
             // Set the text
             s4b_doc.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Section " + count + "b";
@@ -304,6 +336,7 @@ public class AmendmentManager : MonoBehaviour
     {
         if (hamilton.GetComponent<HamiltonTexts>().texts.Count <= 0)
         {
+            StopRepDecision();
             // show the drafting ground and ui
             computer.SetActive(true);
             clauses.GetComponent<RectTransform>().position = clausesRectPos;

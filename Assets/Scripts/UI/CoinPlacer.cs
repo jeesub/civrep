@@ -14,6 +14,8 @@ public class CoinPlacer : MonoBehaviour
     public GameObject nextCoin;
     public GameObject coinPrefab;
 
+    private float scale = 1.0f;
+
     //public bool decrease;
     //public bool increase;
 
@@ -24,6 +26,10 @@ public class CoinPlacer : MonoBehaviour
         {
             AddCoin();
         }
+
+        scale = Screen.width / 1920f;
+        horizontalInterval *= scale;
+        Debug.Log("scale is: " + scale);
     }
 
     private void Update()
@@ -42,10 +48,12 @@ public class CoinPlacer : MonoBehaviour
 
     private void AddCoin()
     {
-        GameObject coin = Instantiate(coinPrefab, new Vector3(nextCoin.transform.position.x,
-                    nextCoin.transform.position.y, nextCoin.transform.position.z), Quaternion.identity);
-        coin.transform.SetParent(transform);
-
+        GameObject coin = Instantiate(coinPrefab, transform, false);
+        coin.GetComponent<RectTransform>().localPosition = nextCoin.GetComponent<RectTransform>().localPosition;
+        //GameObject coin = Instantiate(coinPrefab, new Vector3(nextCoin.transform.position.x,
+        //            nextCoin.transform.position.y, nextCoin.transform.position.z), Quaternion.identity);
+        //coin.transform.SetParent(transform);
+        //coin.transform.localScale *= scale;
         coin.gameObject.name = "subCoin" + coins.Count.ToString();
         coins.Add(coin);
         MoveNextCoinAhead();

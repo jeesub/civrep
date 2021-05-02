@@ -12,9 +12,12 @@ public class ScaledStats : MonoBehaviour
     public Color setColor;
     public Color increaseColor;
     public Color decreaseColor;
+    public Color increaseTextColor;
+    public Color decreaseTextColor;
 
     public int count = 10;
     public float interval = 18f;
+    public float scale = 1.0f;
 
     public int curValue = 3;
     public int prevValue;
@@ -27,18 +30,24 @@ public class ScaledStats : MonoBehaviour
         prevValue = curValue;
         PlacePrefabs();
         SetScale();
+
+        scale = Screen.width / 1920f;
+        interval *= scale;
     }
 
     private void PlacePrefabs()
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject child = Instantiate(scalePrefab, 
-                new Vector3(transform.position.x + i * interval, 
-                            transform.position.y, 
-                            transform.position.z),
-                Quaternion.identity);
-            child.transform.SetParent(transform);
+            GameObject child = Instantiate(scalePrefab, transform, false);
+            child.GetComponent<RectTransform>().localPosition = new Vector3(i * interval, 0, 0);
+            //GameObject child = Instantiate(scalePrefab, 
+            //    new Vector3(transform.position.x + i * interval, 
+            //                transform.position.y, 
+            //                transform.position.z),
+            //    Quaternion.identity);
+            //child.transform.localScale *= scale;
+            //child.transform.SetParent(transform);
             child.name = "scale" + i;
             child.GetComponent<Image>().color = defColor;
             scales.Add(child);
@@ -77,7 +86,7 @@ public class ScaledStats : MonoBehaviour
             {
                 changeText.gameObject.SetActive(true);
                 changeText.text = "+" + (curValue - prevValue).ToString();
-                changeText.color = increaseColor;
+                changeText.color = increaseTextColor;
             }                       
         }
         else if (prevValue > curValue)
@@ -95,7 +104,7 @@ public class ScaledStats : MonoBehaviour
             {
                 changeText.gameObject.SetActive(true);
                 changeText.text = "-" + (prevValue - curValue).ToString();
-                changeText.color = decreaseColor;
+                changeText.color = decreaseTextColor;
             }            
         }
         else
@@ -123,13 +132,13 @@ public class ScaledStats : MonoBehaviour
         {
             changeText.gameObject.SetActive(true);
             changeText.text = "+" + change.ToString();
-            changeText.color = increaseColor;
+            changeText.color = increaseTextColor;
         }
         else if (change < 0)
         {
             changeText.gameObject.SetActive(true);
             changeText.text = change.ToString();
-            changeText.color = decreaseColor;
+            changeText.color = decreaseTextColor;
         }        
     }
 

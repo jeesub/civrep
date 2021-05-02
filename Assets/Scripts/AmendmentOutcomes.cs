@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
 public class RepImpact
@@ -42,9 +44,16 @@ public class AmendmentOutcomes : MonoBehaviour
     public string testFinalBill;
     public bool test;
 
+    [Header("End")]
+    public List<string> hamiltonFinal = new List<string>();
+    public Sprite endSprite;
+    public GameObject finalBackground;
+    public TextMeshProUGUI research, crafting, drafts;
+
     private string finalBill;
     private bool letterChecked = false;
     private bool intervChecked = false;
+    private bool hamiltonWrapUp = false;
     private AmendmentImpact finalImpact;
 
 
@@ -77,7 +86,9 @@ public class AmendmentOutcomes : MonoBehaviour
             hamilton.GetComponent<HamiltonTexts>().PlayNext();
         }
 
-
+        // Hide Rep metric and show city metric
+        PrepRoomStatus.instance.ShowCityMetric();
+        PrepRoomStatus.instance.HideRepMetricInFinal();
 
         // Record the change in city metric
         PrepRoomStatus.instance.UpdateImpact(finalImpact);
@@ -85,8 +96,13 @@ public class AmendmentOutcomes : MonoBehaviour
 
     public bool DisplayRepChanges()
     {
-        // Show the change in city metric
+        Debug.Log("DisplayRepChanges");
+        // Hide the change in city metric
         PrepRoomStatus.instance.ShowOverallImpact();
+
+        // Hide City metric and show rep metric
+        PrepRoomStatus.instance.HideCityMetric();
+        PrepRoomStatus.instance.ShowRepMetricInFinal();
 
         bool hasNextTexts = false;
         if (finalImpact != null)
@@ -126,8 +142,64 @@ public class AmendmentOutcomes : MonoBehaviour
 
                     // Show the change in rep metric
                     PrepRoomStatus.instance.UpdateRepPoliticalCap(finalBill[4].Equals('y') ? 1 : -1);
-                }                                 
+                }
+                else if (!hamiltonWrapUp)
+                {
+                    hamiltonWrapUp = true;
+                    hasNextTexts = true;
+
+                    // Both letter and interview are done, hamilton come out to wrap up
+                    Debug.Log("Both letter and interview are done");
+                    PrepRoomStatus.instance.HideRepMetricInFinal();
+
+                    // Add Hamilton's wrapup
+                    hamilton.GetComponent<HamiltonTexts>().texts.Remove("Hide");
+                    foreach (string impactText in hamiltonFinal)
+                    {
+                        hamilton.GetComponent<HamiltonTexts>().texts.Add(impactText);
+                    }
+                }
+                else
+                {
+                    // Show the end screen
+                    finalBackground.GetComponent<Image>().sprite = endSprite;
+                    PrepRoomStatus.instance.HideRepMetricInFinal();
+                    research.gameObject.SetActive(true);
+                    crafting.gameObject.SetActive(true);
+                    drafts.gameObject.SetActive(true);
+                    research.text = GameManager.Instance.GetResearchTime();
+                    crafting.text = GameManager.Instance.GetCraftingTime();
+                    drafts.text = GameManager.Instance.GetDraftNum();
+                }
             }
+        }
+        else if (!hamiltonWrapUp)
+        {
+            hamiltonWrapUp = true;
+            hasNextTexts = true;
+
+            // Both letter and interview are done, hamilton come out to wrap up
+            Debug.Log("Both letter and interview are done");
+            PrepRoomStatus.instance.HideRepMetricInFinal();
+
+            // Add Hamilton's wrapup
+            hamilton.GetComponent<HamiltonTexts>().texts.Remove("Hide");
+            foreach (string impactText in hamiltonFinal)
+            {
+                hamilton.GetComponent<HamiltonTexts>().texts.Add(impactText);
+            }
+        }
+        else
+        {
+            // Show the end screen
+            finalBackground.GetComponent<Image>().sprite = endSprite;
+            PrepRoomStatus.instance.HideRepMetricInFinal();
+            research.gameObject.SetActive(true);
+            crafting.gameObject.SetActive(true);
+            drafts.gameObject.SetActive(true);
+            research.text = GameManager.Instance.GetResearchTime();
+            crafting.text = GameManager.Instance.GetCraftingTime();
+            drafts.text = GameManager.Instance.GetDraftNum();
         }
 
         Debug.Log("Playnext");

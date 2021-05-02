@@ -23,6 +23,9 @@ public class PrepRoomStatus : MonoBehaviour
     public RepStatusItem repStatusItem;
     public List<ScaledStats> cityMetrics;
 
+    public GameObject rep, city;
+    private Vector3 repInitialRect;
+
     // Accumulate the impact on city metrics
     public CityImpact cityImpact;
 
@@ -52,6 +55,8 @@ public class PrepRoomStatus : MonoBehaviour
         //}
         repStatusItem.Name.text = "Stranger";
         ResetRepStatus(repStatusItem);
+
+        repInitialRect = rep.GetComponent<RectTransform>().localPosition;
     }
 
     // Update is called once per frame
@@ -248,6 +253,35 @@ public class PrepRoomStatus : MonoBehaviour
         cityMetrics[3].HideOverallChange();
         cityMetrics[4].HideOverallChange();
     }
+
+    public void HideCityMetric()
+    {
+        city.SetActive(false);
+    }
+
+    public void ShowCityMetric()
+    {
+        city.SetActive(true);
+    }
+
+    public void HideRepMetricInFinal()
+    {
+        
+        //RectTransform repRect = rep.GetComponent<RectTransform>();
+        //repRect.rect.position.Set(repInitialRect.x, repInitialRect.y);
+        rep.GetComponent<RectTransform>().localPosition = repInitialRect;
+        rep.SetActive(false);
+    }
+
+    public void ShowRepMetricInFinal()
+    {
+        rep.SetActive(true);
+        //rep.GetComponent<RectTransform>().rect.position.Set(city.GetComponent<RectTransform>().rect.position.x,
+        //                        city.GetComponent<RectTransform>().rect.position.y);
+        rep.GetComponent<RectTransform>().localPosition = city.GetComponent<RectTransform>().localPosition;
+    }
+
+    
 
     //public void UpdateRepStatus(int repIdx, int political, int social, int typeIdx)
     //{

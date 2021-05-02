@@ -37,5 +37,12 @@ public class BGMPlaceholder : MonoBehaviour
             audioSource.Play();
             audioSource.loop = true;
         }
+        else if (next.buildIndex == 5)
+        {
+            Debug.Log("Changing clip");
+            audioSource.clip = bgms[0];
+            audioSource.Play();
+            audioSource.loop = true;
+        }
     }
 }
