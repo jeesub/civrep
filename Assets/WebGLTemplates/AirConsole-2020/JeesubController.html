@@ -504,6 +504,7 @@
             }
 
             /** ACTIVATE **/
+            var prevScreen = "idle";
             function activate(screen) {
                 var target = screen.split("-");
                 // want to play type writer sound
@@ -513,12 +514,9 @@
                     playButtonSound();
                 }
                 
-                var elements = document.getElementsByClassName("controller-screen");
-                var i;
-                for (i = 0; i < elements.length; i++) {
-                    elements[i].classList.add("deactivated");
-                }
+                document.getElementById("screen-" + prevScreen).classList.add("deactivated");
                 document.getElementById("screen-" + screen).classList.remove("deactivated");
+                prevScreen = screen;
 
                 var destinationArr = ["letter", "computer", "map", "rest"];
                 var destinationSet = new Set(destinationArr);
@@ -564,7 +562,6 @@
                 if (selectedCharacter != -1) {
                     window.app.sendMessageToScreen({'topic': 'character', 'message': selectedCharacter});
                     setComputerContent();
-                    setVoteContent();
                     activate("name");
                 }
             }
@@ -589,43 +586,9 @@
                 }
             }
 
-            function lockCharacter(status){
-                /*
-                if (status) {
-                    setLetterAndMap();
-                    setComputerContent();
-                    setVoteContent();
-                    activate("name");
-                } else {
-                    showAlert("character was selected by another player");
-                }
-                */               
-            }
-
-            function setLetterAndMap() {
-                /*
-                if (selectedCharacter == "0") {
-                    document.getElementById("letter-button-1").classList.remove("deactivated");
-                    document.getElementById("map-button-0-1").classList.remove("deactivated");
-                }
-                if (selectedCharacter == "1") {
-                    document.getElementById("letter-button-0").classList.remove("deactivated");
-                    document.getElementById("map-button-0-1").classList.remove("deactivated");
-                }
-                if (selectedCharacter == "2") {
-                    document.getElementById("letter-button-0").classList.remove("deactivated");
-                    document.getElementById("map-button-0-0").classList.remove("deactivated");
-                }
-                */
-            }
-
             function setComputerContent() {
                 document.getElementById("computer-button-2-" + selectedCharacter).classList.remove("deactivated");
                 document.getElementById("computer-2-" + selectedCharacter).classList.remove("deactivated");
-            }
-
-            function setVoteContent() {
-                document.getElementById("rep-" + selectedCharacter).classList.remove("deactivated");
             }
 
             function changeAppearance(part) {
@@ -756,40 +719,6 @@
                         document.getElementById("hamiltonButtonTwo").classList.remove("toggle-off");
                         window.app.sendMessageToScreen({'topic': 'hamilton', 'message': 'politicalcapital on'});
                     }
-                }
-            }
-
-            function vote(target) {
-                var nayIdle = document.getElementById("nay-idle");
-                var nayActive = document.getElementById("nay-active");
-                var yeaIdle = document.getElementById("yea-idle");
-                var yeaActive = document.getElementById("yea-active");
-                if (target == "reset") {
-                    yeaIdle.classList.remove("deactivated");
-                    yeaActive.classList.add("deactivated");
-                    nayIdle.classList.remove("deactivated");
-                    nayActive.classList.add("deactivated");
-                }
-                if (target == "nay") {
-                    playNoSound();
-                    nayIdle.classList.add("deactivated");
-                    nayActive.classList.remove("deactivated");
-                    yeaIdle.classList.remove("deactivated");
-                    yeaActive.classList.add("deactivated");
-                    window.app.sendMessageToScreen({"topic": "vote", "message": "Nah"});
-                }
-                if (target == "yea") {
-                    playYesSound();
-                    yeaIdle.classList.add("deactivated");
-                    yeaActive.classList.remove("deactivated");
-                    nayIdle.classList.remove("deactivated");
-                    nayActive.classList.add("deactivated");
-                    window.app.sendMessageToScreen({"topic": "vote", "message": "Yay"});
-                }
-                if (target == "confirm") {
-                    vote("reset");
-                    window.app.sendMessageToScreen({"topic": "vote", "message": "Confirm"});
-                    activate("idle");
                 }
             }
 
@@ -1831,21 +1760,6 @@
             </div>
         </div>
 
-        <!-- VOTE -->
-        <div id="screen-vote" class="controller-screen deactivated">
-            <div class="controller-header"></div>
-            <div class="controller-content">
-                <img src="./imgs/vote/vote-description.png" class="full-width">
-                <img src="./imgs/vote/yea-idle.png" id="yea-idle" class="vote" ontouchstart="window.vote('yea')">
-                <img src="./imgs/vote/yea-active.png" id="yea-active" class="vote deactivated">
-                <img src="./imgs/vote/nay-idle.png" id="nay-idle" class="vote" ontouchstart="window.vote('nay')">
-                <img src="./imgs/vote/nay-active.png" id="nay-active" class="vote deactivated">
-                <img id="rep-0" src="./imgs/reps/rep0.png" class="twentyfive rep-0 deactivated">
-                <img id="rep-1" src="./imgs/reps/rep1.png" class="twentyfive rep-1 deactivated">
-                <img id="rep-2" src="./imgs/reps/rep2.png" class="twentyfive rep-2 deactivated">
-                <button class="button submit" ontouchstart="window.vote('confirm')">Confirm</button>
-            </div>
-        </div>
         <!-- BILL -->
         <div id="screen-bill" class="controller-screen deactivated">
             <div class="controller-header"></div>
